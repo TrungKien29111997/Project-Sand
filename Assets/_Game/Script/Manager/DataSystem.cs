@@ -1,0 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+namespace TrungKien
+{
+    public class DataSystem : Singleton<DataSystem>
+    {
+        public PrefabConfigsSO prefabSO;
+        public GameplaySO gameplaySO;
+    }
+}

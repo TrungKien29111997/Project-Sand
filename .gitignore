@@ -1,0 +1,11 @@
+﻿.vs
+.vscode
+Library
+Logs
+obj
+Temp
+UserSettings
+.vsconfig
+Assembly-CSharp.csproj
+*.csproj
+SandProject.sln

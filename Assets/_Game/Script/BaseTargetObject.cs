@@ -1,0 +1,62 @@
+using System.Collections;
+using System.Collections.Generic;
+using Sirenix.OdinInspector;
+using UnityEditor;
+using UnityEngine;
+namespace TrungKien
+{
+    public abstract class BaseTargetObject : PoolingElement
+    {
+        public ItemDissolveData[] arrItemDissolve;
+        void Start()
+        {
+            arrItemDissolve.ForEach(x =>
+            {
+                x.itemDissolve.id = x.id;
+            });
+        }
+#if UNITY_EDITOR
+        [Button]
+        void Editor()
+        {
+            if (arrItemDissolve != null) return;
+            BaseDissolveItem[] arrItem = GetComponentsInChildren<BaseDissolveItem>();
+            arrItemDissolve = new ItemDissolveData[arrItem.Length];
+            for (int i = 0; i < arrItem.Length; i++)
+            {
+                arrItemDissolve[i] = new ItemDissolveData
+                {
+                    id = i,
+                    itemDissolve = arrItem[i]
+                };
+            }
+        }
+        [Button]
+        void SetUpItemDissolve()
+        {
+            arrItemDissolve.ForEach(x => x.itemDissolve.Editor());
+        }
+#endif
+        void OnDrawGizmos()
+        {
+            if (arrItemDissolve == null) return;
+            Gizmos.color = Color.yellow;
+            for (int i = 0; i < arrItemDissolve.Length; i++)
+            {
+                Gizmos.DrawSphere(arrItemDissolve[i].itemDissolve.transform.position, 0.05f);
+
+                GUIStyle style = new GUIStyle();
+                style.normal.textColor = Color.green;
+                style.fontSize = 30;
+                Handles.Label(arrItemDissolve[i].itemDissolve.transform.position + Vector3.up * 0.2f, arrItemDissolve[i].id.ToString(), style);
+            }
+        }
+    }
+    [System.Serializable]
+    public class ItemDissolveData
+    {
+        public int id;
+        public BaseDissolveItem itemDissolve;
+        public int[] childrenIDs;
+    }
+}
