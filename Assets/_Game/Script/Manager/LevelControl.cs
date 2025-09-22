@@ -9,31 +9,46 @@ namespace TrungKien
 {
     public class LevelControl : Singleton<LevelControl>
     {
-        [SerializeField] CameraControl cameraCtrl;
-        Dictionary<Collider, BaseDissolveItem> dicDessoveItem;
+        public CameraControl cameraCtrl;
+        Dictionary<Collider, BaseDissolveItem> dicDissolveItem;
         Vector3 point;
+        [SerializeField] BaseTargetObject[] arrObject;
+        int indexObject;
         [SerializeField] BaseTargetObject targetObj;
-        bool isEndGame;
+        public bool isEndGame { get; private set; }
         [field: SerializeField] public Transform TranDestination { get; private set; }
-        [ShowInInspector] Dictionary<int, List<int>> dicCondition;
-        public int ItemCounter => dicCondition.Count;
+        Dictionary<int, List<int>> dicCondition;
+        public int ItemCounter { get; set; }
         public int MaxItem { get; private set; }
-        [SerializeField] CanvasGamePlay canvasGamePlay;
+        [field: SerializeField] public Collider colPanelScore { get; private set; }
         BaseDissolveItem GetItem(Collider col)
         {
-            return Extension.GetItemCanInteract(dicDessoveItem, col);
+            return Extension.GetItemCanInteract(dicDissolveItem, col);
         }
         void Awake()
         {
-            dicDessoveItem = new();
             PoolingSystem.Preload();
-            dicCondition = new();
+            dicDissolveItem = new();
         }
         void Start()
         {
+            indexObject = 0;
+            UIManager.Instance.OnInit();
+            UIManager.Instance.OpenUI<CanvasGamePlay>();
+            SetObject(arrObject[0]);
+        }
+        void SetObject(BaseTargetObject objectTarget)
+        {
+            isEndGame = false;
+            ItemCounter = 0;
+            if (targetObj != null)
+            {
+                Destroy(targetObj.gameObject);
+            }
+            dicCondition = new();
+            targetObj = PoolingSystem.Spawn(objectTarget);
             targetObj.arrItemDissolve.ForEach(x => dicCondition.Add(x.id, x.childrenIDs.ToList()));
             MaxItem = targetObj.arrItemDissolve.Length;
-            canvasGamePlay.SetCanvas();
             EventManager.EmitEvent(Constant.EVENT_UPDATE_UI_GAMEPLAY_DISSOLVE_ITEM_COUNTER);
         }
         void Update()
@@ -57,6 +72,7 @@ namespace TrungKien
                                     value.Remove(item.id);
                                 }
                             }
+                            SoundManager.Instance.PlaySound(DataSystem.Instance.gameplaySO.sfxClick);
                             dicCondition.Remove(item.id);
                             item.Dissolve();
                             if (dicCondition.Count == 0)
@@ -82,6 +98,18 @@ namespace TrungKien
         {
             isEndGame = true;
             Debug.Log("WinGame");
+            StartCoroutine(IEWinGame());
+        }
+        IEnumerator IEWinGame()
+        {
+            yield return new WaitUntil(() => ItemCounter == MaxItem);
+            yield return new WaitForSeconds(1f);
+            UIManager.Instance.OpenUI<CanvasNextGame>();
+        }
+        public void NextLevel()
+        {
+            ++indexObject;
+            SetObject(arrObject[indexObject]);
         }
     }
 }

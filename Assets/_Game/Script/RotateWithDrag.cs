@@ -1,13 +1,15 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace TrungKien
 {
-    public class RotateWithDrag : MonoBehaviour
+    public class RotateWithDrag : PoolingElement
     {
         [SerializeField] private LayerMask targetLayer;
         [SerializeField] private float rotationRate = 3.0f;
         [SerializeField] private bool xRotation;
         [SerializeField] private bool yRotation;
+        [ShowIf(nameof(yRotation))][SerializeField] private Vector2 minMaxX;
         [SerializeField] private bool invertX;
         [SerializeField] private bool invertY;
         [SerializeField] private bool touchAnywhere;
@@ -15,6 +17,8 @@ namespace TrungKien
         private float m_previousY;
         private Camera m_camera;
         private bool m_rotating = false;
+        float cinemachineTargetYaw;
+        float cinemachineTargetPitch;
 
         private void Awake()
         {
@@ -47,19 +51,34 @@ namespace TrungKien
             if (Input.GetMouseButton(0))
             {
                 var touch = Input.mousePosition;
-                var deltaX = -(Input.mousePosition.y - m_previousY) * rotationRate;
-                var deltaY = -(Input.mousePosition.x - m_previousX) * rotationRate;
+                var deltaX = -(touch.y - m_previousY) * rotationRate;
+                var deltaY = -(touch.x - m_previousX) * rotationRate;
                 if (!yRotation) deltaX = 0;
                 if (!xRotation) deltaY = 0;
                 if (invertX) deltaY *= -1;
                 if (invertY) deltaX *= -1;
+
+                //cinemachineTargetYaw += deltaX;
+                //cinemachineTargetPitch += deltaY;
+
+                // clamp our rotations so our values are limited 360 degrees
+                //cinemachineTargetYaw = ClampAngle(cinemachineTargetYaw, float.MinValue, float.MaxValue);
+                //cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, bottomClamp, topClamp);
+
                 transform.Rotate(deltaX, deltaY, 0, Space.World);
+                //transform.rotation = Quaternion.Euler(cinemachineTargetPitch + CameraAngleOverride, cinemachineTargetYaw, 0.0f);
 
                 m_previousX = Input.mousePosition.x;
                 m_previousY = Input.mousePosition.y;
             }
             if (Input.GetMouseButtonUp(0))
                 m_rotating = false;
+        }
+        float ClampAngle(float lfAngle, float lfMin, float lfMax)
+        {
+            if (lfAngle < -360f) lfAngle += 360f;
+            if (lfAngle > 360f) lfAngle -= 360f;
+            return Mathf.Clamp(lfAngle, lfMin, lfMax);
         }
     }
 }

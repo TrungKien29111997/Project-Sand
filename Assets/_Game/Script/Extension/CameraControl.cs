@@ -5,49 +5,56 @@ using UnityEngine;
 
 namespace TrungKien
 {
-    public class CameraControl : MonoBehaviour
+    public class CameraControl : PoolingElement
     {
-        Transform tf;
-        public Transform TF { get { return tf ??= transform; } }
         public Camera camera;
-        [SerializeField] float min = 5f, max = 6.25f;
-        [SerializeField] AnimationCurve cameraShakeCurve;
         public float valueSizeCamera { get; private set; }
-        // Start is called before the first frame update
+        public float defaultSizeCamera { get; private set; }
+        [SerializeField]
+        float
+    topClamp = 180f,
+    bottomClamp = -180f,
+    sensitivity = 2f;
+        float cinemachineTargetYaw;
+        float cinemachineTargetPitch;
+        private const float threshold = 0.01f;
         void Start()
         {
-            float target = Extension.GetValue((float)Screen.height / (float)Screen.width, 1920f / 1080f, 1600f / 720f, min, max);
-            StartCoroutine(IEFixCamera(5, target));
+            defaultSizeCamera = camera.fieldOfView;
         }
-
-        private IEnumerator IEFixCamera(float start, float target)
+        private void Update()
         {
-            yield return null;
-            float time = 0;
-            while (time < 0.2f)
+            if (Input.GetMouseButton(0))
             {
-                time += Time.deltaTime;
-                if (time >= 0.2f) time = 0.2f;
-                valueSizeCamera = Mathf.Lerp(start, target, time / 0.2f);
-                BackToDefaultSize();
+                CameraRotation();
             }
         }
+        float mouseX, mouseY;
+        void CameraRotation()
+        {
+            mouseX = Input.GetAxis("Mouse X") * sensitivity;
+            mouseY = Input.GetAxis("Mouse Y") * sensitivity;
 
-        public void OnShake()
-        {
-            Vector3 defaultPos = transform.position;
-            DOTween.To(x =>
+            // if there is an input and camera position is not fixed
+            if ((Mathf.Abs(mouseX) > threshold || Mathf.Abs(mouseY) > threshold))
             {
-                transform.position = defaultPos + Vector3.up * cameraShakeCurve.Evaluate(x);
-            }, 0, 1, 1.5f);
+                cinemachineTargetYaw += mouseX;
+                cinemachineTargetPitch -= mouseY; // trừ để trục Y chuột đúng chiều xoay camera
+            }
+
+            // clamp our rotations so our values are limited 360 degrees
+            cinemachineTargetYaw = ClampAngle(cinemachineTargetYaw, float.MinValue, float.MaxValue);
+            cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, bottomClamp, topClamp);
+
+            // Cinemachine will follow this target
+            TF.rotation = Quaternion.Euler(cinemachineTargetPitch, cinemachineTargetYaw, 0.0f);
+
         }
-        public void BackToDefaultSize()
+        float ClampAngle(float lfAngle, float lfMin, float lfMax)
         {
-            ChangeOrthographicSize(valueSizeCamera);
-        }
-        public void ChangeOrthographicSize(float size, float time = 1f)
-        {
-            camera.DOOrthoSize(size, time);
+            if (lfAngle < -360f) lfAngle += 360f;
+            if (lfAngle > 360f) lfAngle -= 360f;
+            return Mathf.Clamp(lfAngle, lfMin, lfMax);
         }
     }
 }

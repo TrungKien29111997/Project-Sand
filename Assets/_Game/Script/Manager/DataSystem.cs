@@ -7,5 +7,6 @@ namespace TrungKien
     {
         public PrefabConfigsSO prefabSO;
         public GameplaySO gameplaySO;
+        public UISO uiSO;
     }
 }

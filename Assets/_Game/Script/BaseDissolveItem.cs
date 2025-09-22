@@ -4,31 +4,51 @@ using System.Runtime.InteropServices;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEditor;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 namespace TrungKien
 {
     public abstract class BaseDissolveItem : PoolingElement
     {
-        [SerializeField] MeshRenderer meshRen;
-        [SerializeField] MeshFilter meshFilter;
-        [SerializeField] Collider col;
+        [SerializeField] protected MeshRenderer meshRen;
+        [SerializeField] protected MeshFilter meshFilter;
+        [SerializeField] protected Collider col;
         public int id { get; set; }
         Material mat;
         Material Mat { get { return mat ??= meshRen.material; } }
+        bool isDissolving = false;
+        float heightCut;
+        float boundSize;
         public void Dissolve()
         {
-            Mat.SetColor(Constant.pMainShaderEmissiveColor, DataSystem.Instance.gameplaySO.sandEmissiveColor);
+            isDissolving = true;
+            boundSize = Vector3.Scale(meshFilter.sharedMesh.bounds.size, meshFilter.transform.lossyScale).y;
+            col.enabled = false;
+            float defaultLerp = Mat.GetFloat("_Lerp");
             DOTween.To(x =>
             {
-                Mat.SetFloat(Constant.pMainShaderEmissiveStrength, x);
-            }, 0, 2, 1).OnComplete(() =>
+                Mat.SetFloat("_Lerp", x);
+            }, defaultLerp, 0, 1).OnComplete(() =>
             {
-                EventManager.EmitEvent(Constant.EVENT_UPDATE_UI_GAMEPLAY_DISSOLVE_ITEM_COUNTER);
+                DOTween.To(x =>
+                {
+                    heightCut = x;
+                }, 0, boundSize, 3).OnComplete(() =>
+                {
+                    gameObject.SetActive(false);
+                });
+                SoundManager.Instance.PlaySound(DataSystem.Instance.gameplaySO.sfxBling);
                 SandVFX sandFX = PoolingSystem.Spawn(DataSystem.Instance.prefabSO.dicObjPooling[EPooling.SandFX]) as SandVFX;
-                sandFX.SetUp(meshFilter.sharedMesh, TF, LevelControl.Instance.TranDestination);
+                sandFX.SetUp(meshFilter.sharedMesh, Extension.GetMinHeightApprox(meshFilter), Extension.GetMaxHeightApprox(meshFilter), TF, LevelControl.Instance.TranDestination);
                 Debug.Log("Dissolve");
-                gameObject.SetActive(false);
             });
+        }
+        void Update()
+        {
+            if (isDissolving)
+            {
+                Mat.SetFloat(Constant.pMainShaderCutOffHeight, TF.position.y + (boundSize / 2) - heightCut);
+            }
         }
         public void Warning()
         {

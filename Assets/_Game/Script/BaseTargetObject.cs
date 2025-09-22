@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEditor;
 using UnityEngine;
 namespace TrungKien
@@ -19,16 +20,18 @@ namespace TrungKien
         [Button]
         void Editor()
         {
-            if (arrItemDissolve != null) return;
-            BaseDissolveItem[] arrItem = GetComponentsInChildren<BaseDissolveItem>();
-            arrItemDissolve = new ItemDissolveData[arrItem.Length];
-            for (int i = 0; i < arrItem.Length; i++)
+            if (arrItemDissolve.IsNullOrEmpty())
             {
-                arrItemDissolve[i] = new ItemDissolveData
+                BaseDissolveItem[] arrItem = GetComponentsInChildren<BaseDissolveItem>();
+                arrItemDissolve = new ItemDissolveData[arrItem.Length];
+                for (int i = 0; i < arrItem.Length; i++)
                 {
-                    id = i,
-                    itemDissolve = arrItem[i]
-                };
+                    arrItemDissolve[i] = new ItemDissolveData
+                    {
+                        id = i,
+                        itemDissolve = arrItem[i]
+                    };
+                }
             }
         }
         [Button]

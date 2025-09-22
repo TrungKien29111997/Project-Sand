@@ -411,5 +411,43 @@ namespace TrungKien
         {
             return Mathf.Lerp(min, max, (value - floor) / (ceiling - floor));
         }
+        public static float GetMinHeightApprox(MeshFilter meshFilter)
+        {
+            if (meshFilter == null || meshFilter.sharedMesh == null)
+                return 0f;
+
+            Mesh mesh = meshFilter.sharedMesh;
+            Transform tf = meshFilter.transform;
+
+            // Lấy bounds trong local space
+            Bounds bounds = mesh.bounds;
+
+            // Lấy điểm minY trong local space
+            Vector3 localMin = new Vector3(0, bounds.min.y, 0);
+
+            // Convert sang world space
+            Vector3 worldMin = tf.TransformPoint(localMin);
+
+            return worldMin.y;
+        }
+        public static float GetMaxHeightApprox(MeshFilter meshFilter)
+        {
+            if (meshFilter == null || meshFilter.sharedMesh == null)
+                return 0f;
+
+            Mesh mesh = meshFilter.sharedMesh;
+            Transform tf = meshFilter.transform;
+
+            // Lấy bounds trong local space
+            Bounds bounds = mesh.bounds;
+
+            // Lấy điểm minY trong local space
+            Vector3 localMin = new Vector3(0, bounds.max.y, 0);
+
+            // Convert sang world space
+            Vector3 worldMax = tf.TransformPoint(localMin);
+
+            return worldMax.y;
+        }
     }
 }

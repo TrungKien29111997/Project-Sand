@@ -21,9 +21,11 @@ namespace TrungKien
                 dicTransformBinder.Add(arrTransformBinder[i].Property, arrTransformBinder[i]);
             }
         }
-        public void SetUp(Mesh mesh, Transform objectTransform, Transform target)
+        public void SetUp(Mesh mesh, float minHeight, float maxHeight, Transform objectTransform, Transform target)
         {
             vfx.SetMesh(Constant.pMesh, mesh);
+            vfx.SetFloat("MinHeight", minHeight);
+            vfx.SetFloat("MaxHeight", maxHeight);
             dicTransformBinder[Constant.pTranActiveVFXSand].Target = objectTransform;
             dicTransformBinder[Constant.pTranTargetVFXSand].Target = target;
             vfx.Play();
@@ -32,6 +34,8 @@ namespace TrungKien
         IEnumerator IEDestroy()
         {
             yield return new WaitUntil(() => vfx.aliveParticleCount == 0);
+            ++LevelControl.Instance.ItemCounter;
+            EventManager.EmitEvent(Constant.EVENT_UPDATE_UI_GAMEPLAY_DISSOLVE_ITEM_COUNTER);
             PoolingSystem.Despawn(this);
         }
 #if UNITY_EDITOR

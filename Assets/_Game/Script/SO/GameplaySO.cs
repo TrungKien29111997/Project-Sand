@@ -8,5 +8,6 @@ namespace TrungKien
     public class GameplaySO : SerializedScriptableObject
     {
         public Color sandEmissiveColor;
+        public AudioClip sfxClick, sfxBling;
     }
 }

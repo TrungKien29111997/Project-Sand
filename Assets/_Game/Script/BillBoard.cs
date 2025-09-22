@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class BillBoard : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] Transform tranObj, tranCam;
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        
+        tranObj.LookAt(tranCam);
     }
 }

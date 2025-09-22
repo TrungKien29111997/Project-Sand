@@ -58,15 +58,18 @@ VisualEffect:
       - m_Value: 1
         m_Name: Duration
         m_Overridden: 1
-      - m_Value: 4
+      - m_Value: 5
         m_Name: DelayTime
         m_Overridden: 1
       - m_Value: 2.5
         m_Name: FryToTargetSpeed
         m_Overridden: 1
+      - m_Value: 0.5
+        m_Name: DelayEachLayer
+        m_Overridden: 1
     m_Vector2f:
       m_Array:
-      - m_Value: {x: 4, y: 5.5}
+      - m_Value: {x: 6, y: 7}
         m_Name: LifeTime
         m_Overridden: 1
       - m_Value: {x: 0.05, y: 0.1}
@@ -83,10 +86,10 @@ VisualEffect:
       - m_Value: {x: 0.01, y: 0.01, z: 0.01}
         m_Name: ObjectTranform_scale
         m_Overridden: 1
-      - m_Value: {x: 0.5, y: -3, z: 0.5}
+      - m_Value: {x: -0.5, y: -4, z: -0.5}
         m_Name: VelocityA
         m_Overridden: 1
-      - m_Value: {x: -1, y: -1.2, z: -1}
+      - m_Value: {x: 0.5, y: -2, z: 0.5}
         m_Name: VelocityB
         m_Overridden: 1
       - m_Value: {x: 0, y: 2, z: 0}
@@ -101,16 +104,19 @@ VisualEffect:
       - m_Value: {x: 0.37068, y: 0.37068, z: 0.37068}
         m_Name: Destination_scale
         m_Overridden: 1
+      - m_Value: {x: 0.5, y: -1, z: 0.5}
+        m_Name: VectorB
+        m_Overridden: 1
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 2.9400058, y: 2.4128785, z: 0.926379, w: 1}
+      - m_Value: {x: 1, y: 1, z: 1, w: 1}
         m_Name: StartColor
         m_Overridden: 1
     m_Uint:
       m_Array: []
     m_Int:
       m_Array:
-      - m_Value: 1000
+      - m_Value: 2000
         m_Name: SpawnCount
         m_Overridden: 1
     m_Matrix4x4f:
@@ -173,7 +179,7 @@ VisualEffect:
           ctime6: 0
           ctime7: 0
           atime0: 0
-          atime1: 44812
+          atime1: 59619
           atime2: 65535
           atime3: 65535
           atime4: 0
@@ -190,6 +196,12 @@ VisualEffect:
       m_Array:
       - m_Value: {fileID: -3746643514349516644, guid: ba3025a1a90e13b4a8b242ae2dcff92d, type: 3}
         m_Name: Mesh
+        m_Overridden: 1
+      - m_Value: {fileID: 2800000, guid: aabf26b988dd44a458b484005bc74fe9, type: 3}
+        m_Name: StarTexture
+        m_Overridden: 1
+      - m_Value: {fileID: 2800000, guid: 77112fab5d480b94797abede63154ff0, type: 3}
+        m_Name: MainTexture
         m_Overridden: 1
     m_Bool:
       m_Array: []
