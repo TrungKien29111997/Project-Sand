@@ -9,5 +9,6 @@ namespace TrungKien
     {
         public Color sandEmissiveColor;
         public AudioClip sfxClick, sfxBling;
+        public float delayFactor = 0.5f;
     }
 }

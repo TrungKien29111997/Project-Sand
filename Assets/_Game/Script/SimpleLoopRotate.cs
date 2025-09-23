@@ -30,7 +30,7 @@ namespace TrungKien
         {
             if (isRotate)
             {
-                objFan.Rotate(direct * rotationSpeed * multiSpeed * Time.deltaTime, Space.Self);
+                objFan.Rotate(direct * rotationSpeed * multiSpeed * LevelControl.Instance.DetlaTime, Space.Self);
             }
         }
     }

@@ -26,6 +26,10 @@ namespace TrungKien
             vfx.SetMesh(Constant.pMesh, mesh);
             vfx.SetFloat("MinHeight", minHeight);
             vfx.SetFloat("MaxHeight", maxHeight);
+            vfx.SetFloat(Constant.pVFXSandDelayEachLayer, DataSystem.Instance.gameplaySO.delayFactor);
+            float delay = minHeight / 3 + (maxHeight - minHeight) * DataSystem.Instance.gameplaySO.delayFactor + 1;
+            vfx.SetFloat("DelayTime", delay);
+            vfx.SetVector2("LifeTime", new Vector2(delay + 1.5f, delay + 3f));
             dicTransformBinder[Constant.pTranActiveVFXSand].Target = objectTransform;
             dicTransformBinder[Constant.pTranTargetVFXSand].Target = target;
             vfx.Play();

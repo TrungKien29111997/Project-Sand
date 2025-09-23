@@ -21,6 +21,9 @@ namespace TrungKien
         public int ItemCounter { get; set; }
         public int MaxItem { get; private set; }
         [field: SerializeField] public Collider colPanelScore { get; private set; }
+        public float scaleTime = 1;
+        public float DetlaTime => Time.deltaTime * scaleTime;
+        public float FixDeltaTime => Time.fixedDeltaTime * scaleTime;
         BaseDissolveItem GetItem(Collider col)
         {
             return Extension.GetItemCanInteract(dicDissolveItem, col);

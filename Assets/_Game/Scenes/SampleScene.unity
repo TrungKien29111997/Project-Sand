@@ -984,6 +984,7 @@ MonoBehaviour:
   targetObj: {fileID: 0}
   <TranDestination>k__BackingField: {fileID: 1715542209}
   <colPanelScore>k__BackingField: {fileID: 38616638}
+  scaleTime: 1
 --- !u!114 &1844499993
 MonoBehaviour:
   m_ObjectHideFlags: 0

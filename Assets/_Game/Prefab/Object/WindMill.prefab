@@ -119,6 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ae8121cd3f45346ad9030e9b3e95ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDynamic: 1
   meshRen: {fileID: 5640056261136995256}
   meshFilter: {fileID: 342901088592438899}
   col: {fileID: 1390246943021243422}
@@ -241,6 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ae8121cd3f45346ad9030e9b3e95ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDynamic: 0
   meshRen: {fileID: 3173309886893446067}
   meshFilter: {fileID: 1370917389993111508}
   col: {fileID: 6553476686585559958}
@@ -363,6 +365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ae8121cd3f45346ad9030e9b3e95ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDynamic: 0
   meshRen: {fileID: 6210253218885488486}
   meshFilter: {fileID: 4581289238299629246}
   col: {fileID: 3133553036604383381}
@@ -558,6 +561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ae8121cd3f45346ad9030e9b3e95ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDynamic: 0
   meshRen: {fileID: 7403108505851137184}
   meshFilter: {fileID: 480306358550385869}
   col: {fileID: 2427823925275956152}
@@ -680,6 +684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ae8121cd3f45346ad9030e9b3e95ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDynamic: 1
   meshRen: {fileID: 5278420529895530713}
   meshFilter: {fileID: 1128326596569226345}
   col: {fileID: 4041656584806210367}
@@ -802,6 +807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ae8121cd3f45346ad9030e9b3e95ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDynamic: 1
   meshRen: {fileID: 3550181369987164992}
   meshFilter: {fileID: 2007657480718750383}
   col: {fileID: 605644298565920014}
@@ -924,6 +930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ae8121cd3f45346ad9030e9b3e95ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDynamic: 0
   meshRen: {fileID: 8226266146085368933}
   meshFilter: {fileID: 8098734701207803235}
   col: {fileID: 8820567170982872312}
@@ -1100,6 +1107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ae8121cd3f45346ad9030e9b3e95ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDynamic: 1
   meshRen: {fileID: 3606290397391063973}
   meshFilter: {fileID: 3782729823331751422}
   col: {fileID: 3385987418784385370}

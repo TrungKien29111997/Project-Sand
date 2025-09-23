@@ -449,5 +449,36 @@ namespace TrungKien
 
             return worldMax.y;
         }
+        public static Vector2 GetMinMaxHeightApprox(MeshFilter mf)
+        {
+            // bounds trong local space
+            Bounds localBounds = mf.sharedMesh.bounds;
+
+            // 8 đỉnh của bounding box
+            Vector3[] vertices = new Vector3[8];
+            vertices[0] = new Vector3(localBounds.min.x, localBounds.min.y, localBounds.min.z);
+            vertices[1] = new Vector3(localBounds.max.x, localBounds.min.y, localBounds.min.z);
+            vertices[2] = new Vector3(localBounds.min.x, localBounds.max.y, localBounds.min.z);
+            vertices[3] = new Vector3(localBounds.max.x, localBounds.max.y, localBounds.min.z);
+            vertices[4] = new Vector3(localBounds.min.x, localBounds.min.y, localBounds.max.z);
+            vertices[5] = new Vector3(localBounds.max.x, localBounds.min.y, localBounds.max.z);
+            vertices[6] = new Vector3(localBounds.min.x, localBounds.max.y, localBounds.max.z);
+            vertices[7] = new Vector3(localBounds.max.x, localBounds.max.y, localBounds.max.z);
+
+            // chuyển sang world space
+            for (int i = 0; i < vertices.Length; i++)
+                vertices[i] = mf.transform.TransformPoint(vertices[i]);
+
+            // tìm minHeight và maxHeight theo world Y
+            float minHeight = float.MaxValue;
+            float maxHeight = float.MinValue;
+
+            foreach (var v in vertices)
+            {
+                if (v.y < minHeight) minHeight = v.y;
+                if (v.y > maxHeight) maxHeight = v.y;
+            }
+            return new Vector2(minHeight, maxHeight);
+        }
     }
 }
