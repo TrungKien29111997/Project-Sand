@@ -45,7 +45,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3027683495522039513}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: 057854f81ccc8f640b45079f83966793, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: 8d4f9ea484bbf354db3bc467d1092be5, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
@@ -67,13 +67,25 @@ VisualEffect:
       - m_Value: 0.5
         m_Name: DelayEachLayer
         m_Overridden: 1
+      - m_Value: 5
+        m_Name: FlyToTargetSpeed
+        m_Overridden: 1
+      - m_Value: 0.1
+        m_Name: Size
+        m_Overridden: 1
     m_Vector2f:
       m_Array:
       - m_Value: {x: 6, y: 7}
         m_Name: LifeTime
         m_Overridden: 1
-      - m_Value: {x: 0.05, y: 0.1}
+      - m_Value: {x: 0.14, y: 0.15}
         m_Name: RandomSize
+        m_Overridden: 1
+      - m_Value: {x: 0.5, y: 1}
+        m_Name: SpeedExplose
+        m_Overridden: 1
+      - m_Value: {x: -2.5, y: -3}
+        m_Name: GravitySpeed
         m_Overridden: 1
     m_Vector3f:
       m_Array:
@@ -116,7 +128,7 @@ VisualEffect:
       m_Array: []
     m_Int:
       m_Array:
-      - m_Value: 2000
+      - m_Value: 5000
         m_Name: SpawnCount
         m_Overridden: 1
     m_Matrix4x4f:
@@ -200,7 +212,7 @@ VisualEffect:
       - m_Value: {fileID: 2800000, guid: aabf26b988dd44a458b484005bc74fe9, type: 3}
         m_Name: StarTexture
         m_Overridden: 1
-      - m_Value: {fileID: 2800000, guid: 77112fab5d480b94797abede63154ff0, type: 3}
+      - m_Value: {fileID: 2800000, guid: 4ca01027de15d5f4b91374c78cac3d1a, type: 3}
         m_Name: MainTexture
         m_Overridden: 1
     m_Bool:

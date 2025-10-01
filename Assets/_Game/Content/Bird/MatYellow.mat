@@ -19,7 +19,8 @@ Material:
   m_CustomRenderQueue: 2000
   stringTagMap:
     RenderType: Opaque
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -70,6 +71,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_62333ed303404b7890d0255ed0deb05a_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 550374db30e98e241a5dfb4873f246fd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_e03d643891184de6ac1442b95fafe103_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 9052c7bec7484654ba79d1d6d685e937, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_fe3c28980e8a46eea6c59a67609e3ce2_Texture_1_Texture2D:
@@ -150,9 +159,11 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColor: {r: 0.9630092, g: 1, b: 0, a: 1}
     - _OutLineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SandColor: {r: 0, g: 0, b: 0, a: 0}
     - _SandTilling: {r: 40, g: 40, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &6490283542736749550
 MonoBehaviour:
   m_ObjectHideFlags: 11
@@ -165,4 +176,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 7
+  version: 10

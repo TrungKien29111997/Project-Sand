@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22a2c2a8e16c1834f92df5ff0324e319, type: 3}
+  m_Name: ConfigGraph
+  m_EditorClassIdentifier: 
+  nodes:
+  - id: 2
+    listChildrenId: 08000000
+    position: {x: 325.6, y: 71.2}
+    title: 87761
+  - id: 5
+    listChildrenId: 09000000
+    position: {x: 309.6, y: 272}
+    title: 4880
+  - id: 6
+    listChildrenId: 0a000000
+    position: {x: 309.6, y: 428.80002}
+    title: 24255
+  - id: 9
+    listChildrenId: 
+    position: {x: 564.8, y: 272}
+    title: 79809
+  - id: 10
+    listChildrenId: 
+    position: {x: 564.8, y: 428.80002}
+    title: 99911
+  - id: 1
+    listChildrenId: 050000000600000002000000
+    position: {x: -136.8, y: 224.8}
+    title: 20980
+  - id: 8
+    listChildrenId: 
+    position: {x: 569.6, y: 71.2}
+    title: 44137
+  edges:
+  - parentId: 1
+    childId: 5
+  - parentId: 1
+    childId: 6
+  - parentId: 2
+    childId: 8
+  - parentId: 5
+    childId: 9
+  - parentId: 6
+    childId: 10
+  - parentId: 1
+    childId: 2

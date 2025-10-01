@@ -50,6 +50,7 @@ namespace TrungKien
             }
             dicCondition = new();
             targetObj = PoolingSystem.Spawn(objectTarget);
+            targetObj.TF.localScale = Vector3.one * targetObj.LocalScale;
             targetObj.arrItemDissolve.ForEach(x => dicCondition.Add(x.id, x.childrenIDs.ToList()));
             MaxItem = targetObj.arrItemDissolve.Length;
             EventManager.EmitEvent(Constant.EVENT_UPDATE_UI_GAMEPLAY_DISSOLVE_ITEM_COUNTER);

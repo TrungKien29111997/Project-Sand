@@ -8,6 +8,7 @@ namespace TrungKien
 {
     public abstract class BaseTargetObject : PoolingElement
     {
+        [field: SerializeField] public float LocalScale { get; private set; } = 1;
         public ItemDissolveData[] arrItemDissolve;
         void Start()
         {

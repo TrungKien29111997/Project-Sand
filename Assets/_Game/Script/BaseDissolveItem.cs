@@ -20,7 +20,6 @@ namespace TrungKien
         Vector2 minMaxHeight;
         public void Dissolve()
         {
-            minMaxHeight = Extension.GetMinMaxHeightApprox(meshFilter);
             col.enabled = false;
             float defaultLerp = Mat.GetFloat("_Lerp");
             DOTween.To(x =>
@@ -28,26 +27,38 @@ namespace TrungKien
                 Mat.SetFloat("_Lerp", x);
             }, defaultLerp, 0, 1).OnComplete(() =>
             {
+                minMaxHeight = Extension.GetMinMaxHeightApprox(meshFilter);
                 if (isDynamic)
                 {
                     LevelControl.Instance.scaleTime = 0;
                 }
-                DOTween.To(x =>
+                Fix.DelayedCall(1.5f, () =>
                 {
-                    Mat.SetFloat(Constant.pMainShaderCutOffHeight, x);
-                }, minMaxHeight.y, minMaxHeight.x, (minMaxHeight.y - minMaxHeight.x) * DataSystem.Instance.gameplaySO.delayFactor).SetEase(Ease.Linear).OnComplete(() =>
-                {
-                    gameObject.SetActive(false);
-                    if (isDynamic)
-                    {
-                        LevelControl.Instance.scaleTime = 1;
-                    }
+                    DOTween.To(x =>
+                        {
+                            Mat.SetFloat(Constant.pMainShaderCutOffHeight, x);
+                        }, minMaxHeight.y, minMaxHeight.x, (minMaxHeight.y - minMaxHeight.x) * DataSystem.Instance.gameplaySO.delayFactor).SetEase(Ease.Linear).OnComplete(() =>
+                        {
+                            gameObject.SetActive(false);
+                            if (isDynamic)
+                            {
+                                LevelControl.Instance.scaleTime = 1;
+                            }
+                        });
                 });
                 SoundManager.Instance.PlaySound(DataSystem.Instance.gameplaySO.sfxBling);
                 SandVFX sandFX = PoolingSystem.Spawn(DataSystem.Instance.prefabSO.dicObjPooling[EPooling.SandFX]) as SandVFX;
-                sandFX.SetUp(meshFilter.sharedMesh, minMaxHeight.x, minMaxHeight.y, TF, LevelControl.Instance.TranDestination);
+                sandFX.SetUp(Mat.GetColor("_SandColor"), GetSpawmCount(), meshFilter.sharedMesh, minMaxHeight.x, minMaxHeight.y, TF, LevelControl.Instance.TranDestination);
                 Debug.Log("Dissolve");
             });
+        }
+        int GetSpawmCount()
+        {
+            Bounds b = meshFilter.sharedMesh.bounds;
+            Vector3 size = Vector3.Scale(b.size, TF.lossyScale);
+            int spawmCount = (int)(size.x * size.y * size.z * DataSystem.Instance.gameplaySO.spawmFactor);
+            if (spawmCount < 1000) spawmCount = 1000;
+            return spawmCount;
         }
         public void Warning()
         {
@@ -80,6 +91,7 @@ namespace TrungKien
         //         Gizmos.matrix = Matrix4x4.identity; // reset
         //     }
         // }
+
 #if UNITY_EDITOR
         [Button]
         public void Editor()
