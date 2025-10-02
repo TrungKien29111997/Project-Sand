@@ -5042,12 +5042,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198445493431297426, guid: 984505ee1340f5344b8a220626d7fb79, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198445493431297426, guid: 984505ee1340f5344b8a220626d7fb79, type: 3}
       propertyPath: EmissionModule.m_BurstCount
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198445493431297426, guid: 984505ee1340f5344b8a220626d7fb79, type: 3}
       propertyPath: InitialModule.maxNumParticles
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 198445493431297426, guid: 984505ee1340f5344b8a220626d7fb79, type: 3}
       propertyPath: InitialModule.startSize.scalar
@@ -5059,7 +5063,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198445493431297426, guid: 984505ee1340f5344b8a220626d7fb79, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 2
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198445493431297426, guid: 984505ee1340f5344b8a220626d7fb79, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 198445493431297426, guid: 984505ee1340f5344b8a220626d7fb79, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198445493431297426, guid: 984505ee1340f5344b8a220626d7fb79, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.atime1
+      value: 22707
+      objectReference: {fileID: 0}
+    - target: {fileID: 198445493431297426, guid: 984505ee1340f5344b8a220626d7fb79, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.m_ColorSpace
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199296080815158628, guid: 984505ee1340f5344b8a220626d7fb79, type: 3}
       propertyPath: m_Materials.Array.size

@@ -29,7 +29,7 @@ namespace TrungKien
             vfx.SetInt("SpawnCount", spawnFator);
             vfx.SetMesh(Constant.pMesh, mesh);
             vfx.SetFloat("MaxHeight", maxHeight);
-            vfx.SetFloat(Constant.pVFXSandDelayEachLayer, DataSystem.Instance.gameplaySO.delayFactor);
+            vfx.SetFloat(Constant.pVFXSandDelayEachLayer, DataSystem.Instance.gameplaySO.delayFactor * 0.5f);
             vfx.SetFloat("Delay", 1);
             float delay = minHeight / 3 + (maxHeight - minHeight) * DataSystem.Instance.gameplaySO.delayFactor + 1 + 1;
             vfx.SetFloat("DelayTime", delay);

@@ -101,9 +101,9 @@ namespace TrungKien
                             });
                         });
                 });
-                SoundManager.Instance.PlaySound(DataSystem.Instance.gameplaySO.sfxBling);
+                //SoundManager.Instance.PlaySound(DataSystem.Instance.gameplaySO.sfxBling);
                 SandVFX sandFX = PoolingSystem.Spawn(DataSystem.Instance.prefabSO.dicObjPooling[EPooling.SandFX]) as SandVFX;
-                sandFX.SetUp(Mat.GetColor("_SandColor"), 200, meshFilter.sharedMesh, minMaxHeight.x, minMaxHeight.y, TF, LevelControl.Instance.TranDestination);
+                sandFX.SetUp(Mat.GetColor("_SandColor"), GetSpawmCount(), meshFilter.sharedMesh, minMaxHeight.x, minMaxHeight.y, TF, LevelControl.Instance.TranDestination);
                 Debug.Log("Dissolve");
             });
         }
@@ -112,7 +112,7 @@ namespace TrungKien
             Bounds b = meshFilter.sharedMesh.bounds;
             Vector3 size = Vector3.Scale(b.size, TF.lossyScale);
             int spawmCount = (int)(size.x * size.y * size.z * DataSystem.Instance.gameplaySO.spawmFactor);
-            if (spawmCount < 200) spawmCount = 200;
+            if (spawmCount < 80) spawmCount = 80;
             Debug.Log($"Spawm count: {spawmCount}");
             return spawmCount;
         }
