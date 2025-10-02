@@ -134,7 +134,7 @@ Material:
     - _LerpColor: 0
     - _Metallic: 0
     - _Noise: 3000
-    - _NoiseScale: 60
+    - _NoiseScale: 150
     - _NoiseStrength: 0.3
     - _OcclusionStrength: 1
     - _OutLineFade: 0.1

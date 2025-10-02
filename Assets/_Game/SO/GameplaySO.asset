@@ -25,4 +25,4 @@ MonoBehaviour:
   sfxClick: {fileID: 8300000, guid: 827effde95a8fb54aa6af95ff0ab7d4c, type: 3}
   sfxBling: {fileID: 8300000, guid: 83806d4e5529c3745ab71b6d189819b0, type: 3}
   delayFactor: 2.5
-  spawmFactor: 2000
+  spawmFactor: 1000

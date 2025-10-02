@@ -70,7 +70,7 @@ VisualEffect:
       - m_Value: 5
         m_Name: FlyToTargetSpeed
         m_Overridden: 1
-      - m_Value: 0.1
+      - m_Value: 1
         m_Name: Size
         m_Overridden: 1
     m_Vector2f:
@@ -81,10 +81,10 @@ VisualEffect:
       - m_Value: {x: 0.14, y: 0.15}
         m_Name: RandomSize
         m_Overridden: 1
-      - m_Value: {x: 0.5, y: 1}
+      - m_Value: {x: 0.2, y: 0.4}
         m_Name: SpeedExplose
         m_Overridden: 1
-      - m_Value: {x: -2.5, y: -3}
+      - m_Value: {x: -4, y: -5}
         m_Name: GravitySpeed
         m_Overridden: 1
     m_Vector3f:
@@ -128,7 +128,7 @@ VisualEffect:
       m_Array: []
     m_Int:
       m_Array:
-      - m_Value: 5000
+      - m_Value: 200
         m_Name: SpawnCount
         m_Overridden: 1
     m_Matrix4x4f:
@@ -140,30 +140,21 @@ VisualEffect:
           m_Curve:
           - serializedVersion: 3
             time: 0
-            value: 1
-            inSlope: -2.3058968
-            outSlope: -2.3058968
-            tangentMode: 34
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.27809304
-            value: 0.3587462
-            inSlope: -0.48927218
-            outSlope: -0.48927218
+            value: 0
+            inSlope: 2
+            outSlope: 2
             tangentMode: 0
             weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.10147888
+            inWeight: 0
+            outWeight: 0
           - serializedVersion: 3
             time: 1
-            value: 0.2
-            inSlope: -0.21989842
-            outSlope: -0.21989842
-            tangentMode: 34
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
             weightedMode: 0
-            inWeight: 0.33333334
+            inWeight: 0
             outWeight: 0
           m_PreInfinity: 2
           m_PostInfinity: 2
@@ -174,9 +165,9 @@ VisualEffect:
       m_Array:
       - m_Value:
           serializedVersion: 2
-          key0: {r: 1, g: 1, b: 1, a: 1}
+          key0: {r: 1, g: 1, b: 1, a: 0}
           key1: {r: 1, g: 1, b: 1, a: 1}
-          key2: {r: 0, g: 0, b: 0, a: 0}
+          key2: {r: 0, g: 0, b: 0, a: 1}
           key3: {r: 0, g: 0, b: 0, a: 0}
           key4: {r: 0, g: 0, b: 0, a: 0}
           key5: {r: 0, g: 0, b: 0, a: 0}
@@ -191,8 +182,8 @@ VisualEffect:
           ctime6: 0
           ctime7: 0
           atime0: 0
-          atime1: 59619
-          atime2: 65535
+          atime1: 10023
+          atime2: 59619
           atime3: 65535
           atime4: 0
           atime5: 0
@@ -201,7 +192,7 @@ VisualEffect:
           m_Mode: 0
           m_ColorSpace: 1
           m_NumColorKeys: 2
-          m_NumAlphaKeys: 3
+          m_NumAlphaKeys: 4
         m_Name: ColorOverLife
         m_Overridden: 1
     m_NamedObject:
@@ -212,7 +203,7 @@ VisualEffect:
       - m_Value: {fileID: 2800000, guid: aabf26b988dd44a458b484005bc74fe9, type: 3}
         m_Name: StarTexture
         m_Overridden: 1
-      - m_Value: {fileID: 2800000, guid: 4ca01027de15d5f4b91374c78cac3d1a, type: 3}
+      - m_Value: {fileID: 2800000, guid: 424f9b61291d0154a850e66aec59eb1e, type: 3}
         m_Name: MainTexture
         m_Overridden: 1
     m_Bool:

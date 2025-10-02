@@ -13,44 +13,26 @@ MonoBehaviour:
   m_Name: ConfigGraph
   m_EditorClassIdentifier: 
   nodes:
-  - id: 2
-    listChildrenId: 08000000
-    position: {x: 325.6, y: 71.2}
-    title: 87761
-  - id: 5
-    listChildrenId: 09000000
-    position: {x: 309.6, y: 272}
-    title: 4880
-  - id: 6
-    listChildrenId: 0a000000
-    position: {x: 309.6, y: 428.80002}
-    title: 24255
-  - id: 9
-    listChildrenId: 
-    position: {x: 564.8, y: 272}
-    title: 79809
-  - id: 10
-    listChildrenId: 
-    position: {x: 564.8, y: 428.80002}
-    title: 99911
+  - id: 0
+    listChildrenId: 0100000002000000
+    position: {x: -135, y: -2}
+    title: 51537
   - id: 1
-    listChildrenId: 050000000600000002000000
-    position: {x: -136.8, y: 224.8}
-    title: 20980
-  - id: 8
     listChildrenId: 
-    position: {x: 569.6, y: 71.2}
-    title: 44137
+    position: {x: 279, y: -131}
+    title: 53971
+  - id: 2
+    listChildrenId: 
+    position: {x: 278, y: 144}
+    title: 59764
+  - id: 3
+    listChildrenId: 01000000
+    position: {x: -135, y: -213}
+    title: 1226
   edges:
-  - parentId: 1
-    childId: 5
-  - parentId: 1
-    childId: 6
-  - parentId: 2
-    childId: 8
-  - parentId: 5
-    childId: 9
-  - parentId: 6
-    childId: 10
-  - parentId: 1
+  - parentId: 0
+    childId: 1
+  - parentId: 0
     childId: 2
+  - parentId: 3
+    childId: 1

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using DG.Tweening;
 using UnityEditor;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
 namespace TrungKien
@@ -479,6 +480,173 @@ namespace TrungKien
                 if (v.y > maxHeight) maxHeight = v.y;
             }
             return new Vector2(minHeight, maxHeight);
+        }
+        public static List<Vector3> ResamplePolygonFixedPoints(List<Vector3> points, int targetCount)
+        {
+            if (points.Count < 2 || targetCount < 2) return points;
+
+            // --- Sắp xếp quanh tâm ---
+            Vector3 center = Vector3.zero;
+            foreach (var p in points) center += p;
+            center /= points.Count;
+
+            points.Sort((a, b) =>
+            {
+                float angleA = Mathf.Atan2(a.z - center.z, a.x - center.x);
+                float angleB = Mathf.Atan2(b.z - center.z, b.x - center.x);
+                return angleA.CompareTo(angleB);
+            });
+
+            // Đóng polygon
+            points.Add(points[0]);
+
+            // --- Tính chu vi ---
+            float perimeter = 0f;
+            for (int i = 0; i < points.Count - 1; i++)
+            {
+                perimeter += Vector3.Distance(points[i], points[i + 1]);
+            }
+
+            float step = perimeter / targetCount;
+
+            // --- Resample ---
+            List<Vector3> result = new List<Vector3>();
+            result.Add(points[0]); // điểm đầu
+
+            float distAccum = 0f;
+            float currentTargetDist = step;
+            int currentSegment = 0;
+
+            for (int i = 0; i < targetCount - 1; i++)
+            {
+                // Tìm segment phù hợp
+                while (true)
+                {
+                    Vector3 p1 = points[currentSegment];
+                    Vector3 p2 = points[currentSegment + 1];
+                    float segLength = Vector3.Distance(p1, p2);
+
+                    if (distAccum + segLength >= currentTargetDist)
+                    {
+                        float t = (currentTargetDist - distAccum) / segLength;
+                        Vector3 newPoint = Vector3.Lerp(p1, p2, t);
+                        if (newPoint.IsValid())
+                        {
+                            result.Add(newPoint);
+                        }
+                        currentTargetDist += step;
+                        break;
+                    }
+                    else
+                    {
+                        distAccum += segLength;
+                        currentSegment++;
+                        if (currentSegment >= points.Count - 1) break;
+                    }
+                }
+            }
+
+            return result;
+        }
+        public static bool IsValid(this Vector3 v)
+        {
+            return !(float.IsNaN(v.x) || float.IsNaN(v.y) || float.IsNaN(v.z));
+        }
+        public static List<Vector3> GetIntersectionPoints(Mesh mesh, Transform tranMeshFilter, Transform planeTransform)
+        {
+            List<Vector3> intersections = new List<Vector3>();
+            Vector3[] vertices = mesh.vertices;
+            int[] triangles = mesh.triangles;
+
+            // Định nghĩa plane từ transform
+            Plane plane = new Plane(planeTransform.up, planeTransform.position);
+
+            for (int i = 0; i < triangles.Length; i += 3)
+            {
+                Vector3 p1 = tranMeshFilter.TransformPoint(vertices[triangles[i]]);
+                Vector3 p2 = tranMeshFilter.TransformPoint(vertices[triangles[i + 1]]);
+                Vector3 p3 = tranMeshFilter.TransformPoint(vertices[triangles[i + 2]]);
+
+                // khoảng cách từ điểm tới plane
+                float d1 = plane.GetDistanceToPoint(p1);
+                float d2 = plane.GetDistanceToPoint(p2);
+                float d3 = plane.GetDistanceToPoint(p3);
+
+                // check từng cạnh
+                CheckEdge(p1, d1, p2, d2, plane, intersections);
+                CheckEdge(p2, d2, p3, d3, plane, intersections);
+                CheckEdge(p3, d3, p1, d1, plane, intersections);
+            }
+
+            return intersections;
+        }
+        public static float ApproximatePolygonArea(List<Vector3> vertices, int sampleCount)
+        {
+            if (vertices == null || vertices.Count < 3) return 0f;
+
+            // Giới hạn số sample
+            sampleCount = Mathf.Clamp(sampleCount, 3, vertices.Count);
+
+            // Lấy đều sampleCount điểm trong polygon
+            List<Vector3> sampled = new List<Vector3>();
+            float step = (float)vertices.Count / sampleCount;
+            for (int i = 0; i < sampleCount; i++)
+            {
+                sampled.Add(vertices[Mathf.RoundToInt(i * step) % vertices.Count]);
+            }
+
+            // --- Tính normal bằng Newell’s Method ---
+            Vector3 normal = Vector3.zero;
+            for (int i = 0; i < sampled.Count; i++)
+            {
+                Vector3 current = sampled[i];
+                Vector3 next = sampled[(i + 1) % sampled.Count];
+                normal.x += (current.y - next.y) * (current.z + next.z);
+                normal.y += (current.z - next.z) * (current.x + next.x);
+                normal.z += (current.x - next.x) * (current.y + next.y);
+            }
+            normal.Normalize();
+
+            // --- Chọn mặt phẳng chiếu ---
+            int axis = 0; // 0=XY, 1=YZ, 2=XZ
+            Vector3 absNormal = new Vector3(Mathf.Abs(normal.x), Mathf.Abs(normal.y), Mathf.Abs(normal.z));
+            if (absNormal.x > absNormal.y && absNormal.x > absNormal.z) axis = 1; // YZ
+            else if (absNormal.y > absNormal.z) axis = 2; // XZ
+            else axis = 0; // XY
+
+            // --- Công thức Shoelace ---
+            float area = 0f;
+            for (int i = 0; i < sampled.Count; i++)
+            {
+                int j = (i + 1) % sampled.Count;
+                switch (axis)
+                {
+                    case 0: // XY
+                        area += sampled[i].x * sampled[j].y - sampled[j].x * sampled[i].y;
+                        break;
+                    case 1: // YZ
+                        area += sampled[i].y * sampled[j].z - sampled[j].y * sampled[i].z;
+                        break;
+                    case 2: // XZ
+                        area += sampled[i].x * sampled[j].z - sampled[j].x * sampled[i].z;
+                        break;
+                }
+            }
+
+            return Mathf.Abs(area) * 0.5f;
+        }
+
+        private static void CheckEdge(Vector3 p1, float d1, Vector3 p2, float d2, Plane plane, List<Vector3> intersections)
+        {
+            if ((d1 > 0f && d2 < 0f) || (d1 < 0f && d2 > 0f))
+            {
+                float t = d1 / (d1 - d2);
+                Vector3 hit = Vector3.Lerp(p1, p2, t);
+                if (hit.IsValid())
+                {
+                    intersections.Add(hit);
+                }
+            }
         }
     }
 }

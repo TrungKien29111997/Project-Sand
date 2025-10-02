@@ -18,6 +18,13 @@ namespace TrungKien
         Material mat;
         Material Mat { get { return mat ??= meshRen.material; } }
         Vector2 minMaxHeight;
+        Vector3 itemVector3;
+        List<ParticleElement> listVfxSand;
+        float area, size, speed;
+        void Start()
+        {
+            listVfxSand = new();
+        }
         public void Dissolve()
         {
             col.enabled = false;
@@ -25,30 +32,78 @@ namespace TrungKien
             DOTween.To(x =>
             {
                 Mat.SetFloat("_Lerp", x);
-            }, defaultLerp, 0, 1).OnComplete(() =>
+            }, defaultLerp, 0, 0.1f).OnComplete(() =>
             {
                 minMaxHeight = Extension.GetMinMaxHeightApprox(meshFilter);
                 if (isDynamic)
                 {
                     LevelControl.Instance.scaleTime = 0;
                 }
-                Fix.DelayedCall(1.5f, () =>
+                itemVector3 = TF.position;
+                Fix.DelayedCall(0.1f, () =>
                 {
                     DOTween.To(x =>
                         {
                             Mat.SetFloat(Constant.pMainShaderCutOffHeight, x);
+                            itemVector3.y = x;
+                            LevelControl.Instance.tranPlane.position = itemVector3;
+                            List<Vector3> listVector = Extension.GetIntersectionPoints(meshFilter.sharedMesh, TF, LevelControl.Instance.tranPlane);
+                            List<Vector3> evenlySpaced = Extension.ResamplePolygonFixedPoints(listVector, 4);
+                            area = Extension.ApproximatePolygonArea(evenlySpaced, 4);
+                            if (listVfxSand.Count == 0)
+                            {
+                                listVfxSand = new();
+                                for (int i = 0; i < 4; i++)
+                                {
+                                    ParticleElement psElement = PoolingSystem.Spawn(LevelControl.Instance.vfxSand, TF.position, Quaternion.identity);
+                                    psElement.SetColor(Mat.GetColor("_SandColor"));
+                                    psElement.Play();
+                                    listVfxSand.Add(psElement);
+                                }
+                            }
+                            for (int i = 0; i < listVfxSand.Count; i++)
+                            {
+                                if (evenlySpaced.Count > i)
+                                {
+                                    listVfxSand[i].TF.position = evenlySpaced[i];
+                                    size = (area / 0.5f) * 1f;
+                                    speed = (area / 0.5f) * 0.8f;
+                                    if (size < 0.3f)
+                                    {
+                                        size = 0.3f;
+                                    }
+                                    if (speed < 0.2f)
+                                    {
+                                        speed = 0.2f;
+                                    }
+                                    listVfxSand[i].SetSize(size);
+                                    listVfxSand[i].SetSpeed(speed);
+                                }
+                            }
                         }, minMaxHeight.y, minMaxHeight.x, (minMaxHeight.y - minMaxHeight.x) * DataSystem.Instance.gameplaySO.delayFactor).SetEase(Ease.Linear).OnComplete(() =>
                         {
                             gameObject.SetActive(false);
-                            if (isDynamic)
+                            for (int i = 0; i < listVfxSand.Count; i++)
                             {
-                                LevelControl.Instance.scaleTime = 1;
+                                listVfxSand[i].Stop();
                             }
+                            Fix.DelayedCall(1.4f, () =>
+                            {
+                                for (int i = 0; i < listVfxSand.Count; i++)
+                                {
+                                    PoolingSystem.Despawn(listVfxSand[i]);
+                                }
+                                listVfxSand.Clear();
+                                if (isDynamic)
+                                {
+                                    LevelControl.Instance.scaleTime = 1;
+                                }
+                            });
                         });
                 });
                 SoundManager.Instance.PlaySound(DataSystem.Instance.gameplaySO.sfxBling);
                 SandVFX sandFX = PoolingSystem.Spawn(DataSystem.Instance.prefabSO.dicObjPooling[EPooling.SandFX]) as SandVFX;
-                sandFX.SetUp(Mat.GetColor("_SandColor"), GetSpawmCount(), meshFilter.sharedMesh, minMaxHeight.x, minMaxHeight.y, TF, LevelControl.Instance.TranDestination);
+                sandFX.SetUp(Mat.GetColor("_SandColor"), 200, meshFilter.sharedMesh, minMaxHeight.x, minMaxHeight.y, TF, LevelControl.Instance.TranDestination);
                 Debug.Log("Dissolve");
             });
         }
@@ -57,7 +112,8 @@ namespace TrungKien
             Bounds b = meshFilter.sharedMesh.bounds;
             Vector3 size = Vector3.Scale(b.size, TF.lossyScale);
             int spawmCount = (int)(size.x * size.y * size.z * DataSystem.Instance.gameplaySO.spawmFactor);
-            if (spawmCount < 1000) spawmCount = 1000;
+            if (spawmCount < 200) spawmCount = 200;
+            Debug.Log($"Spawm count: {spawmCount}");
             return spawmCount;
         }
         public void Warning()

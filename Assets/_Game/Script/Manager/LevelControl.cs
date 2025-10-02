@@ -24,6 +24,9 @@ namespace TrungKien
         public float scaleTime = 1;
         public float DetlaTime => Time.deltaTime * scaleTime;
         public float FixDeltaTime => Time.fixedDeltaTime * scaleTime;
+        public Transform tranPlane;
+        public ParticleElement vfxSand;
+        public FXFlyOut vfxSandGround;
         BaseDissolveItem GetItem(Collider col)
         {
             return Extension.GetItemCanInteract(dicDissolveItem, col);

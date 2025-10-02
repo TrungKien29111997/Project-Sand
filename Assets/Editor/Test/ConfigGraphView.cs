@@ -41,36 +41,13 @@ public class ConfigGraphView : GraphView
     public void CreateNode()
     {
         var node = new ConfigNode();
-        node.graphSO = graphSO;
-        node.title = GenerateUniqueTitle();
         node.capabilities |= Capabilities.Movable | Capabilities.Deletable;
-        node.SetPosition(new Rect(Vector2.zero, new Vector2(200, 150)));
-
         var model = new ConfigGraphSO.ConfigModel();
         model.id = 0;
         model.title = node.title;
         node.userData = model;
 
-        // Input & Output
-        var inputPort = node.InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(int));
-        inputPort.portName = "In";
-        node.inputContainer.Add(inputPort);
-
-        var outputPort = node.InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi, typeof(int));
-        outputPort.portName = "Out";
-        node.outputContainer.Add(outputPort);
-
-        // ID Field
-        var intField = new IntegerField("ID") { value = model.id };
-        intField.RegisterValueChangedCallback(evt =>
-        {
-            model.id = evt.newValue;
-            node.nodeId = evt.newValue;
-        });
-        node.extensionContainer.Add(intField);
-
-        node.RefreshExpandedState();
-        node.RefreshPorts();
+        SubCreateNode(node, model, GenerateUniqueTitle(), Vector2.zero);
 
         AddElement(node);
     }
@@ -157,31 +134,9 @@ public class ConfigGraphView : GraphView
                 title = m.title,
                 userData = m
             };
-            node.graphSO = graphSO;
+
             node.nodeId = m.id;
-            node.SetPosition(new Rect(m.position, new Vector2(200, 150)));
-
-            // Input port
-            var inputPort = node.InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(int));
-            inputPort.portName = "In";
-            node.inputContainer.Add(inputPort);
-
-            // Output port
-            var outputPort = node.InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi, typeof(int));
-            outputPort.portName = "Out";
-            node.outputContainer.Add(outputPort);
-
-            // ID field
-            var intField = new IntegerField("ID") { value = m.id };
-            intField.RegisterValueChangedCallback(evt =>
-            {
-                m.id = evt.newValue;
-                node.nodeId = evt.newValue;
-            });
-            node.extensionContainer.Add(intField);
-
-            node.RefreshExpandedState();
-            node.RefreshPorts();
+            SubCreateNode(node, m, m.title, m.position);
 
             AddElement(node);
             nodeLookup[m.id] = node;
@@ -218,6 +173,34 @@ public class ConfigGraphView : GraphView
         }
     }
 
+    void SubCreateNode(ConfigNode node, ConfigGraphSO.ConfigModel model, string title, Vector2 position)
+    {
+        node.graphSO = graphSO;
+        node.title = title;
+        node.SetPosition(new Rect(position, new Vector2(200, 150)));
+
+        // Input & Output
+        var inputPort = node.InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(int));
+        inputPort.portName = "In";
+        node.inputContainer.Add(inputPort);
+
+        var outputPort = node.InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi, typeof(int));
+        outputPort.portName = "Out";
+        node.outputContainer.Add(outputPort);
+
+        // ID Field
+        var intField = new IntegerField("ID") { value = model.id };
+        intField.RegisterValueChangedCallback(evt =>
+        {
+            model.id = evt.newValue;
+            node.nodeId = evt.newValue;
+        });
+        node.extensionContainer.Add(intField);
+
+        node.RefreshExpandedState();
+        node.RefreshPorts();
+    }
+
 
     // ✅ Search node theo Title hoặc ID
     public void HighlightSearch(string query)
@@ -250,7 +233,7 @@ public class ConfigNode : Node
     {
         base.OnSelected();
         // ✅ Bắn event cho đúng ScriptableObject
-        graphSO?.OnNodeSelected?.Invoke(nodeId);
+        graphSO?.InvokeNodeSelectedAction(nodeId);
         //Debug.Log($"📌 Node {title} được chọn, ID = {nodeId}");
     }
 }

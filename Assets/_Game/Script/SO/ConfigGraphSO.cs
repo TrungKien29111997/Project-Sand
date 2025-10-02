@@ -8,13 +8,18 @@ using UnityEngine.UIElements;
 [CreateAssetMenu(menuName = "Config/GraphSO")]
 public class ConfigGraphSO : ScriptableObject
 {
+    public List<ConfigModel> nodes = new List<ConfigModel>();
+    [Sirenix.OdinInspector.ReadOnly] public List<EdgeData> edges = new List<EdgeData>();
+    public event Action<int> OnNodeSelected;
+    public void InvokeNodeSelectedAction(int nodeId) => OnNodeSelected?.Invoke(nodeId);
+
     [System.Serializable]
     public class ConfigModel
     {
         public int id;
         public List<int> listChildrenId = new List<int>();
-        public Vector2 position;
-        public string title;
+        [Sirenix.OdinInspector.ReadOnly] public Vector2 position;
+        [Sirenix.OdinInspector.ReadOnly] public string title;
     }
 
     [System.Serializable]
@@ -23,12 +28,6 @@ public class ConfigGraphSO : ScriptableObject
         public int parentId;
         public int childId;
     }
-
-    public List<ConfigModel> nodes = new List<ConfigModel>();
-    public List<EdgeData> edges = new List<EdgeData>();
-
-    // ✅ Mỗi ScriptableObject tự có Action riêng
-    public Action<int> OnNodeSelected;
 
 #if UNITY_EDITOR
 

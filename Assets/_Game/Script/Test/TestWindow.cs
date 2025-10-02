@@ -5,7 +5,8 @@ using UnityEngine;
 public class TestWindow : MonoBehaviour
 {
     [SerializeField] ConfigGraphSO configSO;
-    // Start is called before the first frame update
+    [Sirenix.OdinInspector.ReadOnly] 
+
     void Start()
     {
         configSO.OnNodeSelected += DebugTest;

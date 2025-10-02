@@ -24,6 +24,7 @@ namespace TrungKien
         }
         public void SetUp(Color sandColor, int spawnFator, Mesh mesh, float minHeight, float maxHeight, Transform objectTransform, Transform target)
         {
+            DOTween.To(x => vfx.SetFloat("Alpha", x), 0, 1, 1).SetEase(Ease.Linear);
             vfx.SetVector4("StartColor", (Vector4)sandColor.linear);
             vfx.SetInt("SpawnCount", spawnFator);
             vfx.SetMesh(Constant.pMesh, mesh);
@@ -37,7 +38,6 @@ namespace TrungKien
             dicTransformBinder[Constant.pTranTargetVFXSand].Target = target;
             BuildTriangleBuffer(mesh);
             vfx.Play();
-            DOTween.To(x => vfx.SetFloat("Alpha", x), 0, 1, 1).SetEase(Ease.Linear);
             StartCoroutine(IEDestroy());
         }
         IEnumerator IEDestroy()
@@ -46,6 +46,7 @@ namespace TrungKien
             ++LevelControl.Instance.ItemCounter;
             EventManager.EmitEvent(Constant.EVENT_UPDATE_UI_GAMEPLAY_DISSOLVE_ITEM_COUNTER);
             PoolingSystem.Despawn(this);
+            vfx.SetFloat("Alpha", 0);
             vfx.Stop();
         }
         void BuildTriangleBuffer(Mesh mesh)

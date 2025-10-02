@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1390246943021243422}
   - component: {fileID: 8536300439466656096}
   m_Layer: 0
-  m_Name: VisualFan
+  m_Name: 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7f26fb35e4068184fa6b00ebeb7aa826, type: 2}
+  - {fileID: 2100000, guid: 68a7b6f959a3760489732ef05290ec42, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 6553476686585559958}
   - component: {fileID: 8733448906189712476}
   m_Layer: 0
-  m_Name: pCylinder3
+  m_Name: 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,7 +186,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7f26fb35e4068184fa6b00ebeb7aa826, type: 2}
+  - {fileID: 2100000, guid: b8e1be628b638b64286c279dab5fb759, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 3133553036604383381}
   - component: {fileID: 4874849141641320474}
   m_Layer: 0
-  m_Name: group2_pCylinder2
+  m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -379,6 +379,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2750556959880540069}
   - component: {fileID: 4211245516637118660}
+  - component: {fileID: 1435511156905323147}
   m_Layer: 0
   m_Name: WindMill
   m_TagString: Untagged
@@ -417,6 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555ab3c91d93880448cf88c609f1d4ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <LocalScale>k__BackingField: 1
   arrItemDissolve:
   - id: 0
     itemDissolve: {fileID: 4397897566898354308}
@@ -442,6 +444,19 @@ MonoBehaviour:
   - id: 7
     itemDissolve: {fileID: 5416049473167412994}
     childrenIDs: 
+--- !u!114 &1435511156905323147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2164139487392280822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08972f923c8d29d49b5aa54b5494eac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  configSO: {fileID: 11400000, guid: f5d496fb4b8321441bc48b0820fe10c7, type: 2}
 --- !u!1 &4632272401785104863
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,7 +471,7 @@ GameObject:
   - component: {fileID: 2427823925275956152}
   - component: {fileID: 4397897566898354308}
   m_Layer: 0
-  m_Name: group2_pCylinder1
+  m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -505,7 +520,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7f26fb35e4068184fa6b00ebeb7aa826, type: 2}
+  - {fileID: 2100000, guid: 68a7b6f959a3760489732ef05290ec42, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -579,7 +594,7 @@ GameObject:
   - component: {fileID: 4041656584806210367}
   - component: {fileID: 6723410450645345014}
   m_Layer: 0
-  m_Name: VisualFan
+  m_Name: 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -628,7 +643,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7f26fb35e4068184fa6b00ebeb7aa826, type: 2}
+  - {fileID: 2100000, guid: 68a7b6f959a3760489732ef05290ec42, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -702,7 +717,7 @@ GameObject:
   - component: {fileID: 605644298565920014}
   - component: {fileID: 5416049473167412994}
   m_Layer: 0
-  m_Name: VisualFan
+  m_Name: 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -751,7 +766,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7f26fb35e4068184fa6b00ebeb7aa826, type: 2}
+  - {fileID: 2100000, guid: 1dc7b4d225517b3458f6e6b6c3215c00, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -825,7 +840,7 @@ GameObject:
   - component: {fileID: 8820567170982872312}
   - component: {fileID: 8175412273186617906}
   m_Layer: 0
-  m_Name: FabHub
+  m_Name: 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1002,7 +1017,7 @@ GameObject:
   - component: {fileID: 3385987418784385370}
   - component: {fileID: 5529075109492603413}
   m_Layer: 0
-  m_Name: VisualFan
+  m_Name: 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1051,7 +1066,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7f26fb35e4068184fa6b00ebeb7aa826, type: 2}
+  - {fileID: 2100000, guid: 1dc7b4d225517b3458f6e6b6c3215c00, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
