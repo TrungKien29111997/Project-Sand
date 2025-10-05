@@ -10,7 +10,7 @@ namespace TrungKien
     {
         [field: SerializeField] public float LocalScale { get; private set; } = 1;
         public ItemDissolveData[] arrItemDissolve;
-        void Start()
+        void Awake()
         {
             arrItemDissolve.ForEach(x =>
             {

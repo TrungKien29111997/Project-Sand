@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WindMill
-  m_Shader: {fileID: -6465566751694194690, guid: bb1e6537768224b40906e2d35142ac4f, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 3ff2f03f60dcabc409ff1fe03fb11157, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -63,7 +63,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTexture:
-        m_Texture: {fileID: 2800000, guid: 9052c7bec7484654ba79d1d6d685e937, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -136,6 +136,7 @@ Material:
     - _Noise: 3000
     - _NoiseScale: 150
     - _NoiseStrength: 0.3
+    - _NormalStrength: 1
     - _OcclusionStrength: 1
     - _OutLineFade: 0.1
     - _OutLineWidth: 2
@@ -164,7 +165,7 @@ Material:
     - _EmissiveColor: {r: 1, g: 0.79135954, b: 0, a: 1}
     - _OutLineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SandColor: {r: 0.83137256, g: 0.69803923, b: 0.5176471, a: 1}
-    - _SandTilling: {r: 5, g: 5, b: 0, a: 0}
+    - _SandTilling: {r: 2, g: 2, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &5603299574769189151

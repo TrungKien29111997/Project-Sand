@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TrungKien.Core.VFX;
 using UnityEngine;
 namespace TrungKien
 {
@@ -8,5 +9,7 @@ namespace TrungKien
         public PrefabConfigsSO prefabSO;
         public GameplaySO gameplaySO;
         public UISO uiSO;
+        public MaterialSO materialSO;
+        public VFXSO vfxSO;
     }
 }

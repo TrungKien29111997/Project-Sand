@@ -648,5 +648,14 @@ namespace TrungKien
                 }
             }
         }
+        public static void Fade(this CanvasGroup canvasGroup, float alpha, float duration, Action onComplete = null)
+        {
+            canvasGroup.DOFade(alpha, duration).OnComplete(() => onComplete?.Invoke());
+        }
+        public static void Fade(this CanvasGroup canvasGroup, float beginAlpha, float endAlpha, float duration, Action onComplete = null)
+        {
+            canvasGroup.alpha = beginAlpha;
+            canvasGroup.Fade(endAlpha, duration, onComplete);
+        }
     }
 }

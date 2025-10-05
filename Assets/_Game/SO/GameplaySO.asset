@@ -24,5 +24,9 @@ MonoBehaviour:
   sandEmissiveColor: {r: 1, g: 0.79215693, b: 0, a: 1}
   sfxClick: {fileID: 8300000, guid: 827effde95a8fb54aa6af95ff0ab7d4c, type: 3}
   sfxBling: {fileID: 8300000, guid: 83806d4e5529c3745ab71b6d189819b0, type: 3}
-  delayFactor: 2.5
+  delayFactor: 1.6
   spawmFactor: 150
+  gravity: {x: -5, y: -4}
+  arrObject:
+  - {fileID: 4211245516637118660, guid: 70504615415c698439ebbe63f2166371, type: 3}
+  - {fileID: 30253768370225060, guid: ffbc48e9b1a731840bfa078f0ecb1891, type: 3}

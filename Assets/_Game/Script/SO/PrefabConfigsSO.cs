@@ -11,5 +11,6 @@ namespace TrungKien
     {
         [FoldoutGroup("Dictionary")]
         public Dictionary<EPooling, PoolingElement> dicObjPooling;
+        public Dictionary<EUIGameplayPool, PoolingElement> dicUIGameplay;
     }
 }

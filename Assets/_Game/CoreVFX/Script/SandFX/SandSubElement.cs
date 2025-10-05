@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace TrungKien
+namespace TrungKien.Core.VFX.Sand
 {
-    public class ParticleElement : PoolingElement
+    public class SandSubElement : PoolingElement
     {
         [SerializeField] ParticleSystem ps, subsp;
         [SerializeField] AudioSource auSource;
@@ -31,7 +31,7 @@ namespace TrungKien
             var main = ps.main;
             main.startSize = size;
         }
-        public  void SetSpeed(float speed)
+        public void SetSpeed(float speed)
         {
             var main = ps.main;
             main.startSpeed = speed;

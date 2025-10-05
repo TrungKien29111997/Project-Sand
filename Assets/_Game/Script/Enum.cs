@@ -14,6 +14,12 @@ namespace TrungKien
     {
         AudioObject = 0,
         SandFX = 1,
+        GizmoObj = 2
+    }
+    public enum EUIGameplayPool
+    {
+        UISandBowl = 0,
+        UICacheSandBowl = 1
     }
     public enum EStep
     {

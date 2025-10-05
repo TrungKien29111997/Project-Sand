@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.VFX;
 using UnityEngine.VFX.Utility;
 
-namespace TrungKien
+namespace TrungKien.Core.VFX.Sand
 {
     public class SandVFX : PoolingElement
     {
@@ -22,31 +22,35 @@ namespace TrungKien
                 dicTransformBinder.Add(arrTransformBinder[i].Property, arrTransformBinder[i]);
             }
         }
-        public void SetUp(Color sandColor, int spawnFator, Mesh mesh, float minHeight, float maxHeight, Transform objectTransform, Transform target)
+        public void SetUp(Color sandColor, int spawnFator, Mesh mesh, float minHeight, float maxHeight, Transform objectTransform, Transform target, System.Action callBack = null)
         {
-            DOTween.To(x => vfx.SetFloat("Alpha", x), 0, 1, 1).SetEase(Ease.Linear);
-            vfx.SetVector4("StartColor", (Vector4)sandColor.linear);
-            vfx.SetInt("SpawnCount", spawnFator);
-            vfx.SetMesh(Constant.pMesh, mesh);
-            vfx.SetFloat("MaxHeight", maxHeight);
-            vfx.SetFloat(Constant.pVFXSandDelayEachLayer, DataSystem.Instance.gameplaySO.delayFactor * 0.5f);
-            vfx.SetFloat("Delay", 1);
-            float delay = minHeight / 3 + (maxHeight - minHeight) * DataSystem.Instance.gameplaySO.delayFactor + 1 + 1;
-            vfx.SetFloat("DelayTime", delay);
-            vfx.SetVector2("LifeTime", new Vector2(delay + 1.5f, delay + 3f));
-            dicTransformBinder[Constant.pTranActiveVFXSand].Target = objectTransform;
-            dicTransformBinder[Constant.pTranTargetVFXSand].Target = target;
+            float dissolveFactor = (maxHeight - minHeight) / 1;
+            DOTween.To(x => vfx.SetFloat(Constants.pAlpha, x), 0, 1, 1).SetEase(Ease.Linear);
+            vfx.SetVector4(Constants.pStartColor, (Vector4)sandColor.linear);
+            vfx.SetInt(Constants.pSpawnCount, spawnFator);
+            vfx.SetMesh(Constants.pMesh, mesh);
+            vfx.SetFloat(Constants.pMaxHeight, maxHeight);
+            vfx.SetFloat(Constants.pVFXSandDelayEachLayer, DataSystem.Instance.gameplaySO.delayFactor * dissolveFactor);
+            vfx.SetFloat(Constants.pDelay, 1);
+            Vector2 randomGravitySpeed = DataSystem.Instance.gameplaySO.gravity;
+            vfx.SetVector2(Constants.pRandomGravitySpeed, randomGravitySpeed);
+            float delay = minHeight / Mathf.Abs(Random.Range(randomGravitySpeed.x, randomGravitySpeed.y)) + (maxHeight - minHeight) * (DataSystem.Instance.gameplaySO.delayFactor / dissolveFactor) + 1;
+            vfx.SetFloat(Constants.pDelayTime, delay);
+            vfx.SetVector2(Constants.pLifeTime, new Vector2(delay + 1.5f, delay + 2f));
+            dicTransformBinder[Constants.pTranActiveVFXSand].Target = objectTransform;
+            dicTransformBinder[Constants.pTranTargetVFXSand].Target = target;
             BuildTriangleBuffer(mesh);
             vfx.Play();
-            StartCoroutine(IEDestroy());
+            StartCoroutine(IEDestroy(callBack));
         }
-        IEnumerator IEDestroy()
+        IEnumerator IEDestroy(System.Action callBack)
         {
             yield return new WaitUntil(() => vfx.aliveParticleCount == 0);
+            callBack?.Invoke();
             ++LevelControl.Instance.ItemCounter;
-            EventManager.EmitEvent(Constant.EVENT_UPDATE_UI_GAMEPLAY_DISSOLVE_ITEM_COUNTER);
+            //EventManager.EmitEvent(Constants.EVENT_UPDATE_UI_GAMEPLAY_DISSOLVE_ITEM_COUNTER);
             PoolingSystem.Despawn(this);
-            vfx.SetFloat("Alpha", 0);
+            vfx.SetFloat(Constants.pAlpha, 0);
             vfx.Stop();
         }
         void BuildTriangleBuffer(Mesh mesh)

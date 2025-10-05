@@ -17,7 +17,9 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 1222717519929919392, guid: 1e40edbe0707ea44dab070c5ed54429e, type: 3}
-    - {fileID: 8203353783051552706, guid: 49c847d3e84eb194280de1d4b27570b8, type: 3}
+    - {fileID: 6386969438296592422, guid: ac8f061992da7464a9521bb32135af70, type: 3}
+    - {fileID: 1586619901195586262, guid: f0f927a7e5193854fb94d2660ab4c133, type: 3}
+    - {fileID: 2789948712073703162, guid: dbfbb2df37511704ea2bad421659ef90, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -60,10 +62,60 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: $v
       Entry: 10
       Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: dicUIGameplay
+      Entry: 7
+      Data: 2|System.Collections.Generic.Dictionary`2[[TrungKien.EUIGameplayPool,
+        Assembly-CSharp],[TrungKien.PoolingElement, Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 3|System.Collections.Generic.EnumEqualityComparer`1[[TrungKien.EUIGameplayPool,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 10
+      Data: 3
     - Name: 
       Entry: 8
       Data: 

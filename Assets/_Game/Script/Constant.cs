@@ -1,18 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Localization.SmartFormat.GlobalVariables;
-namespace TrungKien
+
+public static class Constant
 {
-    public static class Constant
-    {
-        public const string pTranActiveVFXSand = "ObjectTranform";
-        public const string pTranTargetVFXSand = "Destination";
-        public const string pMesh = "Mesh";
-        public const string pMainShaderEmissiveStrength = "_EmissiveStrength";
-        public const string pMainShaderEmissiveColor = "_EmissiveColor";
-        public const string pMainShaderCutOffHeight = "_CutOffHeight";
-        public const string EVENT_UPDATE_UI_GAMEPLAY_DISSOLVE_ITEM_COUNTER = "EVENT_UPDATE_UI_GAMEPLAY_DISSOLVE_ITEM_COUNTER";
-        public const string pVFXSandDelayEachLayer = "DelayEachLayer";
-    }
+    public static string EVENT_GAMEPLAY_UPDATE_SCORE = "EVENT_GAMEPLAY_UPDATE_SCORE";
+    public static string EVENT_GAMEPLAY_NEW_BOWL = "EVENT_GAMEPLAY_NEW_BOWL";
 }

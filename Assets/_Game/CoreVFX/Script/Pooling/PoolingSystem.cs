@@ -7,7 +7,7 @@ namespace TrungKien
     public static class PoolingSystem
     {
         static Dictionary<int, PoolCtrlObject> dicObjPool;
-        public static void Preload()
+        public static void Init()
         {
             dicObjPool = new();
         }
