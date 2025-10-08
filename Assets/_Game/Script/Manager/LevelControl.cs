@@ -51,6 +51,7 @@ namespace TrungKien
             UIManager.Instance.OpenUI<CanvasGamePlay>();
             SetObject(DataSystem.Instance.gameplaySO.arrObject[0]);
         }
+        [ShowInInspector] Dictionary<int, List<int>> dicRandomColor;
 
         void SetObject(BaseTargetObject objectTarget)
         {
@@ -82,10 +83,10 @@ namespace TrungKien
                 }
                 dicColor[indexMat].listPart.Add(x.id);
             });
-            int maxLayerPerColor = maxColor * layerFactor;
+            int maxLayerPerColor = maxColor * layerFactor * objectTarget.arrItemDissolve.Length;
 
             // gen color
-            Dictionary<int, List<int>> dicRandomColor = new();
+            dicRandomColor = new();
             foreach (var item in dicColor)
             {
                 item.Value.colorCounter = maxLayerPerColor - item.Value.listPart.Count;
@@ -120,7 +121,7 @@ namespace TrungKien
                     listIdColor.RemoveAt(index);
                 }
             }
-            dicRandomColor.Clear();
+            //dicRandomColor.Clear();
 
             currentBowl = 2;
             isEndGame = false;

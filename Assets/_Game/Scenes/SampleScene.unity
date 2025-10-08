@@ -1220,8 +1220,9 @@ MonoBehaviour:
   scaleTime: 1
   maxColor: 3
   currentBowl: 0
+  listBowl: []
   listCacheBowl: []
-  layerFactor: 5
+  layerFactor: 2
   amountCacheBowl: 5
 --- !u!114 &1844499993
 MonoBehaviour:

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WindMill
+  m_Name: DeYellow
   m_Shader: {fileID: -6465566751694194690, guid: 3ff2f03f60dcabc409ff1fe03fb11157, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -79,7 +79,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_e03d643891184de6ac1442b95fafe103_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 9052c7bec7484654ba79d1d6d685e937, type: 3}
+        m_Texture: {fileID: 2800000, guid: 513ea4f8e0d590840a0dab74c63bddd9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_fe3c28980e8a46eea6c59a67609e3ce2_Texture_1_Texture2D:
@@ -110,6 +110,7 @@ Material:
     m_Floats:
     - _AlphaClip: 1
     - _AlphaToMask: 1
+    - _Ambient: 0.5
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -136,7 +137,7 @@ Material:
     - _Noise: 3000
     - _NoiseScale: 150
     - _NoiseStrength: 0.3
-    - _NormalStrength: 1
+    - _NormalStrength: 5
     - _OcclusionStrength: 1
     - _OutLineFade: 0.1
     - _OutLineWidth: 2
@@ -144,7 +145,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Roughness: 0.5
+    - _Roughness: 0.2
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -164,8 +165,8 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColor: {r: 1, g: 0.79135954, b: 0, a: 1}
     - _OutLineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SandColor: {r: 0.83137256, g: 0.69803923, b: 0.5176471, a: 1}
-    - _SandTilling: {r: 2, g: 2, b: 0, a: 0}
+    - _SandColor: {r: 0.93207544, g: 0.9230092, b: 0.20224266, a: 1}
+    - _SandTilling: {r: 3, g: 3, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &5603299574769189151

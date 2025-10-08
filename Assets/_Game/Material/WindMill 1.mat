@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SandDissolveMat
-  m_Shader: {fileID: -6465566751694194690, guid: bb1e6537768224b40906e2d35142ac4f, type: 3}
+  m_Name: WindMill 1
+  m_Shader: {fileID: -6465566751694194690, guid: 3ff2f03f60dcabc409ff1fe03fb11157, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -87,7 +87,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SecondTexture:
-        m_Texture: {fileID: 2800000, guid: 3d0f13d51db50604d915e69ad68b9455, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3ec94f33ef1ee8143a0f047a6a94fad8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -118,33 +118,34 @@ Material:
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 0
-    - _CutOffHeight: 3.16
+    - _CutOffHeight: 5
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EdgeEmissive: 2
-    - _EdgeWidth: 0.02
+    - _EdgeEmissive: 4
+    - _EdgeWidth: 0
     - _EmissiveStrength: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Lerp: 0
+    - _LerpColor: 0
     - _Metallic: 0
-    - _Noise: 500
-    - _NoiseScale: 200
-    - _NoiseStrength: 0.1
+    - _Noise: 3000
+    - _NoiseScale: 150
+    - _NoiseStrength: 0.3
     - _NormalStrength: 5
     - _OcclusionStrength: 1
     - _OutLineFade: 0.1
-    - _OutLineWidth: 1
+    - _OutLineWidth: 2
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Roughness: 0.5
+    - _Roughness: 0.2
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -157,17 +158,18 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BlendColor: {r: 1, g: 0.93638813, b: 0.8886792, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorBlend: {r: 1, g: 1, b: 1, a: 1}
-    - _EdgeColor: {r: 1, g: 0.8703648, b: 0, a: 1}
+    - _EdgeColor: {r: 0.99728537, g: 1, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissiveColor: {r: 0.9630092, g: 1, b: 0, a: 1}
+    - _EmissiveColor: {r: 1, g: 0.79135954, b: 0, a: 1}
     - _OutLineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SandColor: {r: 0.9547169, g: 0.93198943, b: 0.42331788, a: 1}
+    - _SandColor: {r: 0.31372374, g: 0.8867924, b: 0.7059698, a: 1}
     - _SandTilling: {r: 3, g: 3, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &6490283542736749550
+--- !u!114 &5603299574769189151
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

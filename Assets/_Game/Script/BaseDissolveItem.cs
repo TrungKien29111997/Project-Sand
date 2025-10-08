@@ -33,7 +33,7 @@ namespace TrungKien
                 CopyInfo(effectObj);
                 meshRen.sharedMaterial = newMaterial;
                 Vector3 cacheScale = TF.localScale;
-                TF.localScale = new Vector3(cacheScale.x * 0.8f, cacheScale.y * 0.8f, cacheScale.z * 0.8f);
+                TF.localScale = new Vector3(cacheScale.x * 0.9f, cacheScale.y * 0.9f, cacheScale.z * 0.9f);
                 VFXSystem.SpawnVFX(ETypeVFX.Sand, TF, LevelControl.Instance.GetGizmoPos(id), effectObj.meshFilter, effectObj.meshRen, () =>
                 {
                     PoolingSystem.Despawn(effectObj);
