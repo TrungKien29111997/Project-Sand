@@ -7,6 +7,7 @@ using UnityEngine;
 using TrungKien.UI;
 using TrungKien.Core.VFX;
 using Sirenix.Utilities;
+using UnityEngine.Rendering;
 namespace TrungKien
 {
     public class LevelControl : Singleton<LevelControl>
@@ -46,6 +47,7 @@ namespace TrungKien
         }
         void Start()
         {
+            Debug.Log(GraphicsSettings.useScriptableRenderPipelineBatching);
             indexObject = 0;
             UIManager.Instance.OnInit();
             UIManager.Instance.OpenUI<CanvasGamePlay>();
