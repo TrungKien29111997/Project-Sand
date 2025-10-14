@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
-using UnityEditor;
 using UnityEngine;
+
 namespace TrungKien
 {
     public abstract class BaseTargetObject : PoolingElement
@@ -40,7 +40,7 @@ namespace TrungKien
         {
             arrItemDissolve.ForEach(x => x.itemDissolve.Editor());
         }
-#endif
+
         void OnDrawGizmos()
         {
             if (arrItemDissolve == null) return;
@@ -52,9 +52,10 @@ namespace TrungKien
                 GUIStyle style = new GUIStyle();
                 style.normal.textColor = Color.green;
                 style.fontSize = 30;
-                Handles.Label(arrItemDissolve[i].itemDissolve.transform.position + Vector3.up * 0.2f, arrItemDissolve[i].id.ToString(), style);
+                UnityEditor.Handles.Label(arrItemDissolve[i].itemDissolve.transform.position + Vector3.up * 0.2f, arrItemDissolve[i].id.ToString(), style);
             }
         }
+#endif
     }
     [System.Serializable]
     public class ItemDissolveData

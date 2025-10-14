@@ -133,7 +133,14 @@ namespace TrungKien.Core.VFX
             Bounds b = meshFilter.sharedMesh.bounds;
             Vector3 size = Vector3.Scale(b.size, TF.lossyScale);
             int spawmCount = (int)(size.x * size.y * size.z * DataSystem.Instance.gameplaySO.spawmFactor);
-            if (spawmCount < Constants.minSandSpawnCount) spawmCount = Constants.minSandSpawnCount;
+            if (spawmCount < Constants.minSandSpawnCount)
+            {
+                spawmCount = Constants.minSandSpawnCount;
+            } 
+            if (spawmCount > Constants.maxScandSpawnCount)
+            {
+                spawmCount = Constants.maxScandSpawnCount;
+            }
             DebugCustom.Log($"Spawm count: {spawmCount}");
             return spawmCount;
         }

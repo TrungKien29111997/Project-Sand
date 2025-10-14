@@ -44,6 +44,8 @@ namespace TrungKien
             PoolingSystem.Init();
             VFXSystem.Init();
             dicDissolveItem = new();
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = 120;
         }
         void Start()
         {

@@ -1,14 +1,14 @@
 using UnityEngine;
-using UnityEditor;
 using System.Collections.Generic;
 namespace TrungKien
 {
+#if  UNITY_EDITOR
     public class MaterialColorAtlasBaker : MonoBehaviour
     {
-        [MenuItem("Tools/Bake BaseColor Atlas")]
+        [UnityEditor.MenuItem("Tools/Bake BaseColor Atlas")]
         static void Bake()
         {
-            var go = Selection.activeGameObject;
+            var go = UnityEditor.Selection.activeGameObject;
             if (go == null) return;
 
             var mf = go.GetComponent<MeshFilter>();
@@ -85,12 +85,13 @@ namespace TrungKien
             mr.sharedMaterial = mat;
 
             // lưu asset
-            AssetDatabase.CreateAsset(mesh, "Assets/BakedMesh.asset");
-            AssetDatabase.CreateAsset(finalTex, "Assets/BakedAtlas.asset");
-            AssetDatabase.CreateAsset(mat, "Assets/BakedMat.mat");
-            AssetDatabase.SaveAssets();
+            UnityEditor.AssetDatabase.CreateAsset(mesh, "Assets/BakedMesh.asset");
+            UnityEditor.AssetDatabase.CreateAsset(finalTex, "Assets/BakedAtlas.asset");
+            UnityEditor.AssetDatabase.CreateAsset(mat, "Assets/BakedMat.mat");
+            UnityEditor.AssetDatabase.SaveAssets();
 
             Debug.Log("Bake done!");
         }
     }
+    #endif
 }

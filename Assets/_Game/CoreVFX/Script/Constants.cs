@@ -14,7 +14,8 @@ namespace TrungKien.Core.VFX
         public const string pShaderSandLerp = "_Lerp";
         //public const string EVENT_UPDATE_UI_GAMEPLAY_DISSOLVE_ITEM_COUNTER = "EVENT_UPDATE_UI_GAMEPLAY_DISSOLVE_ITEM_COUNTER";
         public const string pVFXSandDelayEachLayer = "DelayEachLayer";
-        public const int minSandSpawnCount = 80;
+        public const int minSandSpawnCount = 40;
+        public const int maxScandSpawnCount = 150;
         public const int spawnSandDrop = 4;
         public const string pShaderSandColor = "_SandColor";
         public const string pAlpha = "Alpha";

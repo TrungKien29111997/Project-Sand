@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Unity.VisualScripting.FullSerializer;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 namespace TrungKien.UI
 {

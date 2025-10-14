@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using DG.Tweening;
 using UnityEditor;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
 namespace TrungKien

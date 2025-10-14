@@ -27,6 +27,17 @@ namespace TrungKien.UI
             scrollbar.onValueChanged.AddListener(CamZoom);
         }
 
+        public TextMeshProUGUI fpsText;
+        private float deltaTime = 0.0f;
+        float maxFPS = 0;
+        void Update()
+        {
+            deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+            float fps = 1.0f / deltaTime;
+            if (fps > maxFPS) maxFPS = fps;
+            fpsText.text = $"{fps:0.} FPS \nMax:<color=green> {maxFPS:0.} </color>";
+        }
+
         public void SetSandBow(List<BowlClass> listBowlClass)
         {
             listUISandBowl = new List<UISandBowl>();

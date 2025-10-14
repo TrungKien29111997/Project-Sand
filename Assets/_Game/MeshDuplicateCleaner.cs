@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
-public class MeshDuplicateCleaner : EditorWindow
+#if UNITY_EDITOR
+public class MeshDuplicateCleaner : UnityEditor.EditorWindow
 {
-    [MenuItem("Tools/Clean Duplicate Meshes")]
+    [UnityEditor.MenuItem("Tools/Clean Duplicate Meshes")]
     static void ShowWindow()
     {
         GetWindow<MeshDuplicateCleaner>("Mesh Cleaner");
@@ -20,19 +20,19 @@ public class MeshDuplicateCleaner : EditorWindow
 
     static void CleanMeshes()
     {
-        string[] guids = AssetDatabase.FindAssets("t:Mesh");
+        string[] guids = UnityEditor.AssetDatabase.FindAssets("t:Mesh");
         var meshDict = new Dictionary<string, Mesh>();
 
         foreach (var guid in guids)
         {
-            string path = AssetDatabase.GUIDToAssetPath(guid);
-            Mesh mesh = AssetDatabase.LoadAssetAtPath<Mesh>(path);
+            string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guid);
+            Mesh mesh = UnityEditor.AssetDatabase.LoadAssetAtPath<Mesh>(path);
 
             string hash = GetMeshHash(mesh);
 
             if (meshDict.ContainsKey(hash))
             {
-                Debug.Log($"Duplicate found: {path} is duplicate of {AssetDatabase.GetAssetPath(meshDict[hash])}");
+                Debug.Log($"Duplicate found: {path} is duplicate of {UnityEditor.AssetDatabase.GetAssetPath(meshDict[hash])}");
                 // ❌ ở đây bạn có thể xóa mesh hoặc thay thế reference bằng meshDict[hash]
             }
             else
@@ -69,3 +69,4 @@ public class MeshDuplicateCleaner : EditorWindow
         }
     }
 }
+#endif 
