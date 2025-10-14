@@ -33,8 +33,8 @@ namespace TrungKien.Core.VFX.Sand
         }
         public void SetSpeed(float speed)
         {
-            var main = ps.main;
-            main.startSpeed = speed;
+            // var main = ps.main;
+            // main.startSpeed = speed;
         }
     }
 }
