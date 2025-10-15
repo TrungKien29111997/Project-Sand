@@ -10,7 +10,7 @@ namespace TrungKien.UI
 {
     public class CanvasGamePlay : UICanvas
     {
-        [SerializeField] TextMeshProUGUI txtAmount;
+        [SerializeField] TextMeshProUGUI txtAmount, txtDebugFPS;
         [SerializeField] Scrollbar scrollbar;
         CameraControl cameraControl;
         [SerializeField] float rangeZoom = 20f;
@@ -36,6 +36,10 @@ namespace TrungKien.UI
             float fps = 1.0f / deltaTime;
             if (fps > maxFPS) maxFPS = fps;
             fpsText.text = $"{fps:0.} FPS \nMax:<color=green> {maxFPS:0.} </color>";
+        }
+        public void DebugFPS()
+        {
+            txtDebugFPS.text = $"{1.0f / deltaTime:0.} FPS";
         }
 
         public void SetSandBow(List<BowlClass> listBowlClass)

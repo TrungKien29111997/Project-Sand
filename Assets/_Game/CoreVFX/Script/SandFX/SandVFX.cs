@@ -14,6 +14,7 @@ namespace TrungKien.Core.VFX.Sand
         [SerializeField] VisualEffect vfx;
         [SerializeField] MyVFXTransformBinder[] arrTransformBinder;
         Dictionary<string, MyVFXTransformBinder> dicTransformBinder;
+        SandLine sandLine;
         void Awake()
         {
             dicTransformBinder = new();
@@ -22,15 +23,14 @@ namespace TrungKien.Core.VFX.Sand
                 dicTransformBinder.Add(arrTransformBinder[i].Property, arrTransformBinder[i]);
             }
         }
-        public void SetUp(Color sandColor, int spawnFator, Mesh mesh, float minHeight, float maxHeight, Transform objectTransform, Transform target, System.Action callBack = null)
+        public void SetUp(Color sandColor, int spawnFator, Mesh mesh, float minHeight, float maxHeight, Transform objectTransform, MeshFilter partMeshFilter, Transform target, System.Action callBack = null)
         {
             float dissolveFactor = (maxHeight - minHeight) / 1;
-            DOTween.To(x => vfx.SetFloat(Constants.pAlpha, x), 0, 1, 1).SetEase(Ease.Linear);
             vfx.SetVector4(Constants.pStartColor, (Vector4)sandColor.linear);
             vfx.SetInt(Constants.pSpawnCount, spawnFator);
             vfx.SetMesh(Constants.pMesh, mesh);
             vfx.SetFloat(Constants.pMaxHeight, maxHeight);
-            vfx.SetFloat(Constants.pVFXSandDelayEachLayer, DataSystem.Instance.gameplaySO.delayFactor * dissolveFactor);
+            vfx.SetFloat(Constants.pVFXSandDelayEachLayer, DataSystem.Instance.gameplaySO.delayFactor / dissolveFactor);
             vfx.SetFloat(Constants.pDelay, 1);
             Vector2 randomGravitySpeed = DataSystem.Instance.gameplaySO.gravity;
             vfx.SetVector2(Constants.pRandomGravitySpeed, randomGravitySpeed);
@@ -42,6 +42,22 @@ namespace TrungKien.Core.VFX.Sand
             BuildTriangleBuffer(mesh);
             vfx.Play();
             StartCoroutine(IEDestroy(callBack));
+            AnimationCurve curve = new AnimationCurve(
+                new Keyframe(0, 1),
+                new Keyframe(delay / (delay + 1.75f), 1),
+                new Keyframe(1, 0)
+            );
+            vfx.SetAnimationCurve(Constants.pSizeOverLife, curve);
+
+            Bounds b = partMeshFilter.sharedMesh.bounds;
+            Vector3 size = Vector3.Scale(b.size, partMeshFilter.transform.lossyScale);
+            Fix.DelayedCall(delay, () =>
+            {
+                sandLine = PoolingSystem.Spawn(DataSystem.Instance.vfxSO.dicPrefabVFX[ETypeVFX.Sand][2]) as SandLine;
+                Vector3 worldCenter = partMeshFilter.transform.TransformPoint(partMeshFilter.sharedMesh.bounds.center);
+                worldCenter.y = 0;
+                sandLine.SetUp(worldCenter, target, Mathf.Sqrt(size.x * size.x + size.z * size.z), sandColor);
+            });
         }
         IEnumerator IEDestroy(System.Action callBack)
         {
@@ -50,8 +66,9 @@ namespace TrungKien.Core.VFX.Sand
             ++LevelControl.Instance.ItemCounter;
             //EventManager.EmitEvent(Constants.EVENT_UPDATE_UI_GAMEPLAY_DISSOLVE_ITEM_COUNTER);
             PoolingSystem.Despawn(this);
-            vfx.SetFloat(Constants.pAlpha, 0);
             vfx.Stop();
+            sandLine.Despawn();
+            PoolingSystem.Despawn(sandLine);
         }
         void BuildTriangleBuffer(Mesh mesh)
         {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameplaySO
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
+    SerializedFormat: 0
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -26,7 +26,7 @@ MonoBehaviour:
   sfxBling: {fileID: 8300000, guid: 83806d4e5529c3745ab71b6d189819b0, type: 3}
   delayFactor: 2.2
   spawmFactor: 150
-  gravity: {x: -5, y: -4}
+  gravity: {x: -7, y: -6}
   arrObject:
   - {fileID: 1167991467749871663, guid: 671545c4b84705243b00be3221230701, type: 3}
   - {fileID: 30253768370225060, guid: ffbc48e9b1a731840bfa078f0ecb1891, type: 3}

@@ -20,11 +20,13 @@ namespace TrungKien.Core.VFX
         public const string pShaderSandColor = "_SandColor";
         public const string pAlpha = "Alpha";
         public const string pStartColor = "StartColor";
+        public const string pMainColor = "_MainColor";
         public const string pSpawnCount = "SpawnCount";
         public const string pMaxHeight = "MaxHeight";
         public const string pDelay = "Delay";
         public const string pDelayTime = "DelayTime";
         public const string pLifeTime = "LifeTime";
         public const string pRandomGravitySpeed = "GravitySpeed";
+        public const string pSizeOverLife = "SizeOverLife";
     }
 }

@@ -45,7 +45,9 @@ namespace TrungKien
             VFXSystem.Init();
             dicDissolveItem = new();
             QualitySettings.vSyncCount = 0;
-            Application.targetFrameRate = 120;
+            Application.targetFrameRate = 1000;
+            bool enabled = UnityEngine.Rendering.GraphicsSettings.useScriptableRenderPipelineBatching;
+            Debug.Log("🔍 SRP Batcher: " + (enabled ? "ENABLED ✅" : "DISABLED ❌"));
         }
         void Start()
         {
