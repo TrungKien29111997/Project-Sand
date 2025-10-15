@@ -119,8 +119,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 2
-      minScalar: 1.5
+      scalar: 1.2
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -290,7 +290,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
+      scalar: 1.5
       minScalar: 0.4
       maxCurve:
         serializedVersion: 2
@@ -607,14 +607,14 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 15
+    maxNumParticles: 6
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.3
+      scalar: 0.4
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -873,7 +873,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 6
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4788,7 +4788,7 @@ ParticleSystemRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1958309444894218}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -4801,7 +4801,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d6bb99ca463b41548999aee45af81338, type: 2}
+  - {fileID: 2100000, guid: 9be029e457300bf4991279a4ccbf56c6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5063,7 +5063,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198445493431297426, guid: 984505ee1340f5344b8a220626d7fb79, type: 3}
       propertyPath: InitialModule.maxNumParticles
-      value: 15
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 198445493431297426, guid: 984505ee1340f5344b8a220626d7fb79, type: 3}
       propertyPath: InitialModule.startSize.scalar

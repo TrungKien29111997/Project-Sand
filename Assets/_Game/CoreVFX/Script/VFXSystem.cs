@@ -112,6 +112,7 @@ namespace TrungKien.Core.VFX
                     }
                 }, minMaxHeight.y, minMaxHeight.x, ((minMaxHeight.y - minMaxHeight.x) * (DataSystem.Instance.gameplaySO.delayFactor)) / dissolveFactor).SetEase(Ease.Linear).OnComplete(() =>
                 {
+                    GameObject.Destroy(plane.gameObject);
                     dissoleDoneAction?.Invoke();
                     ReturnMPB(mpb);
                     ReturnMaterial(ETypeVFX.Sand, meshRen.sharedMaterial);

@@ -215,7 +215,7 @@ VisualEffect:
       - m_Value: {fileID: 2800000, guid: aabf26b988dd44a458b484005bc74fe9, type: 3}
         m_Name: StarTexture
         m_Overridden: 1
-      - m_Value: {fileID: 2800000, guid: 424f9b61291d0154a850e66aec59eb1e, type: 3}
+      - m_Value: {fileID: 2800000, guid: 35842a6fd83c29a4eafd49785681bcdd, type: 3}
         m_Name: MainTexture
         m_Overridden: 1
     m_Bool:
