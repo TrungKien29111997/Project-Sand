@@ -8,11 +8,13 @@ using TrungKien.UI;
 using TrungKien.Core.VFX;
 using Sirenix.Utilities;
 using UnityEngine.Rendering;
+using TrungKien.Core.Gameplay;
 namespace TrungKien
 {
     public class LevelControl : Singleton<LevelControl>
     {
         public CameraControl cameraCtrl;
+        [SerializeField] Material matPlane;
         Dictionary<Collider, BaseDissolveItem> dicDissolveItem;
         Vector3 point;
         int indexObject;
@@ -41,32 +43,27 @@ namespace TrungKien
         }
         void Awake()
         {
-            PoolingSystem.Init();
-            VFXSystem.Init();
             dicDissolveItem = new();
-            QualitySettings.vSyncCount = 0;
-            Application.targetFrameRate = 1000;
-            bool enabled = UnityEngine.Rendering.GraphicsSettings.useScriptableRenderPipelineBatching;
-            Debug.Log("🔍 SRP Batcher: " + (enabled ? "ENABLED ✅" : "DISABLED ❌"));
         }
         void Start()
         {
-            Debug.Log(GraphicsSettings.useScriptableRenderPipelineBatching);
             indexObject = 0;
-            UIManager.Instance.OnInit();
             UIManager.Instance.OpenUI<CanvasGamePlay>();
-            SetObject(DataSystem.Instance.gameplaySO.arrObject[0]);
+            LevelSO.ModelConfig config = DataSystem.Instance.levelSO.levels[0];
+            cameraCtrl.camera.backgroundColor = config.modelSO.colorBG;
+            matPlane.color = config.modelSO.colorBG;
+            SetObject(config);
         }
         [ShowInInspector] Dictionary<int, List<int>> dicRandomColor;
 
-        void SetObject(BaseTargetObject objectTarget)
+        void SetObject(LevelSO.ModelConfig objectTarget)
         {
             isStartGame = false;
             dicColor = new();
             dicGenColor = new();
             listCacheBowl = new();
             List<Material> listMaterial = new();
-            objectTarget.arrItemDissolve.ForEach(x =>
+            objectTarget.modelSO.model.arrItemDissolve.ForEach(x =>
             {
                 Material mat = x.itemDissolve.GetShareMaterial();
                 if (!listMaterial.Contains(mat))
@@ -89,17 +86,17 @@ namespace TrungKien
                 }
                 dicColor[indexMat].listPart.Add(x.id);
             });
-            int maxLayerPerColor = maxColor * layerFactor * objectTarget.arrItemDissolve.Length;
+            int maxLayerPerColor = maxColor * layerFactor * objectTarget.modelSO.model.arrItemDissolve.Length;
 
             // gen color
             dicRandomColor = new();
             foreach (var item in dicColor)
             {
                 item.Value.colorCounter = maxLayerPerColor - item.Value.listPart.Count;
-                int partAmount = item.Value.colorCounter / objectTarget.arrItemDissolve.Length;
-                for (int i = 0; i < objectTarget.arrItemDissolve.Length; i++)
+                int partAmount = item.Value.colorCounter / objectTarget.modelSO.model.arrItemDissolve.Length;
+                for (int i = 0; i < objectTarget.modelSO.model.arrItemDissolve.Length; i++)
                 {
-                    int partID = objectTarget.arrItemDissolve[i].id;
+                    int partID = objectTarget.modelSO.model.arrItemDissolve[i].id;
                     for (int j = 0; j < partAmount; j++)
                     {
                         item.Value.listPart.Add(partID);
@@ -110,9 +107,9 @@ namespace TrungKien
                         dicRandomColor[partID].Add(item.Key);
                     }
                 }
-                for (int i = 0; i < item.Value.colorCounter % objectTarget.arrItemDissolve.Length; i++)
+                for (int i = 0; i < item.Value.colorCounter % objectTarget.modelSO.model.arrItemDissolve.Length; i++)
                 {
-                    int partID = objectTarget.arrItemDissolve[Random.Range(0, objectTarget.arrItemDissolve.Length)].id;
+                    int partID = objectTarget.modelSO.model.arrItemDissolve[Random.Range(0, objectTarget.modelSO.model.arrItemDissolve.Length)].id;
                     item.Value.listPart.Add(partID);
                     dicRandomColor[partID].Add(item.Key);
                 }
@@ -136,8 +133,10 @@ namespace TrungKien
             {
                 Destroy(targetObj.gameObject);
             }
+
             //dicCondition = new();
-            targetObj = PoolingSystem.Spawn(objectTarget);
+            targetObj = PoolingSystem.Spawn(objectTarget.modelSO.model);
+            targetObj.LoadColor(objectTarget.modelSO.dicColor);
             targetObj.TF.localScale = Vector3.one * targetObj.LocalScale;
             //targetObj.arrItemDissolve.ForEach(x => dicCondition.Add(x.id, x.childrenIDs.ToList()));
             MaxItem = targetObj.arrItemDissolve.Length;
@@ -273,7 +272,7 @@ namespace TrungKien
         public void NextLevel()
         {
             ++indexObject;
-            SetObject(DataSystem.Instance.gameplaySO.arrObject[indexObject]);
+            //SetObject(DataSystem.Instance.gameplaySO.arrObject[indexObject]);
         }
         public Color GetColor(int idColor)
         {

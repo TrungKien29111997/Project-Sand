@@ -12,11 +12,19 @@ namespace TrungKien
         public MeshFilter meshFilter;
         [SerializeField] protected Collider col;
         public int id { get; set; }
+        public Color cacheColor { get; private set; }
         public Material GetShareMaterial() => meshRen.sharedMaterial;
         public void CopyInfo(BaseDissolveItem item)
         {
             item.id = this.id;
             item.meshRen.sharedMaterial = this.meshRen.sharedMaterial;
+        }
+        public void SetColor(Color color)
+        {
+            MaterialPropertyBlock mpb = VFXSystem.GetMPB();
+            mpb.SetColor(Constants.pShaderSandColor, color);
+            meshRen.SetPropertyBlock(mpb);
+            cacheColor = color;
         }
 
         public void Dissolve(Material newMaterial, bool isLastLayer)
@@ -30,7 +38,7 @@ namespace TrungKien
                 meshRen.sharedMaterial = newMaterial;
                 Vector3 cacheScale = TF.localScale;
                 TF.localScale = new Vector3(cacheScale.x * 0.9f, cacheScale.y * 0.9f, cacheScale.z * 0.9f);
-                VFXSystem.SpawnVFX(ETypeVFX.Sand, TF, LevelControl.Instance.GetGizmoPos(id), effectObj.meshFilter, effectObj.meshRen, () =>
+                VFXSystem.SpawnVFX(ETypeVFX.Sand, TF, LevelControl.Instance.GetGizmoPos(id), effectObj.meshFilter, effectObj.meshRen, cacheColor, () =>
                 {
                     PoolingSystem.Despawn(effectObj);
                     TF.DOScale(cacheScale, 0.5f).OnComplete(() => col.enabled = true);
@@ -41,7 +49,7 @@ namespace TrungKien
             }
             else
             {
-                VFXSystem.SpawnVFX(ETypeVFX.Sand, TF, LevelControl.Instance.GetGizmoPos(id), meshFilter, meshRen, () =>
+                VFXSystem.SpawnVFX(ETypeVFX.Sand, TF, LevelControl.Instance.GetGizmoPos(id), meshFilter, meshRen, cacheColor, () =>
                 {
                     gameObject.SetActive(false);
                 }, () =>

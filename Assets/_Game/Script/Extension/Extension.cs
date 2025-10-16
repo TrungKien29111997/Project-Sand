@@ -656,5 +656,16 @@ namespace TrungKien
             canvasGroup.alpha = beginAlpha;
             canvasGroup.Fade(endAlpha, duration, onComplete);
         }
+#if UNITY_EDITOR
+        public static void Rename(UnityEngine.Object objectToRename, string newName)
+        {
+            string path = AssetDatabase.GetAssetPath(objectToRename);
+            if (!string.IsNullOrEmpty(path))
+            {
+                AssetDatabase.RenameAsset(path, newName);
+                AssetDatabase.SaveAssets();
+            }
+        }
+#endif
     }
 }

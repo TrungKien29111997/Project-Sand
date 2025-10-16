@@ -72,4 +72,9 @@ namespace TrungKien
         None = 0
     }
     public enum SkakeType { None, Fry, Riped, Overripe, Griller, Heavy }
+    public enum ModelType
+    {
+        None = 0,
+        Dinasour = 1
+    }
 }

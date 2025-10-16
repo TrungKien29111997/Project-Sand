@@ -52,16 +52,16 @@ namespace TrungKien.Core.VFX
         }
         #endregion
 
-        public static void SpawnVFX(ETypeVFX typeVFX, Transform TF, Transform targetFly, MeshFilter meshFilter, MeshRenderer meshRen, System.Action dissoleDoneAction = null, System.Action addScoreAction = null)
+        public static void SpawnVFX(ETypeVFX typeVFX, Transform TF, Transform targetFly, MeshFilter meshFilter, MeshRenderer meshRen, Color vfxColor, System.Action dissoleDoneAction = null, System.Action addScoreAction = null)
         {
             switch (typeVFX)
             {
                 case ETypeVFX.Sand:
-                    SandDissolve(TF, targetFly, meshFilter, meshRen, dissoleDoneAction, addScoreAction);
+                    SandDissolve(TF, targetFly, meshFilter, meshRen, vfxColor, dissoleDoneAction, addScoreAction);
                     break;
             }
         }
-        static void SandDissolve(Transform TF, Transform targetFly, MeshFilter meshFilter, MeshRenderer meshRen, System.Action dissoleDoneAction, System.Action addScoreAction)
+        static void SandDissolve(Transform TF, Transform targetFly, MeshFilter meshFilter, MeshRenderer meshRen, Color vfxColor, System.Action dissoleDoneAction, System.Action addScoreAction)
         {
             Vector2 minMaxHeight = Extension.GetMinMaxHeightApprox(meshFilter);
             float dissolveFactor = (minMaxHeight.y - minMaxHeight.x) / 1;
@@ -71,14 +71,14 @@ namespace TrungKien.Core.VFX
             Transform plane = new GameObject().transform;
 
             MaterialPropertyBlock mpb = GetMPB();
-            mpb.SetColor(Constants.pShaderSandColor, meshRen.sharedMaterial.GetColor(Constants.pShaderSandColor));
+            mpb.SetColor(Constants.pShaderSandColor, vfxColor);
 
             SandVFX sandFX = PoolingSystem.Spawn(DataSystem.Instance.vfxSO.dicPrefabVFX[ETypeVFX.Sand][0]) as SandVFX;
-            sandFX.SetUp(meshRen.sharedMaterial.GetColor(Constants.pShaderSandColor), GetSpawmCount(TF, meshFilter), meshFilter.sharedMesh, minMaxHeight.x, minMaxHeight.y, TF, meshFilter, targetFly, addScoreAction);
+            sandFX.SetUp(vfxColor, GetSpawmCount(TF, meshFilter), meshFilter.sharedMesh, minMaxHeight.x, minMaxHeight.y, TF, meshFilter, targetFly, addScoreAction);
             for (int i = 0; i < Constants.spawnSandDrop; i++)
             {
                 SandSubElement psElement = PoolingSystem.Spawn(DataSystem.Instance.vfxSO.dicPrefabVFX[ETypeVFX.Sand][1], TF.position, Quaternion.identity) as SandSubElement;
-                psElement.SetColor(meshRen.sharedMaterial.GetColor(Constants.pShaderSandColor));
+                psElement.SetColor(vfxColor);
                 psElement.Play();
                 listVfxSand.Add(psElement);
             }
@@ -143,7 +143,7 @@ namespace TrungKien.Core.VFX
             if (spawmCount < Constants.minSandSpawnCount)
             {
                 spawmCount = Constants.minSandSpawnCount;
-            } 
+            }
             if (spawmCount > Constants.maxScandSpawnCount)
             {
                 spawmCount = Constants.maxScandSpawnCount;

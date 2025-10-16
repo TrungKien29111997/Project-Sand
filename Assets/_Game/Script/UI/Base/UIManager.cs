@@ -10,7 +10,7 @@ namespace TrungKien.UI
         Dictionary<System.Type, UICanvas> canvasActives = new();
         Dictionary<System.Type, UICanvas> canvasPrefabs = new();
 
-        public void OnInit()
+        public void Init()
         {
             Parent ??= GameObject.Find("Canvas - Main").transform;
         }

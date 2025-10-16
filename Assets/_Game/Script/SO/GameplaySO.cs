@@ -12,6 +12,5 @@ namespace TrungKien
         public float delayFactor = 1.2f;
         public int spawmFactor = 150;
         public Vector2 gravity = new Vector2(-5f, -4f);
-        public BaseTargetObject[] arrObject;
     }
 }

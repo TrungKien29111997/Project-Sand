@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TrungKien.Core.Gameplay;
 using TrungKien.Core.VFX;
 using UnityEngine;
 namespace TrungKien
@@ -11,5 +12,6 @@ namespace TrungKien
         public UISO uiSO;
         public MaterialSO materialSO;
         public VFXSO vfxSO;
+        public LevelSO levelSO;
     }
 }

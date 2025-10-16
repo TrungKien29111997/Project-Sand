@@ -134,10 +134,10 @@ namespace TrungKien.UI
         }
         void LateUpdate()
         {
-            if (isSpawnBowl)
-            {
-                UpdateTranTarget();
-            }
+            // if (isSpawnBowl)
+            // {
+            //     UpdateTranTarget();
+            // }
         }
         public void UpdateTranTarget()
         {
