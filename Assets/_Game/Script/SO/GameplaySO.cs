@@ -12,5 +12,7 @@ namespace TrungKien
         public float delayFactor = 1.2f;
         public int spawmFactor = 150;
         public Vector2 gravity = new Vector2(-5f, -4f);
+        public int maxSandPerBowl = 3;
+        public int amountCacheBowl = 5;
     }
 }

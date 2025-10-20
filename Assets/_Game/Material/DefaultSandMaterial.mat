@@ -108,7 +108,7 @@ Material:
     m_Floats:
     - _AlphaClip: 1
     - _AlphaToMask: 1
-    - _Ambient: 0.5
+    - _Ambient: 0.8
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -135,7 +135,7 @@ Material:
     - _Noise: 3000
     - _NoiseScale: 150
     - _NoiseStrength: 0.3
-    - _NormalStrength: 5
+    - _NormalStrength: 3
     - _OcclusionStrength: 1
     - _OutLineFade: 0.1
     - _OutLineWidth: 2

@@ -1,5 +1,11 @@
 namespace TrungKien
 {
+    public enum EGameState
+    {
+        Loading,
+        Home,
+        Gameplay,
+    }
     public enum EDirect
     {
         None, Up, Down, Left, Right

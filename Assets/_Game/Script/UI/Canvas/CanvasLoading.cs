@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
-namespace TrungKien.UI
+namespace TrungKien.Core.UI
 {
     public class CanvasLoading : UICanvas
     {

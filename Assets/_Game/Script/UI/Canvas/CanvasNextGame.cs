@@ -4,7 +4,7 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
-namespace TrungKien.UI
+namespace TrungKien.Core.UI
 {
     public class CanvasNextGame : UICanvas
     {
@@ -30,7 +30,7 @@ namespace TrungKien.UI
         }
         void Loading()
         {
-            LevelControl.Instance.NextLevel();
+            //LevelControl.Instance.NextLevel();
             Close();
         }
     }

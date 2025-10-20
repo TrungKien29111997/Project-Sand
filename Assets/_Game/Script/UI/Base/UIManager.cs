@@ -1,43 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TrungKien.UI
+namespace TrungKien.Core.UI
 {
     public class UIManager : Singleton<UIManager>
     {
-        Dictionary<System.Type, UICanvas> canvasActives = new();
-        Dictionary<System.Type, UICanvas> canvasPrefabs = new();
+        Dictionary<System.Type, UICanvas> dicCanvasActives = new();
+        Dictionary<System.Type, UICanvas> dicCanvasPrefabs = new();
 
-        public void Init()
+        Transform parent;
+        Transform GetParentCanvas()
         {
-            Parent ??= GameObject.Find("Canvas - Main").transform;
+            if (parent == null)
+            {
+                parent = GameObject.FindObjectOfType<UIParent>().transform;
+            }
+            return parent;
         }
-
-        public Transform Parent;
-        public void Awake()
+        public override void Awake()
         {
+            base.Awake();
             DataSystem.Instance.uiSO.prefabCanvas.ForEach(x =>
             {
-                canvasPrefabs.Add(x.GetType(), x);
+                dicCanvasPrefabs.Add(x.GetType(), x);
             });
         }
         // open canvas
         public T OpenUI<T>() where T : UICanvas
         {
             T canvas = GetUI<T>();
-            canvas.SetUp();
-            canvas.Open();
-            return canvas;
-        }
-        public UICanvas OpenUI(System.Type type)
-        {
-            if (!(canvasActives.ContainsKey(type) && canvasActives[type] != null))
-            {
-                canvasActives[type] = Instantiate(canvasPrefabs[type], Parent);
-            }
-            UICanvas canvas = canvasActives[type];
             canvas.SetUp();
             canvas.Open();
             return canvas;
@@ -51,15 +45,15 @@ namespace TrungKien.UI
         // kiem tra canvas duoc tai chua
         public bool IsLoaded<T>() where T : UICanvas
         {
-            return canvasActives.ContainsKey(typeof(T)) && canvasActives[typeof(T)] != null;
+            return dicCanvasActives.ContainsKey(typeof(T)) && dicCanvasActives[typeof(T)] != null;
         }
 
         // kiem tra canvas duoc active chua
         public bool IsOpened<T>(out T canvas) where T : UICanvas
         {
-            if (IsLoaded<T>() && canvasActives[typeof(T)].gameObject.activeSelf)
+            if (IsLoaded<T>() && dicCanvasActives[typeof(T)].gameObject.activeSelf)
             {
-                canvas = canvasActives[typeof(T)] as T;
+                canvas = dicCanvasActives[typeof(T)] as T;
                 return true;
             }
             else
@@ -74,55 +68,41 @@ namespace TrungKien.UI
         {
             if (!IsLoaded<T>())
             {
-                T prefab = GetUIPrefab<T>();
-                T canvas = Instantiate(prefab, Parent);
-                canvasActives[typeof(T)] = canvas;
-            }
-            return canvasActives[typeof(T)] as T;
-        }
+                System.Type type = typeof(T);
 
-        // get Prefabs
-        T GetUIPrefab<T>() where T : UICanvas
-        {
-            return canvasPrefabs[typeof(T)] as T;
-        }
-        public UICanvas GetUIPrefab(System.Type type)
-        {
-            return canvasPrefabs[type];
+                if (!dicCanvasActives.ContainsKey(type))
+                {
+                    dicCanvasActives.Add(type, null);
+                }
+                if (dicCanvasActives[type] == null)
+                {
+                    dicCanvasActives[type] = Instantiate(dicCanvasPrefabs[type], GetParentCanvas());
+                }
+            }
+            return dicCanvasActives[typeof(T)] as T;
         }
 
         // dong tat ca
-        public void CloseAll()
-        {
-            foreach (var canvas in canvasActives)
-            {
-                if (canvas.Value != null && canvas.Value.gameObject.activeSelf)
-                {
-                    canvas.Value.Close();
-                }
-            }
-        }
-        public void CloseChildren(System.Type type)
-        {
-            foreach (var canvas in canvasActives)
-            {
-                if (canvas.Value != null && canvas.Value.gameObject.activeSelf && canvas.Value.typeParent == type)
-                {
-                    canvas.Value.Close();
-                }
-            }
-        }
-        public void ReleaseAll()
-        {
-            foreach (var canvas in canvasActives)
-            {
-                if (canvas.Value != null)
-                {
-                    Destroy(canvas.Value.gameObject);
-                }
-            }
-            canvasActives.Clear();
-        }
-
+        // public void CloseAll()
+        // {
+        //     foreach (var canvas in canvasActives)
+        //     {
+        //         if (canvas.Value != null && canvas.Value.gameObject.activeSelf)
+        //         {
+        //             canvas.Value.Close();
+        //         }
+        //     }
+        // }
+        // public void ReleaseAll()
+        // {
+        //     foreach (var canvas in canvasActives)
+        //     {
+        //         if (canvas.Value != null)
+        //         {
+        //             Destroy(canvas.Value.gameObject);
+        //         }
+        //     }
+        //     canvasActives.Clear();
+        // }
     }
 }

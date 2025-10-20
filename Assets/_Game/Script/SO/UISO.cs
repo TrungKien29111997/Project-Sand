@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using TrungKien.UI;
+using TrungKien.Core.UI;
 using UnityEngine;
 namespace TrungKien
 {

@@ -27,6 +27,5 @@ MonoBehaviour:
   delayFactor: 2.2
   spawmFactor: 150
   gravity: {x: -7, y: -6}
-  arrObject:
-  - {fileID: 1167991467749871663, guid: 23df347e3d72e9243bb08d5c399fb669, type: 3}
-  - {fileID: 30253768370225060, guid: ffbc48e9b1a731840bfa078f0ecb1891, type: 3}
+  maxSandPerBowl: 3
+  amountCacheBowl: 5

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-namespace TrungKien.UI
+namespace TrungKien.Core.UI
 {
     public class UICacheSandBowl : PoolingElement
     {

@@ -21,7 +21,7 @@ namespace TrungKien.Core.VFX
             line.endWidth = 0.3f;
             line.positionCount = 2;
             mpb = VFXSystem.GetMPB();
-            mpb.SetColor(Constants.pMainColor, color);
+            //mpb.SetColor(Constants.pMainColor, color);
             line.SetPropertyBlock(mpb);
         }
         public void Despawn()

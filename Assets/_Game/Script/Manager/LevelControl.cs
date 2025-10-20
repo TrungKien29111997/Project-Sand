@@ -4,12 +4,14 @@ using System.Linq;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine;
-using TrungKien.UI;
 using TrungKien.Core.VFX;
 using Sirenix.Utilities;
 using UnityEngine.Rendering;
 using TrungKien.Core.Gameplay;
-namespace TrungKien
+using TrungKien.Core.UI;
+using System.Xml;
+
+namespace TrungKien.Core
 {
     public class LevelControl : Singleton<LevelControl>
     {
@@ -21,28 +23,27 @@ namespace TrungKien
         [SerializeField] BaseTargetObject targetObj;
         public bool isEndGame { get; private set; }
         public bool isStartGame { get; private set; }
-        //Dictionary<int, List<int>> dicCondition;
         public int ItemCounter { get; set; }
         public int MaxItem { get; private set; }
         [field: SerializeField] public Collider colPanelScore { get; private set; }
         public float scaleTime = 1;
         public float DetlaTime => Time.deltaTime * scaleTime;
         public float FixDeltaTime => Time.fixedDeltaTime * scaleTime;
-        public int maxSandPerBowl { get; private set; } = 3;
-        public int maxColor = 3, currentBowl;
+        public int currentBowl;
         public List<BowlClass> listBowl;
         public List<BowlCacheClass> listCacheBowl;
-        [ShowInInspector] Dictionary<int, List<int>> dicGenColor;
+        [ShowInInspector] Dictionary<string, List<int>> dicPartColor;
+        [ShowInInspector] Dictionary<int, List<string>> dicGenColor;
         [ShowInInspector] Dictionary<int, ColorClass> dicColor;
-        [SerializeField] int layerFactor = 5;
-        public int amountCacheBowl = 5;
         const string EVENT_UPDATE_SCORE = "UpdateScore";
+        [SerializeField] LayerMask layerObject;
         BaseDissolveItem GetItem(Collider col)
         {
             return Extension.GetItemCanInteract(dicDissolveItem, col);
         }
-        void Awake()
+        public override void Awake()
         {
+            base.Awake();
             dicDissolveItem = new();
         }
         void Start()
@@ -51,95 +52,38 @@ namespace TrungKien
             UIManager.Instance.OpenUI<CanvasGamePlay>();
             LevelSO.ModelConfig config = DataSystem.Instance.levelSO.levels[0];
             cameraCtrl.camera.backgroundColor = config.modelSO.colorBG;
-            matPlane.color = config.modelSO.colorBG;
+            matPlane.color = config.modelSO.colorPlane;
             SetObject(config);
         }
-        [ShowInInspector] Dictionary<int, List<int>> dicRandomColor;
 
         void SetObject(LevelSO.ModelConfig objectTarget)
         {
             isStartGame = false;
+            isEndGame = false;
             dicColor = new();
             dicGenColor = new();
             listCacheBowl = new();
-            List<Material> listMaterial = new();
-            objectTarget.modelSO.model.arrItemDissolve.ForEach(x =>
-            {
-                Material mat = x.itemDissolve.GetShareMaterial();
-                if (!listMaterial.Contains(mat))
-                {
-                    listMaterial.Add(mat);
-                }
-                dicGenColor.Add(x.id, new());
-                int indexMat = listMaterial.IndexOf(mat);
-                dicGenColor[x.id].Add(indexMat);
-
-                ColorClass colorClass = new ColorClass()
-                {
-                    color = mat.GetColor(Constants.pShaderSandColor),
-                    mat = mat,
-                    listPart = new()
-                };
-                if (!dicColor.ContainsKey(indexMat))
-                {
-                    dicColor.Add(indexMat, colorClass);
-                }
-                dicColor[indexMat].listPart.Add(x.id);
-            });
-            int maxLayerPerColor = maxColor * layerFactor * objectTarget.modelSO.model.arrItemDissolve.Length;
-
-            // gen color
-            dicRandomColor = new();
-            foreach (var item in dicColor)
-            {
-                item.Value.colorCounter = maxLayerPerColor - item.Value.listPart.Count;
-                int partAmount = item.Value.colorCounter / objectTarget.modelSO.model.arrItemDissolve.Length;
-                for (int i = 0; i < objectTarget.modelSO.model.arrItemDissolve.Length; i++)
-                {
-                    int partID = objectTarget.modelSO.model.arrItemDissolve[i].id;
-                    for (int j = 0; j < partAmount; j++)
-                    {
-                        item.Value.listPart.Add(partID);
-                        if (!dicRandomColor.ContainsKey(partID))
-                        {
-                            dicRandomColor.Add(partID, new());
-                        }
-                        dicRandomColor[partID].Add(item.Key);
-                    }
-                }
-                for (int i = 0; i < item.Value.colorCounter % objectTarget.modelSO.model.arrItemDissolve.Length; i++)
-                {
-                    int partID = objectTarget.modelSO.model.arrItemDissolve[Random.Range(0, objectTarget.modelSO.model.arrItemDissolve.Length)].id;
-                    item.Value.listPart.Add(partID);
-                    dicRandomColor[partID].Add(item.Key);
-                }
-            }
-            foreach (var item in dicGenColor)
-            {
-                List<int> listIdColor = dicRandomColor[item.Key];
-                while (listIdColor.Count > 0)
-                {
-                    int index = Random.Range(0, listIdColor.Count);
-                    item.Value.Add(listIdColor[index]);
-                    listIdColor.RemoveAt(index);
-                }
-            }
-            //dicRandomColor.Clear();
-
+            dicPartColor = new();
             currentBowl = 2;
-            isEndGame = false;
             ItemCounter = 0;
+
+            SetIDColor(objectTarget);
+
+            int amountGenColor = objectTarget.modelSO.model.arrItemDissolve.Length * (objectTarget.modelSO.layerPerPart - 1);
+            Debug.Log($"amountGenColor: {amountGenColor}");
+
             if (targetObj != null)
             {
                 Destroy(targetObj.gameObject);
             }
-
-            //dicCondition = new();
             targetObj = PoolingSystem.Spawn(objectTarget.modelSO.model);
             targetObj.LoadColor(objectTarget.modelSO.dicColor);
             targetObj.TF.localScale = Vector3.one * targetObj.LocalScale;
-            //targetObj.arrItemDissolve.ForEach(x => dicCondition.Add(x.id, x.childrenIDs.ToList()));
             MaxItem = targetObj.arrItemDissolve.Length;
+
+            FillDicGenColor();
+
+            GenColor(objectTarget);
             //EventManager.EmitEvent(Constant.EVENT_UPDATE_UI_GAMEPLAY_DISSOLVE_ITEM_COUNTER);
 
             // control bowl
@@ -154,7 +98,7 @@ namespace TrungKien
                 };
                 listBowl.Add(bowlClass);
             }
-            for (int i = 0; i < amountCacheBowl; i++)
+            for (int i = 0; i < DataSystem.Instance.gameplaySO.amountCacheBowl; i++)
             {
                 BowlCacheClass cacheBowl = new BowlCacheClass()
                 {
@@ -164,26 +108,97 @@ namespace TrungKien
                 listCacheBowl.Add(cacheBowl);
             }
             UIManager.Instance.GetUI<CanvasGamePlay>().SetSandBow(listBowl);
-            UIManager.Instance.GetUI<CanvasGamePlay>().SetCacheSandBowl(amountCacheBowl);
+            UIManager.Instance.GetUI<CanvasGamePlay>().SetCacheSandBowl(DataSystem.Instance.gameplaySO.amountCacheBowl);
             isStartGame = true;
+        }
+        public void SetIDColor(LevelSO.ModelConfig objectTarget)
+        {
+            int indexColor = 0;
+            foreach (var item in objectTarget.modelSO.dicColor)
+            {
+                ColorClass colorClass = new ColorClass()
+                {
+                    color = item.Key,
+                    listPart = new List<string>(item.Value)
+                };
+                dicColor.Add(indexColor, colorClass);
+                dicGenColor.Add(indexColor, new List<string>(item.Value));
+                foreach (var part in item.Value)
+                {
+                    if (!dicPartColor.ContainsKey(part))
+                    {
+                        dicPartColor.Add(part, new List<int>());
+                    }
+                    dicPartColor[part].Add(indexColor);
+                }
+                indexColor++;
+            }
+        }
+        void FillDicGenColor()
+        {
+            List<string> listPartFillColor = new();
+            foreach (var item in dicGenColor)
+            {
+                while (item.Value.Count % DataSystem.Instance.gameplaySO.maxSandPerBowl != 0)
+                {
+                    string partName = targetObj.arrItemDissolve[Random.Range(0, targetObj.arrItemDissolve.Length)].itemDissolve.gameObject.name;
+                    if (!listPartFillColor.Contains(partName))
+                    {
+                        listPartFillColor.Add(partName);
+                        dicPartColor[partName].Add(item.Key);
+                        dicGenColor[item.Key].Add(partName);
+                    }
+                }
+            }
+        }
+        void GenColor(LevelSO.ModelConfig objectTarget)
+        {
+            List<string> listPart = new();
+            int indexLayer = 1;
+
+            foreach (var item in dicPartColor)
+            {
+                if (item.Value.Count == indexLayer)
+                {
+                    listPart.Add(item.Key);
+                }
+            }
+            for (int j = indexLayer; j < objectTarget.modelSO.layerPerPart; j++)
+            {
+                while (listPart.Count >= DataSystem.Instance.gameplaySO.maxSandPerBowl)
+                {
+                    int indexColor = GetColorHaveMinPart();
+                    for (int i = DataSystem.Instance.gameplaySO.maxSandPerBowl - 1; i >= 0; i--)
+                    {
+                        dicGenColor[indexColor].Add(listPart[i]);
+                        dicPartColor[listPart[i]].Add(indexColor);
+                        listPart.RemoveAt(i);
+                    }
+                }
+                List<string> listAllPart = dicPartColor.Keys.ToList();
+                listPart.AddRange(listAllPart);
+            }
+        }
+        int GetColorHaveMinPart()
+        {
+            int result = 0;
+            foreach (var item in dicGenColor)
+            {
+                if (item.Value.Count < dicGenColor[0].Count)
+                {
+                    result = item.Key;
+                }
+            }
+            return result;
         }
         public List<int> GetBowlIDColor(int amount)
         {
             List<int> totalValidColor = new();
-            foreach (var item in dicColor)
+            foreach (var item in dicGenColor)
             {
-                List<int> idPart = new();
-                foreach (var id in item.Value.listPart)
+                if (item.Value.Count >= DataSystem.Instance.gameplaySO.maxSandPerBowl)
                 {
-                    if (!idPart.Contains(id))
-                    {
-                        idPart.Add(item.Key);
-                        if (idPart.Count >= maxColor)
-                        {
-                            totalValidColor.Add(item.Key);
-                            break;
-                        }
-                    }
+                    totalValidColor.Add(item.Key);
                 }
             }
             if (amount < totalValidColor.Count)
@@ -209,45 +224,13 @@ namespace TrungKien
             {
                 point = Input.mousePosition;
                 Ray ray = cameraCtrl.camera.ScreenPointToRay(point);
-                if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+                if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerObject))
                 {
                     BaseDissolveItem item = GetItem(hit.collider);
                     if (item != null)
                     {
-                        if (dicGenColor[item.id].Count > 1)
-                        {
-                            Material mat = dicColor[dicGenColor[item.id][1]].mat;
-                            item.Dissolve(mat, false);
-                        }
-                        else
-                        {
-                            item.Dissolve(null, true);
-                        }
+                        item.Dissolve(dicPartColor[item.gameObject.name].Count > 1);
                     }
-                    // if (item != null)
-                    // {
-                    //     if (dicCondition[item.id].Count == 0)
-                    //     {
-                    //         foreach (var value in dicCondition.Values)
-                    //         {
-                    //             if (value.Contains(item.id))
-                    //             {
-                    //                 value.Remove(item.id);
-                    //             }
-                    //         }
-                    //         SoundManager.Instance.PlaySound(DataSystem.Instance.gameplaySO.sfxClick);
-                    //         dicCondition.Remove(item.id);
-                    //         item.Dissolve();
-                    //         if (dicCondition.Count == 0)
-                    //         {
-                    //             WinGame();
-                    //         }
-                    //     }
-                    //     else
-                    //     {
-                    //         item.Warning();
-                    //     }
-                    // }
                 }
             }
         }
@@ -278,36 +261,36 @@ namespace TrungKien
         {
             return dicColor[idColor].color;
         }
-        public void ItemDissolve(int partID)
+        public void ItemDissolve(string partName)
         {
-            BowlClass bowlClass = listBowl.Find(x => x.idColor == dicGenColor[partID][0]);
+            BowlClass bowlClass = listBowl.Find(x => x.idColor == dicPartColor[partName][0]);
             if (bowlClass != null)
             {
                 foreach (var item in dicColor)
                 {
-                    if (item.Value.listPart.Contains(partID))
+                    if (item.Value.listPart.Contains(partName))
                     {
-                        item.Value.listPart.Remove(partID);
+                        item.Value.listPart.Remove(partName);
                         break;
                     }
                 }
                 bowlClass.AddItem();
-                dicGenColor[partID].RemoveAt(0);
+                dicPartColor[partName].RemoveAt(0);
             }
             else
             {
                 BowlCacheClass emptyCacheBowl = GetCacheSandBowl();
                 if (emptyCacheBowl != null)
                 {
-                    emptyCacheBowl.AddItem(dicGenColor[partID][0]);
-                    dicGenColor[partID].RemoveAt(0);
+                    emptyCacheBowl.AddItem(dicPartColor[partName][0]);
+                    dicPartColor[partName].RemoveAt(0);
                 }
             }
             EventManager.EmitEvent(Constant.EVENT_GAMEPLAY_UPDATE_SCORE);
         }
-        public Transform GetGizmoPos(int partID)
+        public Transform GetGizmoPos(string partName)
         {
-            BowlClass bowlClass = listBowl.Find(x => x.idColor == dicGenColor[partID][0]);
+            BowlClass bowlClass = listBowl.Find(x => x.idColor == dicPartColor[partName][0]);
             if (bowlClass != null)
             {
                 return bowlClass.gizmoPos.TF;
@@ -343,7 +326,7 @@ namespace TrungKien
     {
         public int counter, idColor;
         public PoolingElement gizmoPos;
-        public bool isFull => counter >= LevelControl.Instance.maxSandPerBowl;
+        public bool isFull => counter >= DataSystem.Instance.gameplaySO.maxSandPerBowl;
         public void AddItem()
         {
             ++counter;
@@ -382,15 +365,13 @@ namespace TrungKien
         }
         public Color GetColor()
         {
-            return LevelControl.Instance.GetColor(idColor);
+            return default; // LevelControl.Instance.GetColor(idColor);
         }
     }
     [System.Serializable]
     public class ColorClass
     {
-        public int colorCounter;
         public Color color;
-        public Material mat;
-        public List<int> listPart;
+        public List<string> listPart;
     }
 }

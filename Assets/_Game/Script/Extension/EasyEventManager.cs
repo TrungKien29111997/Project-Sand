@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace TrungKien
+namespace TrungKien.Core
 {
     /// <summary>
     /// Events management system.

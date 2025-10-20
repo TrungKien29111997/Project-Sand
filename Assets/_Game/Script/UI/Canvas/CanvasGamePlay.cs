@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TrungKien.UI
+namespace TrungKien.Core.UI
 {
     public class CanvasGamePlay : UICanvas
     {
@@ -19,6 +19,7 @@ namespace TrungKien.UI
         [SerializeField] ParticleUI particleUI;
         List<UISandBowl> listUISandBowl;
         List<UICacheSandBowl> listUICacheSandBowl;
+        [SerializeField] LayerMask layerUIPlane;
         bool isSpawnBowl;
         void Start()
         {
@@ -98,7 +99,7 @@ namespace TrungKien.UI
             List<BowlCacheClass> listCacheBowl = LevelControl.Instance.listCacheBowl;
             for (int i = 0; i < listBowl.Count; i++)
             {
-                listUISandBowl[i].SetSandLevel(listBowl[i].counter, LevelControl.Instance.maxColor);
+                listUISandBowl[i].SetSandLevel(listBowl[i].counter, 3);
             }
             for (int i = 0; i < listUICacheSandBowl.Count; i++)
             {
@@ -134,17 +135,17 @@ namespace TrungKien.UI
         }
         void LateUpdate()
         {
-            // if (isSpawnBowl)
-            // {
-            //     UpdateTranTarget();
-            // }
+            if (isSpawnBowl)
+            {
+                UpdateTranTarget();
+            }
         }
         public void UpdateTranTarget()
         {
             for (int i = 0; i < LevelControl.Instance.currentBowl; i++)
             {
                 Ray ray = LevelControl.Instance.cameraCtrl.camera.ScreenPointToRay(listUISandBowl[i].TF.position);
-                RaycastHit[] hits = Physics.RaycastAll(ray, 2000f);
+                RaycastHit[] hits = Physics.RaycastAll(ray, 2000f, layerUIPlane);
                 for (int j = 0; j < hits.Length; j++)
                 {
                     if (ReferenceEquals(colPanelScore, hits[j].collider))
@@ -157,7 +158,7 @@ namespace TrungKien.UI
             for (int i = 0; i < LevelControl.Instance.listCacheBowl.Count; i++)
             {
                 Ray ray = LevelControl.Instance.cameraCtrl.camera.ScreenPointToRay(listUICacheSandBowl[i].TF.position);
-                RaycastHit[] hits = Physics.RaycastAll(ray, 2000f);
+                RaycastHit[] hits = Physics.RaycastAll(ray, 2000f, layerUIPlane);
                 for (int j = 0; j < hits.Length; j++)
                 {
                     if (ReferenceEquals(colPanelScore, hits[j].collider))

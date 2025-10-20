@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using TrungKien.Core;
 using TrungKien.Core.Gameplay;
 using TrungKien.Core.VFX;
 using UnityEngine;

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
 
-namespace TrungKien.UI
+namespace TrungKien.Core.UI
 {
     public class UICanvas : MonoBehaviour
     {
@@ -17,8 +17,6 @@ namespace TrungKien.UI
                 return rectTf ??= GetComponent<RectTransform>();
             }
         }
-        [SerializeField] bool isDestroyOnClose = false;
-        public System.Type typeParent { get; protected set; }
 
         private void Awake()
         {
@@ -45,46 +43,16 @@ namespace TrungKien.UI
             SetTop(0);
             SetBottom(0);
         }
-        protected T RequireCanvas<T>() where T : UICanvas
-        {
-            T canvas = UIManager.Instance.OpenUI<T>();
-            typeParent = canvas.GetType();
-            return canvas;
-        }
 
         // goi sau khi canvas duoc active
         public virtual void Open()
         {
             gameObject.SetActive(true);
             RecTF.SetAsLastSibling();
-            OpenEffect();
-        }
-        public virtual void OpenEffect()
-        {
-            //SoundManager.Instance.PlaySound(ESound.SelectUI1);
         }
         public virtual void Close()
         {
-            CloseDirecly();
-        }
-
-        // tat canvas truc tiep 
-        void CloseDirecly()
-        {
-            if (isDestroyOnClose)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                gameObject.SetActive(false);
-            }
-            UIManager.Instance.CloseChildren(this.GetType());
-        }
-
-        public virtual void OnInit()
-        {
-
+            gameObject.SetActive(false);
         }
 
         protected void SetLeft(float left)
@@ -105,10 +73,6 @@ namespace TrungKien.UI
         protected void SetBottom(float bottom)
         {
             RecTF.offsetMin = new Vector2(RecTF.offsetMin.x, bottom);
-        }
-        public virtual string GetName()
-        {
-            return this.name;
         }
     }
 }

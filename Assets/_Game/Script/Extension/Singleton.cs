@@ -1,71 +1,116 @@
-﻿using UnityEngine;
+﻿/*
+ * Singleton.cs
+ * 
+ * - Unity Implementation of Singleton template
+ * 
+ */
 
+using System;
+using UnityEngine;
+
+/// <summary>
+/// Be aware this will not prevent a non singleton constructor
+///   such as `T myT = new T();`
+/// To prevent that, add `protected T () {}` to your singleton class.
+/// 
+/// As a note, this is made as MonoBehaviour because we need Coroutines.
+/// </summary>
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    protected static T _instance;
-
-    public static bool instanceExists
+    private static T _instance;
+    private static bool _instantiated;
+    protected bool isDestroy;
+    public virtual void Awake()
     {
-        get
+        isDestroy = false;
+        var objects = FindObjectsOfType<T>();
+
+        if (objects.Length > 1)
         {
-            return _instance != null;
+            isDestroy = true;
+            Destroy(gameObject);
         }
+        else
+        {
+            OnAwake();
+        }
+    }
+
+    protected virtual void OnAwake()
+    {
     }
 
     public static T Instance
     {
         get
         {
-            InitInstance();
+            if (_instantiated) return _instance;
 
+            var type = typeof(T);
+            var attribute = Attribute.GetCustomAttribute(type, typeof(SingletonAttribute)) as SingletonAttribute;
+
+            var objects = FindObjectsOfType<T>();
+
+            if (objects.Length > 0)
+            {
+                _instance = objects[0];
+                if (objects.Length > 1)
+                {
+                    //DebugCustom.LogWarning("There is more than one instance of Singleton of type \"" + type + "\". Keeping the first. Destroying the others.");
+                    for (var i = 1; i < objects.Length; i++) DestroyImmediate(objects[i].gameObject);
+                }
+
+                if (attribute != null && attribute.IsDontDestroy)
+                {
+                    DontDestroyOnLoad(_instance.gameObject);
+                }
+
+                _instantiated = true;
+                return _instance;
+            }
+
+            if (attribute == null)
+            {
+                //DebugCustom.LogError(type + "class does not have SingletonAttribute ! Please add SingletonAttribute for " + type);
+                return null;
+            }
+            if (string.IsNullOrEmpty(attribute.PathInstance))
+            {
+                //DebugCustom.LogError("Cannot find prefab of "+ type);
+                return null;
+            }
+
+            GameObject prefab = Resources.Load(attribute.PathInstance) as GameObject;
+            if (prefab == null)
+            {
+                //DebugCustom.LogError("Cannot find prefab of " + type + "! Put prefab of" + type + " into Resources folder");
+                return null;
+            }
+
+            GameObject gameObject = Instantiate(prefab);
+            _instance = gameObject.GetComponent<T>();
+            gameObject.name = type.ToString();
+
+            _instantiated = true;
             return _instance;
         }
+
+        private set
+        {
+            _instance = value;
+            _instantiated = value != null;
+        }
     }
 
-    public static void InitInstance()
+    public static bool Instantiated
     {
-        if (_instance != null) return;
-
-        // if null, finds an existing one
-        if (_instance == null) _instance = (T)FindObjectOfType(typeof(T));
-
-        // attempt to laod from resources
-        if (_instance == null)
-        {
-            GameObject go = Resources.Load<GameObject>(typeof(T).Name);
-            if (go != null)
-            {
-                _instance = Instantiate(go).GetComponent<T>();
-                _instance.name = "(singleton)" + typeof(T).ToString();
-            }
-        }
-
-        // if still null, instantiates
-        if (_instance == null)
-        {
-            Debug.Log(">> Instantiating Singleton: " + typeof(T).Name + "\n" + System.Environment.StackTrace);
-            GameObject singleton = new GameObject();
-            _instance = singleton.AddComponent<T>();
-            singleton.name = "(singleton)" + typeof(T).ToString();
-        }
-
-        // if not null but inactive, finds an active one
-        else if (!_instance.gameObject.activeInHierarchy)
-        {
-            Object[] allObjsOfType = FindObjectsOfType(typeof(T));
-            if (allObjsOfType.Length > 1)
-            {
-                GameObject[] a = (GameObject[])allObjsOfType;
-                for (int i = 0; i < a.Length; i++)
-                {
-                    if (a[i].activeInHierarchy)
-                    {
-                        _instance = a[i].GetComponent<T>();
-                        break;
-                    }
-                }
-            }
-        }
+        get { return _instantiated; }
     }
-}
 
+    public virtual void InitLevel()
+    {
+
+    }
+
+    private void OnDestroy() { _instantiated = false; }
+}

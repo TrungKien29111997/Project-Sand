@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TrungKien
+namespace TrungKien.Core
 {
     public class SoundManager : Singleton<SoundManager>
     {

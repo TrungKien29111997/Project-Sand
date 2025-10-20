@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TrungKien.Core.Gameplay;
 using TrungKien.Core.VFX;
 using UnityEngine;
-namespace TrungKien
+namespace TrungKien.Core
 {
     public class DataSystem : Singleton<DataSystem>
     {
