@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using UnityEngine.VFX;
 using UnityEngine.VFX.Utility;
@@ -15,6 +16,8 @@ namespace TrungKien.Core.VFX.Sand
         [SerializeField] MyVFXTransformBinder[] arrTransformBinder;
         Dictionary<string, MyVFXTransformBinder> dicTransformBinder;
         SandLine sandLine;
+        [SerializeField] Transform destinationSandFly;
+
         void Awake()
         {
             dicTransformBinder = new();
@@ -22,6 +25,16 @@ namespace TrungKien.Core.VFX.Sand
             {
                 dicTransformBinder.Add(arrTransformBinder[i].Property, arrTransformBinder[i]);
             }
+            dicTransformBinder[Constants.pTranTargetVFXSand].Target = destinationSandFly;
+        }
+        Transform pos0, pos1, pos2, pos3;
+        void Update()
+        {
+            if (sandLine == null) return;
+            vfx.SetVector3("Pos0", pos0.position);
+            vfx.SetVector3("Pos1", pos1.position + Vector3.up * 0.5f);
+            vfx.SetVector3("Pos2", pos2.position + Vector3.up * 0.5f);
+            vfx.SetVector3("Pos3", pos3.position);
         }
         public void SetUp(Color sandColor, int spawnFator, Mesh mesh, float minHeight, float maxHeight, Transform objectTransform, MeshFilter partMeshFilter, Transform target, System.Action callBack = null)
         {
@@ -38,7 +51,6 @@ namespace TrungKien.Core.VFX.Sand
             vfx.SetFloat(Constants.pDelayTime, delay);
             vfx.SetVector2(Constants.pLifeTime, new Vector2(delay + 1.5f, delay + 2f));
             dicTransformBinder[Constants.pTranActiveVFXSand].Target = objectTransform;
-            dicTransformBinder[Constants.pTranTargetVFXSand].Target = target;
             BuildTriangleBuffer(mesh);
             vfx.Play();
             StartCoroutine(IEDestroy(callBack));
@@ -54,10 +66,41 @@ namespace TrungKien.Core.VFX.Sand
             Fix.DelayedCall(delay, () =>
             {
                 sandLine = PoolingSystem.Spawn(DataSystem.Instance.vfxSO.dicPrefabVFX[ETypeVFX.Sand][2]) as SandLine;
+                pos0 = sandLine.listTranPoint[0];
+                pos3 = sandLine.listTranPoint[^1];
+                int indexSpace = sandLine.listTranPoint.Count / 3;
+                pos1 = sandLine.listTranPoint[indexSpace];
+                pos2 = sandLine.listTranPoint[sandLine.listTranPoint.Count - indexSpace];
+
                 Vector3 worldCenter = partMeshFilter.transform.TransformPoint(partMeshFilter.sharedMesh.bounds.center);
                 worldCenter.y = 0;
-                sandLine.SetUp(worldCenter, target, Mathf.Sqrt(size.x * size.x + size.z * size.z), sandColor);
+                sandLine.SetUp(worldCenter, target, Mathf.Min(size.x, size.z), sandColor, 1.75f);
+                StartCoroutine(IEDestinationMove());
             });
+        }
+        IEnumerator IEDestinationMove()
+        {
+            float moveDuration = 0.15f;
+
+            for (int i = 0; i < sandLine.listTranPoint.Count; i++)
+            {
+                float t = 0f;
+                while (t < 1f)
+                {
+                    t += Time.deltaTime / moveDuration;
+
+                    // Vị trí target có thể đã thay đổi nên luôn lấy lại
+                    Vector3 targetPos = sandLine.listTranPoint[i].position;
+
+                    destinationSandFly.position = Vector3.Lerp(
+                        destinationSandFly.position,
+                        targetPos,
+                        t
+                    );
+
+                    yield return null;
+                }
+            }
         }
         IEnumerator IEDestroy(System.Action callBack)
         {
@@ -67,8 +110,8 @@ namespace TrungKien.Core.VFX.Sand
             //EventManager.EmitEvent(Constants.EVENT_UPDATE_UI_GAMEPLAY_DISSOLVE_ITEM_COUNTER);
             PoolingSystem.Despawn(this);
             vfx.Stop();
-            sandLine.Despawn();
             PoolingSystem.Despawn(sandLine);
+            sandLine = null;
         }
         void BuildTriangleBuffer(Mesh mesh)
         {
@@ -105,6 +148,14 @@ namespace TrungKien.Core.VFX.Sand
             // truyền buffer vào VFX Graph
             vfx.SetGraphicsBuffer("TriangleGraphicsBuffer", triangleBuffer);
             vfx.SetInt("TriangleBufferCount", triangleIndices.Length);
+        }
+        void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            if (pos0 != null) Gizmos.DrawSphere(pos0.position, 0.15f);
+            if (pos1 != null) Gizmos.DrawSphere(pos1.position, 0.15f);
+            if (pos2 != null) Gizmos.DrawSphere(pos2.position, 0.15f);
+            if (pos3 != null) Gizmos.DrawSphere(pos3.position, 0.15f);
         }
 #if UNITY_EDITOR
         [Button]

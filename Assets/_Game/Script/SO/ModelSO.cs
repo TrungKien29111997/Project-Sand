@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -14,6 +15,13 @@ namespace TrungKien.Core.Gameplay
         //public int amountColor;
         public Color colorBG, colorPlane;
         public BaseTargetObject model;
-        public Dictionary<Color, List<string>> dicColor;
+        public Dictionary<int, PartConfig> dicColor;
+    }
+    [System.Serializable]
+    public class PartConfig
+    {
+        public int idColor;
+        public Color color;
+        public List<string> listPart;
     }
 }

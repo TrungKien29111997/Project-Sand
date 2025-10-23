@@ -15,16 +15,16 @@ namespace TrungKien.Core.UI
         [SerializeField] CanvasGroup canvasGroup;
         [SerializeField] GameObject objLock;
         public Button buttonLock;
-        public int idColor { get; private set; }
         public bool isFlyOut { get; private set; }
         [SerializeField] TextMeshProUGUI txtCount;
+        Color cacheColor;
 
-        public void SetUp(int idColor, Color color)
+        public void SetUp(Color color)
         {
             Init();
-            this.idColor = idColor;
             imgColor.ForEach(x => x.color = color);
             txtCount.color = color;
+            this.cacheColor = color;
         }
         public void Init()
         {
@@ -33,10 +33,7 @@ namespace TrungKien.Core.UI
         public void SetSandLevel(int value, int maxValue)
         {
             txtCount.text = value.ExToString();
-            if (value == maxValue)
-            {
-                AnimFlyOut();
-            }
+            DebugCustom.LogColor("Main Bowl Fill", this.cacheColor);
         }
         public void AnimFlyOut(System.Action doneAction = null)
         {
@@ -53,6 +50,7 @@ namespace TrungKien.Core.UI
             isFlyOut = false;
             canvasGroup.Fade(1f, 1f);
             rectRoot.DOLocalMoveY(0, 1f).SetEase(Ease.Linear);
+            LevelControl.Instance.CacheBowlShareSandToMainBowl();
         }
         public void SetLock(bool status)
         {

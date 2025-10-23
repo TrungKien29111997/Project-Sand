@@ -1,5 +1,6 @@
 using DG.Tweening;
 using Sirenix.OdinInspector;
+using TrungKien.Core.UI;
 using TrungKien.Core.VFX;
 using UnityEngine;
 
@@ -12,6 +13,11 @@ namespace TrungKien.Core.Gameplay
         public MeshFilter meshFilter;
         [SerializeField] protected Collider col;
         public Color cacheColor { get; private set; }
+        Vector3 partLossyScale;
+        void Start()
+        {
+            partLossyScale = TF.lossyScale;
+        }
         public void CopyInfo(BaseDissolveItem item)
         {
             item.meshRen.sharedMaterial = this.meshRen.sharedMaterial;
@@ -27,30 +33,35 @@ namespace TrungKien.Core.Gameplay
         public void Dissolve(bool isLastLayer)
         {
             col.enabled = false;
+            System.Tuple<Transform, System.Action> tupleBowl = LevelControl.Instance.PreFillBowl(gameObject.name);
+            Transform targetTran = tupleBowl.Item1;
             if (!isLastLayer)
             {
-                BaseDissolveItem effectObj = PoolingSystem.Spawn(this, TF.position, TF.rotation);
-                effectObj.TF.localScale = TF.lossyScale;
-                CopyInfo(effectObj);
                 Vector3 cacheScale = TF.localScale;
                 TF.localScale = new Vector3(cacheScale.x * 0.9f, cacheScale.y * 0.9f, cacheScale.z * 0.9f);
-                VFXSystem.SpawnVFX(ETypeVFX.Sand, TF, LevelControl.Instance.GetGizmoPos(gameObject.name), effectObj.meshFilter, effectObj.meshRen, cacheColor, () =>
+                BaseDissolveItem effectObj = PoolingSystem.Spawn(this, TF.position, TF.rotation);
+                effectObj.TF.localScale = partLossyScale;
+                CopyInfo(effectObj);
+                VFXSystem.SpawnVFX(ETypeVFX.Sand, TF, targetTran, effectObj.meshFilter, effectObj.meshRen, cacheColor, () =>
                 {
                     PoolingSystem.Despawn(effectObj);
                     TF.DOScale(cacheScale, 0.5f).OnComplete(() => col.enabled = true);
+                    tupleBowl.Item2?.Invoke();
                 }, () =>
                 {
-                    LevelControl.Instance.ItemDissolve(gameObject.name);
+                    EventManager.EmitEvent(Constant.EVENT_GAMEPLAY_UPDATE_SCORE);
                 });
+                SetColor(LevelControl.Instance.GetNewColorAndClearOldColor(gameObject.name));
             }
             else
             {
-                VFXSystem.SpawnVFX(ETypeVFX.Sand, TF, LevelControl.Instance.GetGizmoPos(gameObject.name), meshFilter, meshRen, cacheColor, () =>
+                VFXSystem.SpawnVFX(ETypeVFX.Sand, TF, targetTran, meshFilter, meshRen, cacheColor, () =>
                 {
                     gameObject.SetActive(false);
+                    tupleBowl.Item2?.Invoke();
                 }, () =>
                 {
-                    LevelControl.Instance.ItemDissolve(gameObject.name);
+                    EventManager.EmitEvent(Constant.EVENT_GAMEPLAY_UPDATE_SCORE);
                 });
             }
         }

@@ -110,7 +110,7 @@ namespace TrungKien.Core.VFX
                             listVfxSand[i].SetSpeed(speed);
                         }
                     }
-                }, minMaxHeight.y, minMaxHeight.x, ((minMaxHeight.y - minMaxHeight.x) * (DataSystem.Instance.gameplaySO.delayFactor)) / dissolveFactor).SetEase(Ease.Linear).OnComplete(() =>
+                }, minMaxHeight.y, minMaxHeight.x, (((minMaxHeight.y - minMaxHeight.x) * (DataSystem.Instance.gameplaySO.delayFactor)) / dissolveFactor) + 0.5f).SetEase(Ease.Linear).OnComplete(() =>
                 {
                     GameObject.Destroy(plane.gameObject);
                     dissoleDoneAction?.Invoke();

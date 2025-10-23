@@ -43,13 +43,13 @@ namespace TrungKien.Tool
         [GUIColor(0.2f, 1f, 0.3f)]
         void LoadMaterial()
         {
-            Dictionary<Color, List<string>> dicColor = cacheModelSO.dicColor;
+            Dictionary<int, PartConfig> dicColor = cacheModelSO.dicColor;
             Dictionary<Material, List<string>> dicInput = new();
             int index = 0;
             foreach (var item in dicColor)
             {
-                dicInput.Add(listInputMaterial[index], item.Value);
-                listInputMaterial[index].SetColor(Constants.pShaderSandColor, item.Key);
+                dicInput.Add(listInputMaterial[index], item.Value.listPart);
+                listInputMaterial[index].SetColor(Constants.pShaderSandColor, item.Value.color);
 
                 string path = UnityEditor.AssetDatabase.GetAssetPath(listInputMaterial[index]);
                 if (!string.IsNullOrEmpty(path))
@@ -72,13 +72,15 @@ namespace TrungKien.Tool
         {
             cacheModelSO.colorBG = cam.backgroundColor;
             cacheModelSO.colorPlane = matPlane.GetColor("_BaseColor");
-            Dictionary<Color, List<string>> dicColor = cacheModel.GetColor();
+            Dictionary<int, PartConfig> dicColor = cacheModel.GetColor();
             if (dicColor != null)
             {
                 cacheModelSO.dicColor = dicColor;
+                UnityEditor.EditorUtility.SetDirty(cacheModelSO);
+                UnityEditor.AssetDatabase.SaveAssets();
                 Debug.Log("Generate Material Done");
             }
         }
     }
-    #endif
+#endif
 }

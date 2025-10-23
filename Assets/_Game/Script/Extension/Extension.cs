@@ -667,5 +667,71 @@ namespace TrungKien
             }
         }
 #endif
+        public static List<Vector3> GetPointCurve(Vector3 customDirection, Vector3 startPos, Vector3 endPos, float curveHeight, int pointCount)
+        {
+            List<Vector3> evenlySpacedPoints = new();
+
+            // --- Tính vector hướng cong ---
+            Vector3 axisDir = customDirection.normalized;
+
+            // --- Tạo điểm giữa (điểm đỉnh cong) ---
+            Vector3 mid = (startPos + endPos) * 0.5f;
+            float distance = Vector3.Distance(startPos, endPos);
+            mid += axisDir * (curveHeight * distance);
+
+            // --- Lấy mẫu dày để tính độ dài cong ---
+            int sampleCount = 200;
+            List<Vector3> samples = new List<Vector3>();
+            samples.Add(startPos);
+            float totalLength = 0f;
+
+            for (int i = 1; i <= sampleCount; i++)
+            {
+                float t = i / (float)sampleCount;
+                Vector3 p = QuadraticBezier(t, startPos, mid, endPos);
+                samples.Add(p);
+                totalLength += Vector3.Distance(samples[i], samples[i - 1]);
+            }
+
+            // --- Tính điểm cách đều ---
+            float segmentLength = totalLength / (pointCount - 1);
+            evenlySpacedPoints.Add(startPos);
+            float distSinceLast = 0f;
+
+            for (int i = 1; i < samples.Count; i++)
+            {
+                float d = Vector3.Distance(samples[i], samples[i - 1]);
+                distSinceLast += d;
+                if (distSinceLast >= segmentLength)
+                {
+                    evenlySpacedPoints.Add(samples[i]);
+                    distSinceLast = 0f;
+                }
+            }
+
+            if (evenlySpacedPoints.Count < pointCount)
+            {
+                evenlySpacedPoints.Add(endPos);
+            }
+            return evenlySpacedPoints;
+        }
+
+        static Vector3 QuadraticBezier(float t, Vector3 a, Vector3 b, Vector3 c)
+        {
+            float u = 1 - t;
+            return u * u * a + 2 * u * t * b + t * t * c;
+        }
+        public static void Shuffle<T>(this List<T> list)
+        {
+            System.Random rng = new System.Random();
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                (list[n], list[k]) = (list[k], list[n]);
+            }
+        }
+        public static T GetRandom<T>(this List<T> list) => list[UnityEngine.Random.Range(0, list.Count)];
     }
 }

@@ -34,7 +34,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4739340878364866893}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!2083052967 &6203965999645466512
@@ -67,7 +68,7 @@ VisualEffect:
       - m_Value: 0.5
         m_Name: DelayEachLayer
         m_Overridden: 1
-      - m_Value: 5
+      - m_Value: 8
         m_Name: FlyToTargetSpeed
         m_Overridden: 1
       - m_Value: 0.5
@@ -293,6 +294,7 @@ MonoBehaviour:
   arrTransformBinder:
   - {fileID: 3539046727965779367}
   - {fileID: 1010882709001290599}
+  destinationSandFly: {fileID: 4739340878364866893}
 --- !u!114 &3539046727965779367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,3 +325,49 @@ MonoBehaviour:
   m_Property:
     m_Name: Destination
   Target: {fileID: 0}
+--- !u!1 &5207713489230321511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4739340878364866893}
+  - component: {fileID: 6141590750702341611}
+  m_Layer: 0
+  m_Name: Destination
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4739340878364866893
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5207713489230321511}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 496754349253702503}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6141590750702341611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5207713489230321511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09d5be5160d6da54b9712bf9d3458d5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gizColor: {r: 0, g: 0.8624213, b: 1, a: 1}
+  radius: 0.12

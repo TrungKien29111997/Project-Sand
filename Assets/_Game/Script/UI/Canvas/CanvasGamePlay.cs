@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -17,8 +18,8 @@ namespace TrungKien.Core.UI
         [SerializeField] RectTransform rectSandBowlGroup, rectSandCacheBowlGroup;
         public Collider colPanelScore { get; private set; }
         [SerializeField] ParticleUI particleUI;
-        List<UISandBowl> listUISandBowl;
-        List<UICacheSandBowl> listUICacheSandBowl;
+        public List<UISandBowl> listUISandBowl;
+        public List<UICacheSandBowl> listUICacheSandBowl;
         [SerializeField] LayerMask layerUIPlane;
         bool isSpawnBowl;
         void Start()
@@ -43,7 +44,7 @@ namespace TrungKien.Core.UI
             txtDebugFPS.text = $"{1.0f / deltaTime:0.} FPS";
         }
 
-        public void SetSandBow(List<BowlClass> listBowlClass)
+        public void SetUpSandBowl(List<BowlClass> listBowlClass)
         {
             listUISandBowl = new List<UISandBowl>();
             for (int i = 0; i < 4; i++)
@@ -51,19 +52,19 @@ namespace TrungKien.Core.UI
                 UISandBowl uiBowl = PoolingSystem.Spawn(DataSystem.Instance.prefabSO.dicUIGameplay[EUIGameplayPool.UISandBowl], default, default, rectSandBowlGroup) as UISandBowl;
                 if (i < listBowlClass.Count)
                 {
-                    uiBowl.SetUp(listBowlClass[i].idColor, listBowlClass[i].GetColor());
+                    uiBowl.SetUp(listBowlClass[i].GetColor());
                     uiBowl.SetLock(false);
                 }
                 else
                 {
-                    uiBowl.SetUp(-1, Color.white);
+                    uiBowl.SetUp(Color.white);
                     uiBowl.SetLock(true);
                 }
                 listUISandBowl.Add(uiBowl);
             }
             isSpawnBowl = true;
         }
-        public void SetCacheSandBowl(int amount)
+        public void SetUpCacheSandBowl(int amount)
         {
             listUICacheSandBowl = new();
             for (int i = 0; i < amount; i++)
@@ -105,11 +106,11 @@ namespace TrungKien.Core.UI
             {
                 if (!listCacheBowl[i].isEmpty)
                 {
-                    listUICacheSandBowl[i].AddItem(listCacheBowl[i].idColor, listCacheBowl[i].GetColor());
+                    listUICacheSandBowl[i].Fill(listCacheBowl[i].GetColor());
                 }
                 else
                 {
-                    listUICacheSandBowl[i].RemoveItem();
+                    listUICacheSandBowl[i].Init();
                 }
             }
         }
@@ -118,13 +119,14 @@ namespace TrungKien.Core.UI
             List<BowlClass> listBowlClass = LevelControl.Instance.listBowl;
             for (int i = 0; i < listBowlClass.Count; i++)
             {
-                if (listBowlClass[i].isFull)
+                if (listBowlClass[i].changeBowl)
                 {
                     UISandBowl uiBowl = listUISandBowl[i];
                     BowlClass bowlClass = listBowlClass[i];
+                    bowlClass.changeBowl = false;
                     uiBowl.AnimFlyOut(() =>
                     {
-                        uiBowl.SetUp(bowlClass.idColor, bowlClass.GetColor());
+                        uiBowl.SetUp(bowlClass.GetColor());
                     });
                 }
             }
@@ -168,6 +170,25 @@ namespace TrungKien.Core.UI
                     }
                 }
             }
+        }
+        public void WarningFullCacheBowl()
+        {
+            Blink(Color.red, 1, 2, 0.25f);
+        }
+        void Blink(Color color, float strength, int loop = 2, float time = 0.2f, System.Action doneAction = null)
+        {
+            Sequence seq = DOTween.Sequence();
+            for (int j = 0; j < loop; j++)
+            {
+                seq.Append(DOTween.To(x => CacheBowlSetColor(color, x), 0, strength, time));
+                seq.Append(DOTween.To(x => CacheBowlSetColor(color, x), strength, 0, time));
+            }
+            seq.Append(DOTween.To(x => CacheBowlSetColor(Color.white, x), 0, 1, time));
+            Fix.DelayedCall(loop * time * 2 + 1, () => doneAction?.Invoke());
+        }
+        void CacheBowlSetColor(Color color, float alpha)
+        {
+            listUICacheSandBowl.ForEach(x => x.VisualBowlFade(color, alpha));
         }
     }
 }

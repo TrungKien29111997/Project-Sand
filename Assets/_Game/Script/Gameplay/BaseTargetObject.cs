@@ -13,16 +13,17 @@ namespace TrungKien.Core.Gameplay
         [field: SerializeField] public float LocalScale { get; private set; } = 1;
         public ItemDissolveData[] arrItemDissolve;
 
-        public void LoadColor(Dictionary<Color, List<string>> dicColor)
+        public void LoadColor(Dictionary<int, PartConfig> dicColor)
         {
-            Dictionary<string, Color> dicInput = new();
+            Dictionary<string, int> dicInput = new();
             foreach (var item in dicColor)
             {
-                item.Value.ForEach(x => dicInput.Add(x, item.Key));
+                item.Value.listPart.ForEach(x => dicInput.Add(x, item.Key));
             }
             arrItemDissolve.ForEach(x =>
             {
-                x.itemDissolve.SetColor(dicInput[x.itemDissolve.gameObject.name]);
+                int idColor = dicInput[x.itemDissolve.gameObject.name];
+                x.itemDissolve.SetColor(dicColor[idColor].color);
             });
         }
 #if UNITY_EDITOR
@@ -63,10 +64,10 @@ namespace TrungKien.Core.Gameplay
         //         UnityEditor.Handles.Label(arrItemDissolve[i].itemDissolve.transform.position + Vector3.up * 0.2f, arrItemDissolve[i].id.ToString(), style);
         //     }
         // }
-        public Dictionary<Color, List<string>> GetColor()
+        public Dictionary<int, PartConfig> GetColor()
         {
             MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
-            Dictionary<Color, List<string>> dic = new();
+            Dictionary<int, PartConfig> dic = new();
             Dictionary<Material, List<string>> dicCache = new();
             for (int i = 0; i < meshRenderers.Length; i++)
             {
@@ -76,9 +77,16 @@ namespace TrungKien.Core.Gameplay
                 }
                 dicCache[meshRenderers[i].sharedMaterial].Add(meshRenderers[i].gameObject.name);
             }
+            int index = 0;
             foreach (var item in dicCache)
             {
-                dic.Add(item.Key.GetColor(Constants.pShaderSandColor), item.Value);
+                dic.Add(index, new PartConfig()
+                {
+                    idColor = index,
+                    color = item.Key.GetColor(Constants.pShaderSandColor),
+                    listPart = new List<string>(item.Value),
+                });
+                index++;
             }
             if (dic.Keys.Count <= 1)
             {

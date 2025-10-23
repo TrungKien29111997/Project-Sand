@@ -26,6 +26,6 @@ MonoBehaviour:
   sfxBling: {fileID: 8300000, guid: 83806d4e5529c3745ab71b6d189819b0, type: 3}
   delayFactor: 2.2
   spawmFactor: 150
-  gravity: {x: -7, y: -6}
+  gravity: {x: -10, y: -8}
   maxSandPerBowl: 3
   amountCacheBowl: 5

@@ -23,12 +23,12 @@ MonoBehaviour:
     SerializationNodes:
     - Name: dicColor
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[UnityEngine.Color, UnityEngine.CoreModule],[System.Collections.Generic.List`1[[System.String,
-        mscorlib]], mscorlib]], mscorlib
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[TrungKien.Core.Gameplay.PartConfig,
+        Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[UnityEngine.Color,
-        UnityEngine.CoreModule]], mscorlib
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
+        mscorlib]], mscorlib
     - Name: 
       Entry: 8
       Data: 
@@ -39,26 +39,35 @@ MonoBehaviour:
       Entry: 7
       Data: 
     - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: 2|TrungKien.Core.Gameplay.PartConfig, Assembly-CSharp
+    - Name: idColor
+      Entry: 3
+      Data: 0
+    - Name: color
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0.107600458
+      Data: 0.107600369
     - Name: 
       Entry: 4
       Data: 0.735849
     - Name: 
       Entry: 4
-      Data: 0.171255648
+      Data: 0.171255559
     - Name: 
       Entry: 4
       Data: 1
     - Name: 
       Entry: 8
       Data: 
-    - Name: $v
+    - Name: listPart
       Entry: 7
-      Data: 2|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+      Data: 3|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
       Entry: 12
       Data: 10
@@ -102,9 +111,21 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 7
       Data: 
     - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: 4|TrungKien.Core.Gameplay.PartConfig, Assembly-CSharp
+    - Name: idColor
+      Entry: 3
+      Data: 1
+    - Name: color
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
     - Name: 
@@ -122,9 +143,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: $v
+    - Name: listPart
       Entry: 7
-      Data: 3|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+      Data: 5|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
@@ -141,9 +162,21 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 7
       Data: 
     - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: 6|TrungKien.Core.Gameplay.PartConfig, Assembly-CSharp
+    - Name: idColor
+      Entry: 3
+      Data: 2
+    - Name: color
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
     - Name: 
@@ -161,9 +194,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: $v
+    - Name: listPart
       Entry: 7
-      Data: 4|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+      Data: 7|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
       Entry: 12
       Data: 12
@@ -213,9 +246,21 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 7
       Data: 
     - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: 8|TrungKien.Core.Gameplay.PartConfig, Assembly-CSharp
+    - Name: idColor
+      Entry: 3
+      Data: 3
+    - Name: color
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
     - Name: 
@@ -233,9 +278,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: $v
+    - Name: listPart
       Entry: 7
-      Data: 5|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+      Data: 9|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
       Entry: 12
       Data: 15
@@ -294,14 +339,26 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 7
       Data: 
     - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: 10|TrungKien.Core.Gameplay.PartConfig, Assembly-CSharp
+    - Name: idColor
+      Entry: 3
+      Data: 4
+    - Name: color
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0.117646955
+      Data: 0.117646866
     - Name: 
       Entry: 4
       Data: 0.8067173
@@ -314,15 +371,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: $v
+    - Name: listPart
       Entry: 7
-      Data: 6|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+      Data: 11|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 1
       Data: polySurface34
+    - Name: 
+      Entry: 1
+      Data: polySurface35
     - Name: 
       Entry: 1
       Data: polySurface38
@@ -339,9 +399,21 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 7
       Data: 
     - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 7
+      Data: 12|TrungKien.Core.Gameplay.PartConfig, Assembly-CSharp
+    - Name: idColor
+      Entry: 3
+      Data: 5
+    - Name: color
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
     - Name: 
@@ -352,16 +424,16 @@ MonoBehaviour:
       Data: 0.732901
     - Name: 
       Entry: 4
-      Data: 0.114586927
+      Data: 0.114586823
     - Name: 
       Entry: 4
       Data: 1
     - Name: 
       Entry: 8
       Data: 
-    - Name: $v
+    - Name: listPart
       Entry: 7
-      Data: 7|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+      Data: 13|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
@@ -370,6 +442,9 @@ MonoBehaviour:
       Data: polySurface49
     - Name: 
       Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: 
       Entry: 8

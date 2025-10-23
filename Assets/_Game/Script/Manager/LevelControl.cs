@@ -10,6 +10,7 @@ using UnityEngine.Rendering;
 using TrungKien.Core.Gameplay;
 using TrungKien.Core.UI;
 using System.Xml;
+using Unity.VisualScripting.FullSerializer;
 
 namespace TrungKien.Core
 {
@@ -34,9 +35,10 @@ namespace TrungKien.Core
         public List<BowlCacheClass> listCacheBowl;
         [ShowInInspector] Dictionary<string, List<int>> dicPartColor;
         [ShowInInspector] Dictionary<int, List<string>> dicGenColor;
-        [ShowInInspector] Dictionary<int, ColorClass> dicColor;
+        [ShowInInspector] Dictionary<int, Color> dicConfigColor;
         const string EVENT_UPDATE_SCORE = "UpdateScore";
         [SerializeField] LayerMask layerObject;
+        CanvasGamePlay uiGameplay => UIManager.Instance.GetUI<CanvasGamePlay>();
         BaseDissolveItem GetItem(Collider col)
         {
             return Extension.GetItemCanInteract(dicDissolveItem, col);
@@ -54,13 +56,14 @@ namespace TrungKien.Core
             cameraCtrl.camera.backgroundColor = config.modelSO.colorBG;
             matPlane.color = config.modelSO.colorPlane;
             SetObject(config);
+            EventManager.StartListening(Constant.EVENT_GAMEPLAY_UPDATE_SCORE, CheckFullBowl);
         }
 
         void SetObject(LevelSO.ModelConfig objectTarget)
         {
             isStartGame = false;
             isEndGame = false;
-            dicColor = new();
+            dicConfigColor = new();
             dicGenColor = new();
             listCacheBowl = new();
             dicPartColor = new();
@@ -88,12 +91,13 @@ namespace TrungKien.Core
 
             // control bowl
             listBowl = new();
-            List<int> listIDColorBowl = GetBowlIDColor(currentBowl);
-            for (int i = 0; i < listIDColorBowl.Count; i++)
+            List<int> listValidColor = GetListValidColor();
+            List<int> listAllColor = GetListRemainColor();
+            for (int i = 0; i < currentBowl; i++)
             {
                 BowlClass bowlClass = new BowlClass()
                 {
-                    idColor = listIDColorBowl[i],
+                    idColor = i < listValidColor.Count ? listValidColor[i] : listAllColor.GetRandom(),
                     gizmoPos = PoolingSystem.Spawn(DataSystem.Instance.prefabSO.dicObjPooling[EPooling.GizmoObj])
                 };
                 listBowl.Add(bowlClass);
@@ -107,31 +111,24 @@ namespace TrungKien.Core
                 cacheBowl.Init();
                 listCacheBowl.Add(cacheBowl);
             }
-            UIManager.Instance.GetUI<CanvasGamePlay>().SetSandBow(listBowl);
-            UIManager.Instance.GetUI<CanvasGamePlay>().SetCacheSandBowl(DataSystem.Instance.gameplaySO.amountCacheBowl);
+            uiGameplay.SetUpSandBowl(listBowl);
+            uiGameplay.SetUpCacheSandBowl(DataSystem.Instance.gameplaySO.amountCacheBowl);
             isStartGame = true;
         }
         public void SetIDColor(LevelSO.ModelConfig objectTarget)
         {
-            int indexColor = 0;
             foreach (var item in objectTarget.modelSO.dicColor)
             {
-                ColorClass colorClass = new ColorClass()
-                {
-                    color = item.Key,
-                    listPart = new List<string>(item.Value)
-                };
-                dicColor.Add(indexColor, colorClass);
-                dicGenColor.Add(indexColor, new List<string>(item.Value));
-                foreach (var part in item.Value)
+                dicConfigColor.Add(item.Key, item.Value.color);
+                dicGenColor.Add(item.Key, new List<string>(item.Value.listPart));
+                foreach (var part in item.Value.listPart)
                 {
                     if (!dicPartColor.ContainsKey(part))
                     {
                         dicPartColor.Add(part, new List<int>());
                     }
-                    dicPartColor[part].Add(indexColor);
+                    dicPartColor[part].Add(item.Key);
                 }
-                indexColor++;
             }
         }
         void FillDicGenColor()
@@ -191,30 +188,55 @@ namespace TrungKien.Core
             }
             return result;
         }
-        public List<int> GetBowlIDColor(int amount)
+
+        List<int> GetListValidColor()
         {
-            List<int> totalValidColor = new();
+            Dictionary<int, int> dicCaculateColor;
+            List<int> listValidBowl = new();
+            dicCaculateColor = new();
+            foreach (var item in dicPartColor)
+            {
+                if (!dicCaculateColor.ContainsKey(item.Value[0]))
+                {
+                    dicCaculateColor.Add(item.Value[0], new());
+                }
+                dicCaculateColor[item.Value[0]]++;
+            }
+            foreach (var item in dicCaculateColor)
+            {
+                int amountValidBowl = item.Value / DataSystem.Instance.gameplaySO.maxSandPerBowl;
+                if (amountValidBowl > 0)
+                {
+                    for (int i = 0; i < amountValidBowl; i++)
+                    {
+                        listValidBowl.Add(item.Key);
+                    }
+                }
+            }
+            if (!listBowl.IsNullOrEmpty())
+            {
+                for (int i = listValidBowl.Count - 1; i >= 0; i--)
+                {
+                    if (listBowl.Exists(x => x.idColor == listValidBowl[i]))
+                    {
+                        listValidBowl.RemoveAt(i);
+                    }
+                }
+            }
+            listValidBowl.Shuffle();
+            return listValidBowl;
+        }
+        List<int> GetListRemainColor()
+        {
+            List<int> result = new();
             foreach (var item in dicGenColor)
             {
                 if (item.Value.Count >= DataSystem.Instance.gameplaySO.maxSandPerBowl)
                 {
-                    totalValidColor.Add(item.Key);
+                    result.Add(item.Key);
                 }
             }
-            if (amount < totalValidColor.Count)
-            {
-                List<int> result = new();
-                while (result.Count < amount)
-                {
-                    int idColor = totalValidColor[Random.Range(0, totalValidColor.Count)];
-                    if (!result.Contains(idColor))
-                    {
-                        result.Add(idColor);
-                    }
-                }
-                return result;
-            }
-            return totalValidColor;
+            return result;
         }
 
         void Update()
@@ -229,7 +251,21 @@ namespace TrungKien.Core
                     BaseDissolveItem item = GetItem(hit.collider);
                     if (item != null)
                     {
-                        item.Dissolve(dicPartColor[item.gameObject.name].Count > 1);
+                        if (CheckCanDissolve(item.gameObject.name))
+                        {
+                            item.Dissolve(dicPartColor[item.gameObject.name].Count <= 1);
+                        }
+                        else
+                        {
+                            if (CheckCanAnyDissove())
+                            {
+                                uiGameplay.WarningFullCacheBowl();
+                            }
+                            else
+                            {
+                                OnLose();
+                            }
+                        }
                     }
                 }
             }
@@ -240,11 +276,15 @@ namespace TrungKien.Core
             point.z = 0;
             return point;
         }
-        void WinGame()
+        void OnWin()
         {
             isEndGame = true;
             Debug.Log("WinGame");
             StartCoroutine(IEWinGame());
+        }
+        void OnLose()
+        {
+
         }
         IEnumerator IEWinGame()
         {
@@ -259,34 +299,11 @@ namespace TrungKien.Core
         }
         public Color GetColor(int idColor)
         {
-            return dicColor[idColor].color;
-        }
-        public void ItemDissolve(string partName)
-        {
-            BowlClass bowlClass = listBowl.Find(x => x.idColor == dicPartColor[partName][0]);
-            if (bowlClass != null)
+            if (dicConfigColor.ContainsKey(idColor))
             {
-                foreach (var item in dicColor)
-                {
-                    if (item.Value.listPart.Contains(partName))
-                    {
-                        item.Value.listPart.Remove(partName);
-                        break;
-                    }
-                }
-                bowlClass.AddItem();
-                dicPartColor[partName].RemoveAt(0);
+                return dicConfigColor[idColor];
             }
-            else
-            {
-                BowlCacheClass emptyCacheBowl = GetCacheSandBowl();
-                if (emptyCacheBowl != null)
-                {
-                    emptyCacheBowl.AddItem(dicPartColor[partName][0]);
-                    dicPartColor[partName].RemoveAt(0);
-                }
-            }
-            EventManager.EmitEvent(Constant.EVENT_GAMEPLAY_UPDATE_SCORE);
+            return Color.clear;
         }
         public Transform GetGizmoPos(string partName)
         {
@@ -302,23 +319,122 @@ namespace TrungKien.Core
         }
         Transform GetGizmoCachePos()
         {
-            BowlCacheClass cacheBowl = GetCacheSandBowl();
+            BowlCacheClass cacheBowl = listCacheBowl.Find(x => x.isEmpty);
             if (cacheBowl != null)
             {
                 return cacheBowl.gizmoPos.TF;
             }
             return null;
         }
-        BowlCacheClass GetCacheSandBowl()
+        bool CheckCanDissolve(string partName)
         {
-            for (int i = 0; i < listCacheBowl.Count; i++)
+            int index = listBowl.FindIndex(x => x.idColor == dicPartColor[partName][0] && !x.isFull);
+            if (index != -1)
             {
-                if (listCacheBowl[i].isEmpty)
+                return true;
+            }
+            else
+            {
+                int indexCache = listCacheBowl.FindIndex(x => x.isEmpty);
+                if (indexCache != -1)
                 {
-                    return listCacheBowl[i];
+                    return true;
+                }
+            }
+            return false;
+        }
+        bool CheckCanAnyDissove()
+        {
+            foreach (var item in dicPartColor)
+            {
+                if (listBowl.Exists(x => x.idColor == item.Value[0]))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public System.Tuple<Transform, System.Action> PreFillBowl(string partName)
+        {
+            int index = listBowl.FindIndex(x => x.idColor == dicPartColor[partName][0] && !x.isFull);
+            if (index != -1)
+            {
+                listBowl[index].AddSand();
+                return new System.Tuple<Transform, System.Action>(listBowl[index].gizmoPos.TF, () =>
+                {
+                    uiGameplay.listUISandBowl[index].SetSandLevel(listBowl[index].counter, 3);
+                });
+            }
+            else
+            {
+                int indexCache = listCacheBowl.FindIndex(x => x.isEmpty);
+                if (indexCache != -1)
+                {
+                    listCacheBowl[indexCache].idColor = dicPartColor[partName][0];
+                    Color cacheColor = dicConfigColor[dicPartColor[partName][0]];
+                    return new System.Tuple<Transform, System.Action>(listCacheBowl[indexCache].gizmoPos.TF, () =>
+                    {
+                        Fix.DelayedCall(0.8f, () =>
+                            {
+                                uiGameplay.listUICacheSandBowl[indexCache].Fill(cacheColor);
+                            });
+                    });
                 }
             }
             return null;
+        }
+        public Color GetNewColorAndClearOldColor(string partName)
+        {
+            dicPartColor[partName].RemoveAt(0);
+            dicGenColor[dicPartColor[partName][0]].Remove(partName);
+            return dicConfigColor[dicPartColor[partName][0]];
+        }
+        void CheckFullBowl()
+        {
+            bool isEmitEventNewBowl = false;
+            listBowl.ForEach(x =>
+            {
+                if (x.isFull)
+                {
+                    GetNewBowl(x);
+                    isEmitEventNewBowl = true;
+                }
+            });
+            if (isEmitEventNewBowl)
+            {
+                EventManager.EmitEvent(Constant.EVENT_GAMEPLAY_NEW_BOWL);
+            }
+        }
+        public void GetNewBowl(BowlClass bowlClass)
+        {
+            bowlClass.changeBowl = true;
+            bowlClass.counter = 0;
+            List<int> listValidColor = GetListValidColor();
+            List<int> listAllColor = GetListRemainColor();
+            bowlClass.idColor = listValidColor.Count > 0 ? listValidColor.GetRandom() : listAllColor.GetRandom();
+        }
+        public List<ChangeSandBowl> listEffectChangeBowl;
+        public void CacheBowlShareSandToMainBowl()
+        {
+            listEffectChangeBowl = new();
+            foreach (var item in listCacheBowl)
+            {
+                if (item.idColor != -1)
+                {
+                    BowlClass mainBowl = listBowl.Find(x => x.idColor == item.idColor);
+                    if (mainBowl != null && !mainBowl.isFull)
+                    {
+                        mainBowl.AddSand();
+                        item.Init();
+                        listEffectChangeBowl.Add(new ChangeSandBowl()
+                        {
+                            cacheBowl = item.gizmoPos.TF,
+                            mainBowl = mainBowl.gizmoPos.TF,
+                        });
+                    }
+                }
+            }
+            EventManager.EmitEvent(Constant.EVENT_GAMEPLAY_UPDATE_SCORE);
         }
     }
     [System.Serializable]
@@ -327,17 +443,13 @@ namespace TrungKien.Core
         public int counter, idColor;
         public PoolingElement gizmoPos;
         public bool isFull => counter >= DataSystem.Instance.gameplaySO.maxSandPerBowl;
-        public void AddItem()
+        public bool changeBowl;
+        public void AddSand()
         {
             ++counter;
             if (isFull)
             {
                 EventManager.EmitEvent(Constant.EVENT_GAMEPLAY_NEW_BOWL);
-                Fix.DelayedCall(0.3f, () =>
-                {
-                    counter = 0;
-                    idColor = LevelControl.Instance.GetBowlIDColor(1)[0];
-                });
             }
         }
         public Color GetColor()
@@ -355,23 +467,14 @@ namespace TrungKien.Core
         {
             idColor = -1;
         }
-        public void AddItem(int idColor)
-        {
-            this.idColor = idColor;
-            // if (index > LevelControl.Instance.maxSandPerBowl)
-            // {
-            //     index = 0;
-            // }
-        }
         public Color GetColor()
         {
-            return default; // LevelControl.Instance.GetColor(idColor);
+            return LevelControl.Instance.GetColor(idColor);
         }
     }
     [System.Serializable]
-    public class ColorClass
+    public class ChangeSandBowl
     {
-        public Color color;
-        public List<string> listPart;
+        public Transform cacheBowl, mainBowl;
     }
 }

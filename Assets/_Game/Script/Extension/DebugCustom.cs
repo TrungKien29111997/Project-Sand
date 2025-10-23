@@ -1,6 +1,8 @@
 using System;
 using Debug = UnityEngine.Debug;
 using Newtonsoft.Json;
+using System.Drawing;
+using UnityEngine;
 
 namespace TrungKien
 {
@@ -57,11 +59,19 @@ namespace TrungKien
 
         public static void LogColor(params object[] content)
         {
-#if UNITY_EDITOR || GAME_ROCKET
+#if UNITY_EDITOR
             if (!IsLogBug)
                 return;
             string str = PrepareString(content);
             Debug.Log("<color=\"" + "#ffa500ff" + "\">" + str + "</color>");
+#endif
+        }
+        public static void LogColor(string str, UnityEngine.Color color)
+        {
+#if UNITY_EDITOR
+            if (!IsLogBug)
+                return;
+            Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGB(color)}>{str}</color>");
 #endif
         }
 

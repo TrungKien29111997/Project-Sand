@@ -8,27 +8,31 @@ namespace TrungKien.Core.UI
     public class UICacheSandBowl : PoolingElement
     {
         [SerializeField] Image[] imgColor;
-        public int idColor { get; private set; }
-        public bool isEmpty => idColor == -1;
+        [SerializeField] Image imgVisualBowl;
 
-        public void AddItem(int idColor, Color color)
+        public void Fill(Color color)
         {
-            this.idColor = idColor;
+            DebugCustom.LogColor("Cache Bowl Fill", color);
             imgColor.ForEach(x =>
             {
-                x.color = color;
-                x.DOFade(1, 1.5f);
+                x.color = new Color(color.r, color.g, color.b, x.color.a);
+                x.DOFade(1f, 2f);
             });
-        }
-        public int RemoveItem()
-        {
-            Init();
-            return idColor;
         }
         public void Init()
         {
-            idColor = -1;
-            imgColor.ForEach(x => x.DOFade(0, 0.2f));
+            Debug.Log("Cache Bowl Init");
+            imgColor.ForEach(x =>
+            {
+                x.DOFade(0f, 2f);
+            });
+        }
+        Color color;
+        public void VisualBowlFade(Color color, float alpha)
+        {
+            this.color = color;
+            this.color.a = alpha;
+            imgVisualBowl.color = this.color;
         }
     }
 }
