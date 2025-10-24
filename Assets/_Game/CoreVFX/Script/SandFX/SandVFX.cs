@@ -16,7 +16,6 @@ namespace TrungKien.Core.VFX.Sand
         [SerializeField] MyVFXTransformBinder[] arrTransformBinder;
         Dictionary<string, MyVFXTransformBinder> dicTransformBinder;
         SandLine sandLine;
-        [SerializeField] Transform destinationSandFly;
 
         void Awake()
         {
@@ -25,7 +24,6 @@ namespace TrungKien.Core.VFX.Sand
             {
                 dicTransformBinder.Add(arrTransformBinder[i].Property, arrTransformBinder[i]);
             }
-            dicTransformBinder[Constants.pTranTargetVFXSand].Target = destinationSandFly;
         }
         Transform pos0, pos1, pos2, pos3;
         void Update()
@@ -74,34 +72,33 @@ namespace TrungKien.Core.VFX.Sand
 
                 Vector3 worldCenter = partMeshFilter.transform.TransformPoint(partMeshFilter.sharedMesh.bounds.center);
                 worldCenter.y = 0;
-                sandLine.SetUp(worldCenter, target, Mathf.Min(size.x, size.z), sandColor, 1.75f);
-                StartCoroutine(IEDestinationMove());
+                sandLine.SetUp(worldCenter, Vector3.up, target, Mathf.Min(size.x, size.z), sandColor, 1.75f);
             });
         }
-        IEnumerator IEDestinationMove()
-        {
-            float moveDuration = 0.15f;
+        // IEnumerator IEDestinationMove()
+        // {
+        //     float moveDuration = 0.15f;
 
-            for (int i = 0; i < sandLine.listTranPoint.Count; i++)
-            {
-                float t = 0f;
-                while (t < 1f)
-                {
-                    t += Time.deltaTime / moveDuration;
+        //     for (int i = 0; i < sandLine.listTranPoint.Count; i++)
+        //     {
+        //         float t = 0f;
+        //         while (t < 1f)
+        //         {
+        //             t += Time.deltaTime / moveDuration;
 
-                    // Vị trí target có thể đã thay đổi nên luôn lấy lại
-                    Vector3 targetPos = sandLine.listTranPoint[i].position;
+        //             // Vị trí target có thể đã thay đổi nên luôn lấy lại
+        //             Vector3 targetPos = sandLine.listTranPoint[i].position;
 
-                    destinationSandFly.position = Vector3.Lerp(
-                        destinationSandFly.position,
-                        targetPos,
-                        t
-                    );
+        //             destinationSandFly.position = Vector3.Lerp(
+        //                 destinationSandFly.position,
+        //                 targetPos,
+        //                 t
+        //             );
 
-                    yield return null;
-                }
-            }
-        }
+        //             yield return null;
+        //         }
+        //     }
+        // }
         IEnumerator IEDestroy(System.Action callBack)
         {
             yield return new WaitUntil(() => vfx.aliveParticleCount == 0);

@@ -18,6 +18,8 @@ namespace TrungKien.Core.UI
         public bool isFlyOut { get; private set; }
         [SerializeField] TextMeshProUGUI txtCount;
         Color cacheColor;
+        [Sirenix.OdinInspector.ReadOnly][SerializeField] int localCounter;
+        public int indexBowl { get; set; }
 
         public void SetUp(Color color)
         {
@@ -30,12 +32,23 @@ namespace TrungKien.Core.UI
         {
             txtCount.text = "0";
         }
-        public void SetSandLevel(int value, int maxValue)
+        public void AddSand(int maxValue)
         {
-            txtCount.text = value.ExToString();
+            ++localCounter;
+            txtCount.text = localCounter.ExToString();
             DebugCustom.LogColor("Main Bowl Fill", this.cacheColor);
+            if (CheckChangeMainBowl(localCounter))
+            {
+                localCounter = 0;
+                AnimFlyOut(() =>
+                {
+                    LevelControl.Instance.GetNewBowl(indexBowl);
+                    SetUp(LevelControl.Instance.listBowl[indexBowl].GetColor());
+                    UIManager.Instance.GetUI<CanvasGamePlay>().UpdateUICacheBowl();
+                });
+            }
         }
-        public void AnimFlyOut(System.Action doneAction = null)
+        void AnimFlyOut(System.Action doneAction = null)
         {
             isFlyOut = true;
             canvasGroup.Fade(0f, 1f);
@@ -45,7 +58,7 @@ namespace TrungKien.Core.UI
                 doneAction?.Invoke();
             });
         }
-        public void AnimFlyIn()
+        void AnimFlyIn()
         {
             isFlyOut = false;
             canvasGroup.Fade(1f, 1f);
@@ -55,6 +68,14 @@ namespace TrungKien.Core.UI
         public void SetLock(bool status)
         {
             objLock.SetActive(status);
+        }
+        bool CheckChangeMainBowl(int value)
+        {
+            if (value == DataSystem.Instance.gameplaySO.maxSandPerBowl)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

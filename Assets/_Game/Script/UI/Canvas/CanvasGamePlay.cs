@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using DG.Tweening;
+using JetBrains.Annotations;
 using TMPro;
+using TrungKien.Core.VFX;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,7 +23,6 @@ namespace TrungKien.Core.UI
         public List<UISandBowl> listUISandBowl;
         public List<UICacheSandBowl> listUICacheSandBowl;
         [SerializeField] LayerMask layerUIPlane;
-        bool isSpawnBowl;
         void Start()
         {
             cameraControl = LevelControl.Instance.cameraCtrl;
@@ -49,10 +50,12 @@ namespace TrungKien.Core.UI
             listUISandBowl = new List<UISandBowl>();
             for (int i = 0; i < 4; i++)
             {
+                int index = i;
                 UISandBowl uiBowl = PoolingSystem.Spawn(DataSystem.Instance.prefabSO.dicUIGameplay[EUIGameplayPool.UISandBowl], default, default, rectSandBowlGroup) as UISandBowl;
-                if (i < listBowlClass.Count)
+                uiBowl.indexBowl = index;
+                if (index < listBowlClass.Count)
                 {
-                    uiBowl.SetUp(listBowlClass[i].GetColor());
+                    uiBowl.SetUp(listBowlClass[index].GetColor());
                     uiBowl.SetLock(false);
                 }
                 else
@@ -62,23 +65,22 @@ namespace TrungKien.Core.UI
                 }
                 listUISandBowl.Add(uiBowl);
             }
-            isSpawnBowl = true;
         }
         public void SetUpCacheSandBowl(int amount)
         {
             listUICacheSandBowl = new();
             for (int i = 0; i < amount; i++)
             {
+                int index = i;
                 UICacheSandBowl cacheSandBowl = PoolingSystem.Spawn(DataSystem.Instance.prefabSO.dicUIGameplay[EUIGameplayPool.UICacheSandBowl], default, default, rectSandCacheBowlGroup) as UICacheSandBowl;
                 cacheSandBowl.Init();
+                cacheSandBowl.indexCacheBowl = index;
                 listUICacheSandBowl.Add(cacheSandBowl);
             }
         }
         public override void SetUp()
         {
             base.SetUp();
-            EventManager.StartListening(Constant.EVENT_GAMEPLAY_UPDATE_SCORE, UpdateUIItemCounter);
-            EventManager.StartListening(Constant.EVENT_GAMEPLAY_NEW_BOWL, UpdateBowl);
         }
         public override void Open()
         {
@@ -87,90 +89,93 @@ namespace TrungKien.Core.UI
         public override void Close()
         {
             base.Close();
-            EventManager.StopListening(Constant.EVENT_GAMEPLAY_UPDATE_SCORE, UpdateUIItemCounter);
-            EventManager.StopListening(Constant.EVENT_GAMEPLAY_NEW_BOWL, UpdateBowl);
         }
-
-        void UpdateUIItemCounter()
+        List<ChangeSandBowl> listEffectChangeBowl => LevelControl.Instance.listEffectChangeBowl;
+        List<BowlClass> listBowl => LevelControl.Instance.listBowl;
+        List<BowlCacheClass> listCacheBowl => LevelControl.Instance.listCacheBowl;
+        public void UpdateUICacheBowl()
         {
             // txtAmount.text = $"{LevelControl.Instance.ItemCounter}/{LevelControl.Instance.MaxItem}";
             // rectTransScore.DOPunchScale(Vector3.one * 0.2f, 0.8f);
             // particleUI.Active();
-            List<BowlClass> listBowl = LevelControl.Instance.listBowl;
-            List<BowlCacheClass> listCacheBowl = LevelControl.Instance.listCacheBowl;
-            for (int i = 0; i < listBowl.Count; i++)
+
+            // for (int i = 0; i < listUICacheSandBowl.Count; i++)
+            // {
+            //     if (!listCacheBowl[i].isEmpty)
+            //     {
+            //         listUICacheSandBowl[i].Fill(listCacheBowl[i].GetColor());
+            //     }
+            //     else
+            //     {
+            //         listUICacheSandBowl[i].Init();
+            //     }
+            // }
+            if (listEffectChangeBowl.Count > 0)
             {
-                listUISandBowl[i].SetSandLevel(listBowl[i].counter, 3);
+                listEffectChangeBowl.ForEach(x =>
+                {
+                    Vector3 posMain = listUISandBowl[x.indexMainBowl].TF.position;
+                    Vector3 posCache = listUICacheSandBowl[x.indexCacheBowl].TF.position;
+                    SandLine sandLine = PoolingSystem.Spawn(DataSystem.Instance.vfxSO.dicPrefabVFX[VFX.ETypeVFX.Sand][3], posCache, Quaternion.LookRotation((posMain - posCache).normalized, -LevelControl.Instance.cameraCtrl.TF.forward)) as SandLine;
+                    sandLine.SetUp(posCache, sandLine.TF.up, listUISandBowl[x.indexMainBowl].TF, 0.5f, LevelControl.Instance.GetColor(x.indexColor), 2f);
+                });
+                listEffectChangeBowl.Clear();
+                Fix.DelayedCall(2.2f, SortCacheBowl);
             }
-            for (int i = 0; i < listUICacheSandBowl.Count; i++)
+        }
+        void SortCacheBowl()
+        {
+            StartCoroutine(IEVisualShareBowl());
+        }
+        IEnumerator IEVisualShareBowl()
+        {
+            List<int> emptyIndexBowl = LevelControl.Instance.SortCacheBowl();
+            for (int i = 0; i < emptyIndexBowl.Count; i++)
             {
-                if (!listCacheBowl[i].isEmpty)
+                int index = i;
+                if (emptyIndexBowl[index] == 0)
                 {
-                    listUICacheSandBowl[i].Fill(listCacheBowl[i].GetColor());
-                }
-                else
-                {
-                    listUICacheSandBowl[i].Init();
+
+                    if (index < listUICacheSandBowl.Count - 1)
+                    {
+                        int indexCacheBowlHaveSand = GetIndexCacheBowlHaveSand(emptyIndexBowl, index);
+                        if (indexCacheBowlHaveSand != -1)
+                        {
+                            UICacheSandBowl currentEmptySandBowl = listUICacheSandBowl[index];
+                            UICacheSandBowl fillSandBowl = listUICacheSandBowl[indexCacheBowlHaveSand];
+                            yield return fillSandBowl.IEShareSandToPreviousCacheBowl(currentEmptySandBowl.TF.position,() =>
+                            {
+                                currentEmptySandBowl.Fill(listCacheBowl[index].GetColor());
+                                fillSandBowl.Init();
+                            });
+                            emptyIndexBowl[index] = 1;
+                            emptyIndexBowl[indexCacheBowlHaveSand] = 0;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
                 }
             }
         }
-        void UpdateBowl()
+        int GetIndexCacheBowlHaveSand(List<int> emptyIndexBowl, int startIndex)
         {
-            List<BowlClass> listBowlClass = LevelControl.Instance.listBowl;
-            for (int i = 0; i < listBowlClass.Count; i++)
+            if (startIndex >= emptyIndexBowl.Count) return -1;
+            for (int i = startIndex; i < emptyIndexBowl.Count; i++)
             {
-                if (listBowlClass[i].changeBowl)
+                if (emptyIndexBowl[i] == 1)
                 {
-                    UISandBowl uiBowl = listUISandBowl[i];
-                    BowlClass bowlClass = listBowlClass[i];
-                    bowlClass.changeBowl = false;
-                    uiBowl.AnimFlyOut(() =>
-                    {
-                        uiBowl.SetUp(bowlClass.GetColor());
-                    });
+                    return i;
                 }
             }
+            return -1;
         }
         void CamZoom(float value)
         {
             cameraControl.camera.fieldOfView = cameraControl.defaultSizeCamera - value * rangeZoom;
         }
-        void LateUpdate()
-        {
-            if (isSpawnBowl)
-            {
-                UpdateTranTarget();
-            }
-        }
-        public void UpdateTranTarget()
-        {
-            for (int i = 0; i < LevelControl.Instance.currentBowl; i++)
-            {
-                Ray ray = LevelControl.Instance.cameraCtrl.camera.ScreenPointToRay(listUISandBowl[i].TF.position);
-                RaycastHit[] hits = Physics.RaycastAll(ray, 2000f, layerUIPlane);
-                for (int j = 0; j < hits.Length; j++)
-                {
-                    if (ReferenceEquals(colPanelScore, hits[j].collider))
-                    {
-                        LevelControl.Instance.listBowl[i].gizmoPos.TF.position = hits[j].point;
-                        break;
-                    }
-                }
-            }
-            for (int i = 0; i < LevelControl.Instance.listCacheBowl.Count; i++)
-            {
-                Ray ray = LevelControl.Instance.cameraCtrl.camera.ScreenPointToRay(listUICacheSandBowl[i].TF.position);
-                RaycastHit[] hits = Physics.RaycastAll(ray, 2000f, layerUIPlane);
-                for (int j = 0; j < hits.Length; j++)
-                {
-                    if (ReferenceEquals(colPanelScore, hits[j].collider))
-                    {
-                        LevelControl.Instance.listCacheBowl[i].gizmoPos.TF.position = hits[j].point;
-                        break;
-                    }
-                }
-            }
-        }
+
         public void WarningFullCacheBowl()
         {
             Blink(Color.red, 1, 2, 0.25f);

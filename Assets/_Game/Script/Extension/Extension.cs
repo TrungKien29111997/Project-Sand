@@ -667,17 +667,14 @@ namespace TrungKien
             }
         }
 #endif
-        public static List<Vector3> GetPointCurve(Vector3 customDirection, Vector3 startPos, Vector3 endPos, float curveHeight, int pointCount)
+        public static List<Vector3> GetPointCurve(Vector3 normalizeUpVector, Vector3 startPos, Vector3 endPos, float curveHeight, int pointCount)
         {
             List<Vector3> evenlySpacedPoints = new();
-
-            // --- Tính vector hướng cong ---
-            Vector3 axisDir = customDirection.normalized;
 
             // --- Tạo điểm giữa (điểm đỉnh cong) ---
             Vector3 mid = (startPos + endPos) * 0.5f;
             float distance = Vector3.Distance(startPos, endPos);
-            mid += axisDir * (curveHeight * distance);
+            mid += normalizeUpVector * (curveHeight * distance);
 
             // --- Lấy mẫu dày để tính độ dài cong ---
             int sampleCount = 200;
@@ -733,5 +730,22 @@ namespace TrungKien
             }
         }
         public static T GetRandom<T>(this List<T> list) => list[UnityEngine.Random.Range(0, list.Count)];
+        public static void LookAtAroundUp(this Transform self, Vector3 targetPos)
+        {
+            // Vector hướng từ self tới target
+            Vector3 dir = targetPos - self.position;
+
+            // Chiếu vector này lên mặt phẳng vuông góc với trục up của object
+            dir = Vector3.ProjectOnPlane(dir, self.up);
+
+            // Nếu hướng còn lại quá nhỏ, bỏ qua
+            if (dir.sqrMagnitude < 0.0001f)
+                return;
+
+            // Tạo rotation mới: forward = hướng chiếu, up = up hiện tại
+            Quaternion rot = Quaternion.LookRotation(dir.normalized, self.up);
+
+            self.rotation = rot;
+        }
     }
 }

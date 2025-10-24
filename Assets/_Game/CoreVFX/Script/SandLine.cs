@@ -12,9 +12,11 @@ namespace TrungKien.Core.VFX
         [SerializeField] Transform root;
         Transform tranTarget;
         MaterialPropertyBlock mpb;
+        Vector3 upVector = Vector3.up;
 
-        public void SetUp(Vector3 startPos, Transform tranTarget, float startWidth, Color color, float timeDestroy)
+        public void SetUp(Vector3 startPos, Vector3 upVector, Transform tranTarget, float startWidth, Color color, float timeDestroy)
         {
+            this.upVector = upVector;
             this.tranTarget = tranTarget;
             TF.position = startPos;
             mpb = VFXSystem.GetMPB();
@@ -34,9 +36,8 @@ namespace TrungKien.Core.VFX
                     meshRen.SetPropertyBlock(mpb);
                 }, 0f, timeDestroy / 2);
             });
-            Vector3 targetPos = tranTarget.position;
-            targetPos.y = TF.position.y;
-            TF.forward = (targetPos - TF.position).normalized;
+            
+            TF.LookAtAroundUp(tranTarget.position);
             root.localScale = Vector3.one * startWidth;
             //ApplyHierarchyLossyScale(listTranPoint, Vector3.one * startWidth, Vector3.one * 0.3f);
             Fix.DelayedCall(timeDestroy, Despawn);
@@ -48,6 +49,7 @@ namespace TrungKien.Core.VFX
                 listTranPoint[i].position = TF.position;
             }
             VFXSystem.ReturnMPB(mpb);
+            PoolingSystem.Despawn(this);
         }
         List<Vector3> listCurvePos;
         void Update()
@@ -55,7 +57,7 @@ namespace TrungKien.Core.VFX
             if (tranTarget != null)
             {
                 listTranPoint[^1].position = Vector3.Lerp(listTranPoint[^1].position, tranTarget.position, 0.2f);
-                listCurvePos = Extension.GetPointCurve(Vector3.up, TF.position, tranTarget.position, 0.5f, listTranPoint.Count);
+                listCurvePos = Extension.GetPointCurve(upVector, TF.position, tranTarget.position, 0.5f, listTranPoint.Count);
                 for (int i = 0; i < listCurvePos.Count; i++)
                 {
                     listTranPoint[i].position = listCurvePos[i];
