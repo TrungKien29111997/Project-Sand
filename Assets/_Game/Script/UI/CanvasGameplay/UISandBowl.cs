@@ -32,7 +32,7 @@ namespace TrungKien.Core.UI
         {
             txtCount.text = "0";
         }
-        public void AddSand(int maxValue)
+        public void AddSand()
         {
             ++localCounter;
             txtCount.text = localCounter.ExToString();
@@ -44,7 +44,6 @@ namespace TrungKien.Core.UI
                 {
                     LevelControl.Instance.GetNewBowl(indexBowl);
                     SetUp(LevelControl.Instance.listBowl[indexBowl].GetColor());
-                    UIManager.Instance.GetUI<CanvasGamePlay>().UpdateUICacheBowl();
                 });
             }
         }
@@ -62,8 +61,11 @@ namespace TrungKien.Core.UI
         {
             isFlyOut = false;
             canvasGroup.Fade(1f, 1f);
-            rectRoot.DOLocalMoveY(0, 1f).SetEase(Ease.Linear);
-            LevelControl.Instance.CacheBowlShareSandToMainBowl();
+            rectRoot.DOLocalMoveY(0, 1f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                LevelControl.Instance.GeneralCacheBowlShareMainBowl();
+                UIManager.Instance.GetUI<CanvasGamePlay>().UpdateUICacheBowl();
+            });
         }
         public void SetLock(bool status)
         {

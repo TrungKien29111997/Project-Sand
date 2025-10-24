@@ -99,25 +99,16 @@ namespace TrungKien.Core.UI
             // rectTransScore.DOPunchScale(Vector3.one * 0.2f, 0.8f);
             // particleUI.Active();
 
-            // for (int i = 0; i < listUICacheSandBowl.Count; i++)
-            // {
-            //     if (!listCacheBowl[i].isEmpty)
-            //     {
-            //         listUICacheSandBowl[i].Fill(listCacheBowl[i].GetColor());
-            //     }
-            //     else
-            //     {
-            //         listUICacheSandBowl[i].Init();
-            //     }
-            // }
             if (listEffectChangeBowl.Count > 0)
             {
                 listEffectChangeBowl.ForEach(x =>
                 {
                     Vector3 posMain = listUISandBowl[x.indexMainBowl].TF.position;
                     Vector3 posCache = listUICacheSandBowl[x.indexCacheBowl].TF.position;
+                    listUICacheSandBowl[x.indexCacheBowl].Init();
                     SandLine sandLine = PoolingSystem.Spawn(DataSystem.Instance.vfxSO.dicPrefabVFX[VFX.ETypeVFX.Sand][3], posCache, Quaternion.LookRotation((posMain - posCache).normalized, -LevelControl.Instance.cameraCtrl.TF.forward)) as SandLine;
                     sandLine.SetUp(posCache, sandLine.TF.up, listUISandBowl[x.indexMainBowl].TF, 0.5f, LevelControl.Instance.GetColor(x.indexColor), 2f);
+                    listUISandBowl[x.indexMainBowl].AddSand();
                 });
                 listEffectChangeBowl.Clear();
                 Fix.DelayedCall(2.2f, SortCacheBowl);

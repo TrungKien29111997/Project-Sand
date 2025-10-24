@@ -355,9 +355,10 @@ namespace TrungKien.Core
             if (index != -1)
             {
                 listBowl[index].AddSand();
+                UISandBowl uiBowl = uiGameplay.listUISandBowl[index];
                 return new System.Tuple<Transform, System.Action>(uiGameplay.listUISandBowl[index].transform, () =>
                 {
-                    uiGameplay.listUISandBowl[index].AddSand(3);
+                    uiBowl.AddSand();
                 });
             }
             else
@@ -367,11 +368,12 @@ namespace TrungKien.Core
                 {
                     listCacheBowl[indexCache].idColor = dicPartColor[partName][0];
                     Color cacheColor = dicConfigColor[dicPartColor[partName][0]];
+                    UICacheSandBowl uICacheSandBowl = uiGameplay.listUICacheSandBowl[indexCache];
                     return new System.Tuple<Transform, System.Action>(uiGameplay.listUICacheSandBowl[indexCache].transform, () =>
                     {
                         Fix.DelayedCall(0.8f, () =>
                             {
-                                uiGameplay.listUICacheSandBowl[indexCache].Fill(cacheColor);
+                                uICacheSandBowl.Fill(cacheColor);
                             });
                     });
                 }
@@ -393,7 +395,7 @@ namespace TrungKien.Core
             bowlClass.idColor = listValidColor.Count > 0 ? listValidColor.GetRandom() : listAllColor.GetRandom();
         }
         public List<ChangeSandBowl> listEffectChangeBowl;
-        public void CacheBowlShareSandToMainBowl()
+        public void GeneralCacheBowlShareMainBowl()
         {
             listEffectChangeBowl = new();
             for (int i = 0; i < listCacheBowl.Count; i++)
