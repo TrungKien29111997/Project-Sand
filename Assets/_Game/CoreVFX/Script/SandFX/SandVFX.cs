@@ -42,26 +42,49 @@ namespace TrungKien.Core.VFX.Sand
             vfx.SetMesh(Constants.pMesh, mesh);
             vfx.SetFloat(Constants.pMaxHeight, maxHeight);
             vfx.SetFloat(Constants.pVFXSandDelayEachLayer, DataSystem.Instance.gameplaySO.delayFactor / dissolveFactor);
-            vfx.SetFloat(Constants.pDelay, 1);
+            vfx.SetFloat(Constants.pDelay, DataSystem.Instance.gameplaySO.timeDelayStartDropSand);
             Vector2 randomGravitySpeed = DataSystem.Instance.gameplaySO.gravity;
             vfx.SetVector2(Constants.pRandomGravitySpeed, randomGravitySpeed);
-            float delay = minHeight / Mathf.Abs(Random.Range(randomGravitySpeed.x, randomGravitySpeed.y)) + (maxHeight - minHeight) * (DataSystem.Instance.gameplaySO.delayFactor / dissolveFactor) + 1;
+            float delay = minHeight / Mathf.Abs(Random.Range(randomGravitySpeed.x, randomGravitySpeed.y))
+             + (maxHeight - minHeight) * (DataSystem.Instance.gameplaySO.delayFactor / dissolveFactor) + DataSystem.Instance.gameplaySO.timeSandStayInGroud;
             vfx.SetFloat(Constants.pDelayTime, delay);
-            vfx.SetVector2(Constants.pLifeTime, new Vector2(delay + 1.5f, delay + 2f));
+            vfx.SetFloat(Constants.pLifeTime, delay + DataSystem.Instance.gameplaySO.timeSandFlyOut);
             dicTransformBinder[Constants.pTranActiveVFXSand].Target = objectTransform;
             BuildTriangleBuffer(mesh);
             vfx.Play();
             StartCoroutine(IEDestroy(callBack));
             AnimationCurve curve = new AnimationCurve(
                 new Keyframe(0, 1),
-                new Keyframe(delay / (delay + 1.75f), 1),
+                new Keyframe(delay / (delay + DataSystem.Instance.gameplaySO.timeSandFlyOut), 1),
                 new Keyframe(1, 0)
             );
+
+            // --- Ép tangent linear cho key thứ 2 và 3 ---
+            for (int i = 0; i < curve.keys.Length; i++)
+            {
+                Keyframe k = curve.keys[i];
+                if (i == 1) // key thứ 2
+                {
+                    float dx = curve.keys[2].time - k.time;
+                    float dy = curve.keys[2].value - k.value;
+                    float m = dy / dx;
+                    k.outTangent = m;
+                }
+                else if (i == 2) // key thứ 3
+                {
+                    float dx = k.time - curve.keys[1].time;
+                    float dy = k.value - curve.keys[1].value;
+                    float m = dy / dx;
+                    k.inTangent = m;
+                }
+                curve.MoveKey(i, k);
+            }
+
             vfx.SetAnimationCurve(Constants.pSizeOverLife, curve);
 
             Bounds b = partMeshFilter.sharedMesh.bounds;
             Vector3 size = Vector3.Scale(b.size, partMeshFilter.transform.lossyScale);
-            Fix.DelayedCall(delay, () =>
+            Fix.DelayedCall(delay - 0.5f, () =>
             {
                 sandLine = PoolingSystem.Spawn(DataSystem.Instance.vfxSO.dicPrefabVFX[ETypeVFX.Sand][2]) as SandLine;
                 pos0 = sandLine.listTranPoint[0];
@@ -72,7 +95,7 @@ namespace TrungKien.Core.VFX.Sand
 
                 Vector3 worldCenter = partMeshFilter.transform.TransformPoint(partMeshFilter.sharedMesh.bounds.center);
                 worldCenter.y = 0;
-                sandLine.SetUp(worldCenter, Vector3.up, target, Mathf.Min(size.x, size.z), sandColor, 1.75f);
+                sandLine.SetUp(worldCenter, Vector3.up, target, Mathf.Min(size.x, size.z), sandColor, DataSystem.Instance.gameplaySO.timeSandFlyOut + 0.5f);
             });
         }
         // IEnumerator IEDestinationMove()
@@ -103,8 +126,6 @@ namespace TrungKien.Core.VFX.Sand
         {
             yield return new WaitUntil(() => vfx.aliveParticleCount == 0);
             callBack?.Invoke();
-            ++LevelControl.Instance.ItemCounter;
-            //EventManager.EmitEvent(Constants.EVENT_UPDATE_UI_GAMEPLAY_DISSOLVE_ITEM_COUNTER);
             PoolingSystem.Despawn(this);
             vfx.Stop();
             PoolingSystem.Despawn(sandLine);

@@ -14,5 +14,8 @@ namespace TrungKien
         public Vector2 gravity = new Vector2(-5f, -4f);
         public int maxSandPerBowl = 3;
         public int amountCacheBowl = 5;
+        public float timeSandFlyOut = 1f;
+        public float timeSandStayInGroud = 0.7f;
+        public float timeDelayStartDropSand = 1f;
     }
 }

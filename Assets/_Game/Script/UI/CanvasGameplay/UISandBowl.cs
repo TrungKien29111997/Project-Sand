@@ -40,31 +40,40 @@ namespace TrungKien.Core.UI
             if (CheckChangeMainBowl(localCounter))
             {
                 localCounter = 0;
-                AnimFlyOut(() =>
-                {
-                    LevelControl.Instance.GetNewBowl(indexBowl);
-                    SetUp(LevelControl.Instance.listBowl[indexBowl].GetColor());
-                });
+                LevelControl.Instance.listBowl[indexBowl].idColor = -1;
+                StartCoroutine(IEFlyOut());
             }
         }
-        void AnimFlyOut(System.Action doneAction = null)
+        IEnumerator IEFlyOut()
+        {
+            yield return new WaitUntil(() => LevelControl.Instance.amoutSandEffectRunning == 0);
+            AnimFlyOut();
+        }
+        void AnimFlyOut()
         {
             isFlyOut = true;
             canvasGroup.Fade(0f, 1f);
             rectRoot.DOLocalMoveY(200, 1f).SetEase(Ease.Linear).OnComplete(() =>
             {
-                AnimFlyIn();
-                doneAction?.Invoke();
+                if (LevelControl.Instance.CheckEndLevel())
+                {
+                    LevelControl.Instance.OnWin();
+                }
+                else
+                {
+                    AnimFlyIn();
+                }
             });
         }
         void AnimFlyIn()
         {
+            LevelControl.Instance.GetNewBowl(indexBowl);
+            SetUp(LevelControl.Instance.listBowl[indexBowl].GetColor());
             isFlyOut = false;
             canvasGroup.Fade(1f, 1f);
             rectRoot.DOLocalMoveY(0, 1f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 LevelControl.Instance.GeneralCacheBowlShareMainBowl();
-                UIManager.Instance.GetUI<CanvasGamePlay>().UpdateUICacheBowl();
             });
         }
         public void SetLock(bool status)

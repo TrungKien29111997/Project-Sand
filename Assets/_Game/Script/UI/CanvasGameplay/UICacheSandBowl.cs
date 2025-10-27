@@ -12,22 +12,22 @@ namespace TrungKien.Core.UI
         [SerializeField] RectTransform rectRoot;
         [SerializeField] float pourRot;
         public int indexCacheBowl { get; set; }
-        public void Fill(Color color)
+        public void Fill(Color color, float timeFill = 1.2f)
         {
             DebugCustom.LogColor("Cache Bowl Fill", color);
             imgColor.ForEach(x =>
             {
                 x.DOKill();
                 x.color = new Color(color.r, color.g, color.b, x.color.a);
-                x.DOFade(1f, 2f);
+                x.DOFade(1f, timeFill);
             });
         }
-        public void Init()
+        public void Init(float timeFill = 1.2f)
         {
             Debug.Log("Cache Bowl Init");
             imgColor.ForEach(x =>
             {
-                x.DOFade(0f, 2f);
+                x.DOFade(0f, timeFill);
             });
         }
         Color color;

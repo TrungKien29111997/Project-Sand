@@ -32,6 +32,7 @@ namespace TrungKien.Core.Gameplay
 
         public void Dissolve(bool isLastLayer)
         {
+            ++LevelControl.Instance.amoutSandEffectRunning;
             col.enabled = false;
             System.Tuple<Transform, System.Action> tupleBowl = LevelControl.Instance.PreFillBowl(gameObject.name);
             Transform targetTran = tupleBowl.Item1;
@@ -46,9 +47,10 @@ namespace TrungKien.Core.Gameplay
                 {
                     PoolingSystem.Despawn(effectObj);
                     TF.DOScale(cacheScale, 0.5f).OnComplete(() => col.enabled = true);
-                    tupleBowl.Item2?.Invoke();
                 }, () =>
                 {
+                    tupleBowl.Item2?.Invoke();
+                    Fix.DelayedCall(1.2f, () => LevelControl.Instance.amoutSandEffectRunning--);
                     EventManager.EmitEvent(Constant.EVENT_GAMEPLAY_UPDATE_SCORE);
                 });
                 SetColor(LevelControl.Instance.GetNewColorAndClearOldColor(gameObject.name));
@@ -58,11 +60,13 @@ namespace TrungKien.Core.Gameplay
                 VFXSystem.SpawnVFX(ETypeVFX.Sand, TF, targetTran, meshFilter, meshRen, cacheColor, () =>
                 {
                     gameObject.SetActive(false);
-                    tupleBowl.Item2?.Invoke();
                 }, () =>
                 {
+                    tupleBowl.Item2?.Invoke();
+                    Fix.DelayedCall(1.2f, () => LevelControl.Instance.amoutSandEffectRunning--);
                     EventManager.EmitEvent(Constant.EVENT_GAMEPLAY_UPDATE_SCORE);
                 });
+                LevelControl.Instance.GetNewColorAndClearOldColor(gameObject.name);
             }
         }
 

@@ -12,7 +12,6 @@ namespace TrungKien.Core.VFX
         public const string pShaderEmissiveColor = "_EmissiveColor";
         public const string pShaderCutOffHeight = "_CutOffHeight";
         public const string pShaderSandLerp = "_Lerp";
-        //public const string EVENT_UPDATE_UI_GAMEPLAY_DISSOLVE_ITEM_COUNTER = "EVENT_UPDATE_UI_GAMEPLAY_DISSOLVE_ITEM_COUNTER";
         public const string pVFXSandDelayEachLayer = "DelayEachLayer";
         public const int minSandSpawnCount = 40;
         public const int maxScandSpawnCount = 150;

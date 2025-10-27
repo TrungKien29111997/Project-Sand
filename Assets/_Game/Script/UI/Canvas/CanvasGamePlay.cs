@@ -13,7 +13,7 @@ namespace TrungKien.Core.UI
 {
     public class CanvasGamePlay : UICanvas
     {
-        [SerializeField] TextMeshProUGUI txtAmount, txtDebugFPS;
+        [SerializeField] TextMeshProUGUI txtScore, txtDebugFPS;
         [SerializeField] Scrollbar scrollbar;
         CameraControl cameraControl;
         [SerializeField] float rangeZoom = 20f;
@@ -81,6 +81,7 @@ namespace TrungKien.Core.UI
         public override void SetUp()
         {
             base.SetUp();
+            EventManager.StartListening(Constant.EVENT_GAMEPLAY_UPDATE_SCORE, ScoreVisual);
         }
         public override void Open()
         {
@@ -89,44 +90,31 @@ namespace TrungKien.Core.UI
         public override void Close()
         {
             base.Close();
+            EventManager.StopListening(Constant.EVENT_GAMEPLAY_UPDATE_SCORE, ScoreVisual);
         }
-        List<ChangeSandBowl> listEffectChangeBowl => LevelControl.Instance.listEffectChangeBowl;
-        List<BowlClass> listBowl => LevelControl.Instance.listBowl;
+        void ScoreVisual()
+        {
+            txtScore.text = $"{LevelControl.Instance.currentScore}/{LevelControl.Instance.maxScore}";
+        }
         List<BowlCacheClass> listCacheBowl => LevelControl.Instance.listCacheBowl;
-        public void UpdateUICacheBowl()
-        {
-            // txtAmount.text = $"{LevelControl.Instance.ItemCounter}/{LevelControl.Instance.MaxItem}";
-            // rectTransScore.DOPunchScale(Vector3.one * 0.2f, 0.8f);
-            // particleUI.Active();
 
-            if (listEffectChangeBowl.Count > 0)
-            {
-                listEffectChangeBowl.ForEach(x =>
-                {
-                    Vector3 posMain = listUISandBowl[x.indexMainBowl].TF.position;
-                    Vector3 posCache = listUICacheSandBowl[x.indexCacheBowl].TF.position;
-                    listUICacheSandBowl[x.indexCacheBowl].Init();
-                    SandLine sandLine = PoolingSystem.Spawn(DataSystem.Instance.vfxSO.dicPrefabVFX[VFX.ETypeVFX.Sand][3], posCache, Quaternion.LookRotation((posMain - posCache).normalized, -LevelControl.Instance.cameraCtrl.TF.forward)) as SandLine;
-                    sandLine.SetUp(posCache, sandLine.TF.up, listUISandBowl[x.indexMainBowl].TF, 0.5f, LevelControl.Instance.GetColor(x.indexColor), 2f);
-                    listUISandBowl[x.indexMainBowl].AddSand();
-                });
-                listEffectChangeBowl.Clear();
-                Fix.DelayedCall(2.2f, SortCacheBowl);
-            }
-        }
-        void SortCacheBowl()
+        public void VisualShareSandCacheBowlToMainBowl(int mainBowlIndex, int cacheBowlIndex, int indexColor)
         {
-            StartCoroutine(IEVisualShareBowl());
+            Vector3 posMain = listUISandBowl[mainBowlIndex].TF.position;
+            Vector3 posCache = listUICacheSandBowl[cacheBowlIndex].TF.position;
+            listUICacheSandBowl[cacheBowlIndex].Init();
+            SandLine sandLine = PoolingSystem.Spawn(DataSystem.Instance.vfxSO.dicPrefabVFX[VFX.ETypeVFX.Sand][3], posCache, Quaternion.LookRotation((posMain - posCache).normalized, -LevelControl.Instance.cameraCtrl.TF.forward)) as SandLine;
+            sandLine.SetUp(posCache, sandLine.TF.up, listUISandBowl[mainBowlIndex].TF, 0.5f, LevelControl.Instance.GetColor(indexColor), 2f);
+            listUISandBowl[mainBowlIndex].AddSand();
         }
-        IEnumerator IEVisualShareBowl()
+
+        public IEnumerator IEVisualShareBowl(List<int> emptyIndexBowl)
         {
-            List<int> emptyIndexBowl = LevelControl.Instance.SortCacheBowl();
             for (int i = 0; i < emptyIndexBowl.Count; i++)
             {
                 int index = i;
                 if (emptyIndexBowl[index] == 0)
                 {
-
                     if (index < listUICacheSandBowl.Count - 1)
                     {
                         int indexCacheBowlHaveSand = GetIndexCacheBowlHaveSand(emptyIndexBowl, index);
@@ -134,10 +122,10 @@ namespace TrungKien.Core.UI
                         {
                             UICacheSandBowl currentEmptySandBowl = listUICacheSandBowl[index];
                             UICacheSandBowl fillSandBowl = listUICacheSandBowl[indexCacheBowlHaveSand];
-                            yield return fillSandBowl.IEShareSandToPreviousCacheBowl(currentEmptySandBowl.TF.position,() =>
+                            yield return fillSandBowl.IEShareSandToPreviousCacheBowl(currentEmptySandBowl.TF.position, () =>
                             {
-                                currentEmptySandBowl.Fill(listCacheBowl[index].GetColor());
-                                fillSandBowl.Init();
+                                currentEmptySandBowl.Fill(listCacheBowl[index].GetColor(), 0.15f);
+                                fillSandBowl.Init(0.15f);
                             });
                             emptyIndexBowl[index] = 1;
                             emptyIndexBowl[indexCacheBowlHaveSand] = 0;
@@ -149,6 +137,7 @@ namespace TrungKien.Core.UI
                     }
                 }
             }
+            LevelControl.Instance.isLockInteract = false;
         }
         int GetIndexCacheBowlHaveSand(List<int> emptyIndexBowl, int startIndex)
         {

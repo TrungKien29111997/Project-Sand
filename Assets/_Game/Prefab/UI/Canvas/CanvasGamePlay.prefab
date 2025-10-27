@@ -708,7 +708,7 @@ GameObject:
   - component: {fileID: 5080498560644757717}
   - component: {fileID: 5868281783423313822}
   m_Layer: 5
-  m_Name: Text (TMP) - Amount
+  m_Name: Text (TMP) - Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -879,13 +879,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 131597292a672e84eb844363f419d59e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txtAmount: {fileID: 5868281783423313822}
+  txtScore: {fileID: 5868281783423313822}
   txtDebugFPS: {fileID: 7984504245991958562}
   scrollbar: {fileID: 6842614864252126688}
   rangeZoom: 20
   rectSandBowlGroup: {fileID: 8874413253873539064}
   rectSandCacheBowlGroup: {fileID: 4614077350483037384}
   particleUI: {fileID: 5829963107248851731}
+  listUISandBowl: []
+  listUICacheSandBowl: []
   layerUIPlane:
     serializedVersion: 2
     m_Bits: 64
