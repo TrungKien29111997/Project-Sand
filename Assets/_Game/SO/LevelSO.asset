@@ -24,3 +24,11 @@ MonoBehaviour:
   levels:
   - modelType: 1
     modelSO: {fileID: 11400000, guid: 883b899d6accfd94a896a29bbe843c29, type: 2}
+  - modelType: 2
+    modelSO: {fileID: 11400000, guid: 6ba1f7ac5bae59644a171d38fadc1dca, type: 2}
+  - modelType: 3
+    modelSO: {fileID: 11400000, guid: 96c76df694ba1f84798cd5037f6ddfa1, type: 2}
+  - modelType: 4
+    modelSO: {fileID: 11400000, guid: ac466ee7edf34be44818b48c9d04bf16, type: 2}
+  - modelType: 5
+    modelSO: {fileID: 11400000, guid: 2d5bd87270ec6164181e93d48b9ffd56, type: 2}

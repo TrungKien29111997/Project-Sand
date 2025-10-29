@@ -17,6 +17,7 @@ namespace TrungKien.Tool
         [FoldoutGroup("Config")][SerializeField] Material matPlane;
         [FoldoutGroup("Config")][SerializeField] ModelSO cacheModelSO;
         [FoldoutGroup("Config")][SerializeField] BaseTargetObject cacheModel;
+        [FoldoutGroup("Config")][SerializeField] Transform tranModulCam;
         [SerializeField] ModelType modelType;
         [SerializeField] Color backGroudColor, planeColor;
 
@@ -80,6 +81,18 @@ namespace TrungKien.Tool
                 UnityEditor.AssetDatabase.SaveAssets();
                 Debug.Log("Generate Material Done");
             }
+        }
+        [Button]
+        void GenerateTransformSceneCam()
+        {
+            var sceneCam = UnityEditor.SceneView.lastActiveSceneView.camera;
+            tranModulCam.LookAt(sceneCam.transform, Vector3.up);
+            tranModulCam.Rotate(0, 180, 0);
+            cacheModelSO.camStartPos = tranModulCam.position;
+            cacheModelSO.camStartRot = tranModulCam.eulerAngles;
+
+            UnityEditor.EditorUtility.SetDirty(cacheModelSO);
+            UnityEditor.AssetDatabase.SaveAssets();
         }
     }
 #endif

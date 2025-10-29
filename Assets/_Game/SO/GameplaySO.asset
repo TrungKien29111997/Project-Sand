@@ -32,3 +32,4 @@ MonoBehaviour:
   timeSandFlyOut: 1
   timeSandStayInGroud: 1.2
   timeDelayStartDropSand: 1
+  sandMaterial: {fileID: 2100000, guid: c016c7678283d3841bd9f6175ac7719f, type: 2}
