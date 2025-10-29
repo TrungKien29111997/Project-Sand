@@ -34,7 +34,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 7
+      Data: 8
     - Name: 
       Entry: 7
       Data: 
@@ -52,13 +52,13 @@ MonoBehaviour:
       Data: UnityEngine.Color, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0.7411765
+      Data: 1
     - Name: 
       Entry: 4
-      Data: 0.4823529
+      Data: 1
     - Name: 
       Entry: 4
-      Data: 0.34117645
+      Data: 1
     - Name: 
       Entry: 4
       Data: 1
@@ -70,7 +70,67 @@ MonoBehaviour:
       Data: 3|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
       Entry: 12
-      Data: 8
+      Data: 1
+    - Name: 
+      Entry: 1
+      Data: Group18908
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: 4|TrungKien.Core.Gameplay.PartConfig, Assembly-CSharp
+    - Name: idColor
+      Entry: 3
+      Data: 1
+    - Name: color
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.7411765
+    - Name: 
+      Entry: 4
+      Data: 0.4823529
+    - Name: 
+      Entry: 4
+      Data: 0.341176361
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: listPart
+      Entry: 7
+      Data: 5|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 11
+    - Name: 
+      Entry: 1
+      Data: Group18909
+    - Name: 
+      Entry: 1
+      Data: polySurface71
+    - Name: 
+      Entry: 1
+      Data: polySurface85
     - Name: 
       Entry: 1
       Data: polySurface41
@@ -112,13 +172,160 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: $v
       Entry: 7
-      Data: 4|TrungKien.Core.Gameplay.PartConfig, Assembly-CSharp
+      Data: 6|TrungKien.Core.Gameplay.PartConfig, Assembly-CSharp
     - Name: idColor
       Entry: 3
+      Data: 2
+    - Name: color
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.9622641
+    - Name: 
+      Entry: 4
+      Data: 0.449359179
+    - Name: 
+      Entry: 4
+      Data: 0.45363307
+    - Name: 
+      Entry: 4
       Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: listPart
+      Entry: 7
+      Data: 7|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 10
+    - Name: 
+      Entry: 1
+      Data: Group18910
+    - Name: 
+      Entry: 1
+      Data: Group18914
+    - Name: 
+      Entry: 1
+      Data: polySurface88
+    - Name: 
+      Entry: 1
+      Data: polySurface90
+    - Name: 
+      Entry: 1
+      Data: pSphere26
+    - Name: 
+      Entry: 1
+      Data: pCube147
+    - Name: 
+      Entry: 1
+      Data: pCube149
+    - Name: 
+      Entry: 1
+      Data: pCube153
+    - Name: 
+      Entry: 1
+      Data: pCube154
+    - Name: 
+      Entry: 1
+      Data: pCube155
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: 8|TrungKien.Core.Gameplay.PartConfig, Assembly-CSharp
+    - Name: idColor
+      Entry: 3
+      Data: 3
+    - Name: color
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.8980393
+    - Name: 
+      Entry: 4
+      Data: 0.48627454
+    - Name: 
+      Entry: 4
+      Data: 0.7058823
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: listPart
+      Entry: 7
+      Data: 9|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 7
+    - Name: 
+      Entry: 1
+      Data: Group18911
+    - Name: 
+      Entry: 1
+      Data: Group18915
+    - Name: 
+      Entry: 1
+      Data: polySurface81
+    - Name: 
+      Entry: 1
+      Data: polySurface89
+    - Name: 
+      Entry: 1
+      Data: polySurface91
+    - Name: 
+      Entry: 1
+      Data: pSphere23
+    - Name: 
+      Entry: 1
+      Data: pSphere24
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: 10|TrungKien.Core.Gameplay.PartConfig, Assembly-CSharp
+    - Name: idColor
+      Entry: 3
+      Data: 4
     - Name: color
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -139,10 +346,13 @@ MonoBehaviour:
       Data: 
     - Name: listPart
       Entry: 7
-      Data: 5|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+      Data: 11|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
       Entry: 12
-      Data: 10
+      Data: 11
+    - Name: 
+      Entry: 1
+      Data: Group18912
     - Name: 
       Entry: 1
       Data: Group18907
@@ -190,25 +400,25 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 2
+      Data: 5
     - Name: $v
       Entry: 7
-      Data: 6|TrungKien.Core.Gameplay.PartConfig, Assembly-CSharp
+      Data: 12|TrungKien.Core.Gameplay.PartConfig, Assembly-CSharp
     - Name: idColor
       Entry: 3
-      Data: 2
+      Data: 5
     - Name: color
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 0.647058845
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 0.9215687
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 0.576470554
     - Name: 
       Entry: 4
       Data: 1
@@ -217,16 +427,25 @@ MonoBehaviour:
       Data: 
     - Name: listPart
       Entry: 7
-      Data: 7|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+      Data: 13|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 5
     - Name: 
       Entry: 1
-      Data: pCube140
+      Data: Group18913
     - Name: 
       Entry: 1
-      Data: pCube150
+      Data: polySurface72
+    - Name: 
+      Entry: 1
+      Data: polySurface84
+    - Name: 
+      Entry: 1
+      Data: pSphere19
+    - Name: 
+      Entry: 1
+      Data: pSphere28
     - Name: 
       Entry: 13
       Data: 
@@ -244,13 +463,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 3
+      Data: 6
     - Name: $v
       Entry: 7
-      Data: 8|TrungKien.Core.Gameplay.PartConfig, Assembly-CSharp
+      Data: 14|TrungKien.Core.Gameplay.PartConfig, Assembly-CSharp
     - Name: idColor
       Entry: 3
-      Data: 3
+      Data: 6
     - Name: color
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -271,10 +490,13 @@ MonoBehaviour:
       Data: 
     - Name: listPart
       Entry: 7
-      Data: 9|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+      Data: 15|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
       Entry: 12
-      Data: 10
+      Data: 11
+    - Name: 
+      Entry: 1
+      Data: polySurface80
     - Name: 
       Entry: 1
       Data: pCube142
@@ -322,25 +544,25 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 4
+      Data: 7
     - Name: $v
       Entry: 7
-      Data: 10|TrungKien.Core.Gameplay.PartConfig, Assembly-CSharp
+      Data: 16|TrungKien.Core.Gameplay.PartConfig, Assembly-CSharp
     - Name: idColor
       Entry: 3
-      Data: 4
+      Data: 7
     - Name: color
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0.647058845
+      Data: 0
     - Name: 
       Entry: 4
-      Data: 0.9215687
+      Data: 0
     - Name: 
       Entry: 4
-      Data: 0.576470554
+      Data: 0
     - Name: 
       Entry: 4
       Data: 1
@@ -349,136 +571,16 @@ MonoBehaviour:
       Data: 
     - Name: listPart
       Entry: 7
-      Data: 11|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+      Data: 17|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 1
-      Data: pSphere19
+      Data: pCube140
     - Name: 
       Entry: 1
-      Data: pSphere28
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 5
-    - Name: $v
-      Entry: 7
-      Data: 12|TrungKien.Core.Gameplay.PartConfig, Assembly-CSharp
-    - Name: idColor
-      Entry: 3
-      Data: 5
-    - Name: color
-      Entry: 7
-      Data: UnityEngine.Color, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0.8980393
-    - Name: 
-      Entry: 4
-      Data: 0.48627454
-    - Name: 
-      Entry: 4
-      Data: 0.7058823
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: listPart
-      Entry: 7
-      Data: 13|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 1
-      Data: pSphere23
-    - Name: 
-      Entry: 1
-      Data: pSphere24
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 6
-    - Name: $v
-      Entry: 7
-      Data: 14|TrungKien.Core.Gameplay.PartConfig, Assembly-CSharp
-    - Name: idColor
-      Entry: 3
-      Data: 6
-    - Name: color
-      Entry: 7
-      Data: UnityEngine.Color, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0.9622641
-    - Name: 
-      Entry: 4
-      Data: 0.449359179
-    - Name: 
-      Entry: 4
-      Data: 0.453633249
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: listPart
-      Entry: 7
-      Data: 15|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 6
-    - Name: 
-      Entry: 1
-      Data: pSphere26
-    - Name: 
-      Entry: 1
-      Data: pCube147
-    - Name: 
-      Entry: 1
-      Data: pCube149
-    - Name: 
-      Entry: 1
-      Data: pCube153
-    - Name: 
-      Entry: 1
-      Data: pCube154
-    - Name: 
-      Entry: 1
-      Data: pCube155
+      Data: pCube150
     - Name: 
       Entry: 13
       Data: 
@@ -498,11 +600,11 @@ MonoBehaviour:
       Entry: 8
       Data: 
   icon: {fileID: 21300000, guid: b79ee4f6af1f6514382cb431f38feee2, type: 3}
-  shadow: {fileID: 21300000, guid: b79ee4f6af1f6514382cb431f38feee2, type: 3}
+  shadow: {fileID: 21300000, guid: e37d1590135a39f408a854b7097dab88, type: 3}
   timeLimit: 300
   layerPerPart: 3
   colorBG: {r: 0.9716981, g: 0.75627446, b: 0.9344853, a: 1}
   colorPlane: {r: 0.8396226, g: 0.61387503, b: 0.79857767, a: 1}
   model: {fileID: 1691572732359386737, guid: 8a8f142627863164b820fb1899584f05, type: 3}
-  camStartPos: {x: 0, y: 1.96, z: 0}
-  camStartRot: {x: 13.397589, y: 305.971, z: 0.0000017553172}
+  camStartPos: {x: 0, y: 1, z: 0}
+  camStartRot: {x: 36.482418, y: 333.40884, z: 0.0000031855664}

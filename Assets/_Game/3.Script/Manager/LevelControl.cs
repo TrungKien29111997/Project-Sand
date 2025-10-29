@@ -71,6 +71,7 @@ namespace TrungKien.Core
         {
             EventManager.StartListening(Constant.EVENT_GAMEPLAY_OPEN_CANVAS_SETTING, OpenCanvasSetting);
             EventManager.StartListening(Constant.EVENT_GAMEPLAY_CLOSE_CANVAS_SETTING, CloseCanvasSetting);
+            EventManager.StartListening(Constant.TIMER_TICK_EVENT, CounterTime);
             // Lấy Bloom từ VolumeProfile
             if (volume.profile.TryGet(out bloom))
             {
@@ -91,11 +92,6 @@ namespace TrungKien.Core
             meshPlane.SetPropertyBlock(mpbPlane);
 
             SetObject(config);
-        }
-        void OnDestroy()
-        {
-            EventManager.StopListening(Constant.EVENT_GAMEPLAY_OPEN_CANVAS_SETTING, OpenCanvasSetting);
-            EventManager.StopListening(Constant.EVENT_GAMEPLAY_CLOSE_CANVAS_SETTING, CloseCanvasSetting);
         }
         void OpenCanvasSetting()
         {
@@ -152,10 +148,13 @@ namespace TrungKien.Core
             targetObj.TF.localScale = Vector3.one * targetObj.LocalScale;
             cameraCtrl.TF.SetPositionAndRotation(objectTarget.modelSO.camStartPos, Quaternion.Euler(objectTarget.modelSO.camStartRot));
 
+            // Gen them color sao cho chia het cho 3 de dissovle het
             FillDicGenColor();
 
+            // Gen them color cho du cac lop
             GenColor(objectTarget);
-            maxScore = objectTarget.modelSO.model.arrItemDissolve.Length * objectTarget.modelSO.layerPerPart;
+
+            maxScore = GetRemainScore();
             EventManager.EmitEvent(Constant.EVENT_GAMEPLAY_UPDATE_SCORE);
 
             // control bowl
@@ -180,18 +179,21 @@ namespace TrungKien.Core
             // set up time
             timeLimit = objectTarget.modelSO.timeLimit;
             timeLimitRemain = timeLimit;
-            isCountTime = true;
-            EventManager.StartListening(Constant.TIMER_TICK_EVENT, CounterTime);
-
+            uiGameplay.Init();
             uiGameplay.SetUpSandBowl(listBowl);
             uiGameplay.SetUpCacheSandBowl(DataSystem.Instance.gameplaySO.amountCacheBowl);
-            targetObj.AnimStartLevel(() => isStartGame = true);
+            targetObj.AnimStartLevel(() =>
+            {
+                isStartGame = true;
+                isCountTime = true;
+            });
         }
         void CounterTime()
         {
             if (isCountTime && !isFreezeTime)
             {
-                timeLimitRemain--;
+                --timeLimitRemain;
+                uiGameplay.CounterTime();
                 if (timeLimitRemain == 0)
                 {
                     if (CheckEndLevel())
@@ -223,34 +225,46 @@ namespace TrungKien.Core
         }
         void FillDicGenColor()
         {
-            List<string> listPartFillColor = new();
+            List<string> listPartCanAddColor = GetListPartNameCanAddColor();
             foreach (var item in dicGenColor)
             {
                 while (item.Value.Count % DataSystem.Instance.gameplaySO.maxSandPerBowl != 0)
                 {
-                    string partName = targetObj.arrItemDissolve[Random.Range(0, targetObj.arrItemDissolve.Length)].itemDissolve.gameObject.name;
-                    if (!listPartFillColor.Contains(partName))
+                    string partName = listPartCanAddColor.GetRandom();
+                    dicPartColor[partName].Add(item.Key);
+                    dicGenColor[item.Key].Add(partName);
+                    listPartCanAddColor.Remove(partName);
+                    if (listPartCanAddColor.Count == 0)
                     {
-                        listPartFillColor.Add(partName);
-                        dicPartColor[partName].Add(item.Key);
-                        dicGenColor[item.Key].Add(partName);
+                        listPartCanAddColor = GetListPartNameCanAddColor();
                     }
                 }
             }
         }
+        List<string> GetListPartNameCanAddColor()
+        {
+            List<string> listResult = new();
+            targetObj.arrItemDissolve.ForEach(x =>
+            {
+                if (!x.itemDissolve.IsShell)
+                {
+                    listResult.Add(x.itemDissolve.gameObject.name);
+                }
+            });
+            return listResult;
+        }
         void GenColor(LevelSO.ModelConfig objectTarget)
         {
+            List<string> listValidPart = GetListPartNameCanAddColor();
             List<string> listPart = new();
-            int indexLayer = 1;
-
-            foreach (var item in dicPartColor)
+            for (int i = 0; i < listValidPart.Count; i++)
             {
-                if (item.Value.Count == indexLayer)
+                if (dicPartColor[listValidPart[i]].Count == 1)
                 {
-                    listPart.Add(item.Key);
+                    listPart.Add(listValidPart[i]);
                 }
             }
-            for (int j = indexLayer; j < objectTarget.modelSO.layerPerPart; j++)
+            for (int j = 1; j < objectTarget.modelSO.layerPerPart; j++)
             {
                 while (listPart.Count >= DataSystem.Instance.gameplaySO.maxSandPerBowl)
                 {
@@ -262,7 +276,7 @@ namespace TrungKien.Core
                         listPart.RemoveAt(i);
                     }
                 }
-                List<string> listAllPart = dicPartColor.Keys.ToList();
+                List<string> listAllPart = GetListPartNameCanAddColor();
                 listPart.AddRange(listAllPart);
             }
         }
@@ -400,12 +414,23 @@ namespace TrungKien.Core
         }
         void OnLose()
         {
-
+            isCountTime = false;
+            isEndGame = true;
+            Debug.Log("Lose");
+            UIManager.Instance.OpenUI<CanvasLoseGame>();
+        }
+        public void ResetLevel()
+        {
+            SetObject(DataSystem.Instance.levelSO.levels[indexObject]);
         }
         public void NextLevel()
         {
             ++indexObject;
             SetObject(DataSystem.Instance.levelSO.levels[indexObject]);
+        }
+        public Sprite GetCurrentObejctShadow()
+        {
+            return DataSystem.Instance.levelSO.levels[indexObject].modelSO.shadow;
         }
         public Sprite GetNextObejctShadow()
         {
@@ -556,42 +581,42 @@ namespace TrungKien.Core
             {
                 listIndexColor.Add(listCacheBowl[i].idColor);
             }
-            if (dicEffectChangeBowl.Keys.Count <= 0 && HasMiddleNegative(listIndexColor))
+            bool hasMiddleNegative = HasMiddleNegative(listIndexColor);
+            DebugCustom.Log($"Rong {hasMiddleNegative}");
+            if (dicEffectChangeBowl.Keys.Count <= 0 && hasMiddleNegative)
             {
                 isLockInteract = true;
-                yield return new WaitForSeconds(2.2f);
+                yield return new WaitForSeconds(1.2f);
                 List<int> listSortCacheBowl = SortCacheBowl();
                 yield return uiGameplay.IEVisualShareBowl(listSortCacheBowl);
             }
         }
         bool HasMiddleNegative(List<int> list)
         {
-            if (list == null || list.Count == 0)
-                return false;
-
-            // Tìm vị trí phần tử âm cuối cùng
-            int lastNegativeIndex = -1;
-            for (int i = list.Count - 1; i >= 0; i--)
+            int indexOfNegative = -1;
+            for (int i = 0; i < list.Count; i++)
             {
-                if (list[i] < 0)
+                if (list[i] == -1)
                 {
-                    lastNegativeIndex = i;
+                    indexOfNegative = i;
                     break;
                 }
             }
-
-            // Nếu không có phần tử âm nào → false
-            if (lastNegativeIndex == -1)
-                return false;
-
-            // Kiểm tra xem trước đó có phần tử âm nào không
-            for (int i = 0; i < lastNegativeIndex; i++)
+            if (indexOfNegative == -1)
             {
-                if (list[i] < 0)
-                    return true; // Có âm nằm trước âm cuối → "âm giữa"
+                return false;
             }
-
-            return false; // Chỉ có chuỗi âm ở cuối
+            else
+            {
+                for (int i = indexOfNegative; i < list.Count; i++)
+                {
+                    if (list[i] != -1)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
         }
 
         List<int> SortCacheBowl()
@@ -617,6 +642,24 @@ namespace TrungKien.Core
             }
             listCacheBowl = sortListCacheBowl;
             return listEmptyBowl;
+        }
+        public void AddMainBowl()
+        {
+            ++currentBowl;
+            BowlClass bowlClass = new BowlClass();
+            bowlClass.counter = 0;
+            List<int> listValidColor = GetListValidColor();
+            List<int> listAllColor = GetListRemainColor();
+            bowlClass.idColor = listValidColor.Count > 0 ? listValidColor.GetRandom() : listAllColor.GetRandom();
+            listBowl.Add(bowlClass);
+            uiGameplay.UpdateMainSandBowl(currentBowl - 1);
+        }
+        public void AddCacheBowl()
+        {
+            BowlCacheClass cacheBowl = new BowlCacheClass();
+            cacheBowl.Init();
+            listCacheBowl.Add(cacheBowl);
+            uiGameplay.AddCacheSandBowl();
         }
 #if UNITY_EDITOR
         [SerializeField] bool testColor;

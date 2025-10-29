@@ -6,6 +6,5 @@ namespace TrungKien.Core.UI
 {
     public class UIParent : MonoBehaviour
     {
-        
     }
 }

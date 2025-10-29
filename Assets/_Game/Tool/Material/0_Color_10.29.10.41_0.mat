@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 0_Color_10.29.02.58_1
+  m_Name: 0_Color_10.29.10.41_0
   m_Shader: {fileID: -6465566751694194690, guid: 3ff2f03f60dcabc409ff1fe03fb11157, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -163,7 +163,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColor: {r: 1, g: 0.79135954, b: 0, a: 1}
     - _OutLineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SandColor: {r: 0.2087931, g: 0.4976716, b: 0.8679245, a: 1}
+    - _SandColor: {r: 1, g: 1, b: 1, a: 1}
     - _SandTilling: {r: 3, g: 3, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

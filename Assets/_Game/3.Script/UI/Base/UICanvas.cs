@@ -18,6 +18,7 @@ namespace TrungKien.Core.UI
             }
         }
 
+
         private void Awake()
         {
             // xu ly title
@@ -40,7 +41,7 @@ namespace TrungKien.Core.UI
         {
             SetLeft(0);
             SetRight(0);
-            SetTop(0);
+            SetTop(100);
             SetBottom(0);
         }
 

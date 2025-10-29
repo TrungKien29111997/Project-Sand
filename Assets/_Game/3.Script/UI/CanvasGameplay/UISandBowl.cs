@@ -31,6 +31,8 @@ namespace TrungKien.Core.UI
         public void Init()
         {
             txtCount.text = "0";
+            rectRoot.localPosition = Vector3.zero;
+            canvasGroup.alpha = 1f;
         }
         public void AddSand()
         {
@@ -52,8 +54,8 @@ namespace TrungKien.Core.UI
         void AnimFlyOut()
         {
             isFlyOut = true;
-            canvasGroup.Fade(0f, 1f);
-            rectRoot.DOLocalMoveY(200, 1f).SetEase(Ease.Linear).OnComplete(() =>
+            canvasGroup.Fade(0f, 0.5f);
+            rectRoot.DOLocalMoveY(200, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 if (LevelControl.Instance.CheckEndLevel())
                 {
@@ -68,10 +70,16 @@ namespace TrungKien.Core.UI
         void AnimFlyIn()
         {
             LevelControl.Instance.GetNewBowl(indexBowl);
-            SetUp(LevelControl.Instance.listBowl[indexBowl].GetColor());
+
+            txtCount.text = "0";
+            Color color = LevelControl.Instance.listBowl[indexBowl].GetColor();
+            imgColor.ForEach(x => x.color = color);
+            txtCount.color = color;
+            this.cacheColor = color;
+
             isFlyOut = false;
-            canvasGroup.Fade(1f, 1f);
-            rectRoot.DOLocalMoveY(0, 1f).SetEase(Ease.Linear).OnComplete(() =>
+            canvasGroup.Fade(1f, 0.5f);
+            rectRoot.DOLocalMoveY(0, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 LevelControl.Instance.GeneralCacheBowlShareMainBowl();
             });

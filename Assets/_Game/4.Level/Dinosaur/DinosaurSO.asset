@@ -459,11 +459,11 @@ MonoBehaviour:
       Entry: 8
       Data: 
   icon: {fileID: 21300000, guid: b79ee4f6af1f6514382cb431f38feee2, type: 3}
-  shadow: {fileID: 21300000, guid: b79ee4f6af1f6514382cb431f38feee2, type: 3}
+  shadow: {fileID: 21300000, guid: e920fabf3c5ff664aa7d52d07ab9b222, type: 3}
   timeLimit: 300
   layerPerPart: 3
   colorBG: {r: 0.9716981, g: 0.75627446, b: 0.9344853, a: 1}
   colorPlane: {r: 0.8396226, g: 0.61387503, b: 0.79857767, a: 1}
   model: {fileID: 2884240127640852874, guid: 671545c4b84705243b00be3221230701, type: 3}
-  camStartPos: {x: 0, y: 1.96, z: 0}
+  camStartPos: {x: 0, y: 1, z: 0}
   camStartRot: {x: 13.397589, y: 305.971, z: 0.0000017553172}

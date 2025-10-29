@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8685357258667388958}
   - component: {fileID: 8399011649210281633}
-  - component: {fileID: 7749579978115104385}
+  - component: {fileID: 7717229417276293983}
   m_Layer: 0
   m_Name: Castle
   m_TagString: Untagged
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da60e19b3a780044cb925cdfed99e238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7749579978115104385
+--- !u!114 &7717229417276293983
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,7 +55,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8808217622385174455}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 555ab3c91d93880448cf88c609f1d4ac, type: 3}
+  m_Script: {fileID: 11500000, guid: c3285bfe12f76fa4ebe364d6cb5387e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <LocalScale>k__BackingField: 1
@@ -136,221 +136,227 @@ MonoBehaviour:
     itemDissolve: {fileID: 8236747306567840735}
     childrenIDs: 
   - id: 25
-    itemDissolve: {fileID: 4999286886961779137}
-    childrenIDs: 
-  - id: 26
     itemDissolve: {fileID: 5791769850128063476}
     childrenIDs: 
-  - id: 27
+  - id: 26
     itemDissolve: {fileID: 2116168914525186475}
     childrenIDs: 
-  - id: 28
+  - id: 27
     itemDissolve: {fileID: 9045340951306628605}
     childrenIDs: 
-  - id: 29
+  - id: 28
     itemDissolve: {fileID: 5143526420683002114}
     childrenIDs: 
-  - id: 30
+  - id: 29
     itemDissolve: {fileID: 3144474298324914297}
     childrenIDs: 
-  - id: 31
+  - id: 30
     itemDissolve: {fileID: 4037282432439994300}
     childrenIDs: 
-  - id: 32
+  - id: 31
     itemDissolve: {fileID: 2611301909254023238}
     childrenIDs: 
+  - id: 32
+    itemDissolve: {fileID: 1734566278673591166}
+    childrenIDs: 
   - id: 33
-    itemDissolve: {fileID: 4779673799731571741}
+    itemDissolve: {fileID: 745409163092408827}
     childrenIDs: 
   - id: 34
-    itemDissolve: {fileID: 7384948168452740090}
+    itemDissolve: {fileID: 4779673799731571741}
     childrenIDs: 
   - id: 35
-    itemDissolve: {fileID: 5738836471065527665}
+    itemDissolve: {fileID: 7384948168452740090}
     childrenIDs: 
   - id: 36
-    itemDissolve: {fileID: 5235730766817041961}
+    itemDissolve: {fileID: 5738836471065527665}
     childrenIDs: 
   - id: 37
-    itemDissolve: {fileID: 6310351717794850566}
+    itemDissolve: {fileID: 5235730766817041961}
     childrenIDs: 
   - id: 38
-    itemDissolve: {fileID: 3718050921197851775}
+    itemDissolve: {fileID: 6310351717794850566}
     childrenIDs: 
   - id: 39
-    itemDissolve: {fileID: 6677282953840846971}
+    itemDissolve: {fileID: 3718050921197851775}
     childrenIDs: 
   - id: 40
-    itemDissolve: {fileID: 1501969813497283614}
+    itemDissolve: {fileID: 6677282953840846971}
     childrenIDs: 
   - id: 41
-    itemDissolve: {fileID: 109556125650857394}
+    itemDissolve: {fileID: 1501969813497283614}
     childrenIDs: 
   - id: 42
-    itemDissolve: {fileID: 23592365811876311}
+    itemDissolve: {fileID: 109556125650857394}
     childrenIDs: 
   - id: 43
-    itemDissolve: {fileID: 4848977009192094708}
+    itemDissolve: {fileID: 23592365811876311}
     childrenIDs: 
   - id: 44
-    itemDissolve: {fileID: 1929763437668544698}
+    itemDissolve: {fileID: 4848977009192094708}
     childrenIDs: 
   - id: 45
-    itemDissolve: {fileID: 1762033239413271665}
+    itemDissolve: {fileID: 1929763437668544698}
     childrenIDs: 
   - id: 46
-    itemDissolve: {fileID: 4697601892931614752}
+    itemDissolve: {fileID: 1762033239413271665}
     childrenIDs: 
   - id: 47
-    itemDissolve: {fileID: 7730402518986696743}
+    itemDissolve: {fileID: 4697601892931614752}
     childrenIDs: 
   - id: 48
-    itemDissolve: {fileID: 2879553293033041640}
+    itemDissolve: {fileID: 7730402518986696743}
     childrenIDs: 
   - id: 49
-    itemDissolve: {fileID: 4226703842585253971}
+    itemDissolve: {fileID: 2879553293033041640}
     childrenIDs: 
   - id: 50
-    itemDissolve: {fileID: 5141857794356171332}
+    itemDissolve: {fileID: 4226703842585253971}
     childrenIDs: 
   - id: 51
-    itemDissolve: {fileID: 839764011579987358}
+    itemDissolve: {fileID: 5141857794356171332}
     childrenIDs: 
   - id: 52
-    itemDissolve: {fileID: 3429317905316317277}
+    itemDissolve: {fileID: 839764011579987358}
     childrenIDs: 
   - id: 53
-    itemDissolve: {fileID: 6411894995898626404}
+    itemDissolve: {fileID: 3429317905316317277}
     childrenIDs: 
   - id: 54
-    itemDissolve: {fileID: 4453109403981235453}
+    itemDissolve: {fileID: 6411894995898626404}
     childrenIDs: 
   - id: 55
-    itemDissolve: {fileID: 7973830385870751030}
+    itemDissolve: {fileID: 4453109403981235453}
     childrenIDs: 
   - id: 56
-    itemDissolve: {fileID: 9161276236460713967}
+    itemDissolve: {fileID: 7973830385870751030}
     childrenIDs: 
   - id: 57
-    itemDissolve: {fileID: 9086620092245400555}
+    itemDissolve: {fileID: 9161276236460713967}
     childrenIDs: 
   - id: 58
-    itemDissolve: {fileID: 8651697906674767301}
+    itemDissolve: {fileID: 9086620092245400555}
     childrenIDs: 
   - id: 59
-    itemDissolve: {fileID: 1970312099978001641}
+    itemDissolve: {fileID: 8651697906674767301}
     childrenIDs: 
   - id: 60
-    itemDissolve: {fileID: 7339636707966547040}
+    itemDissolve: {fileID: 1970312099978001641}
     childrenIDs: 
   - id: 61
-    itemDissolve: {fileID: 5620441446555812405}
+    itemDissolve: {fileID: 7339636707966547040}
     childrenIDs: 
   - id: 62
-    itemDissolve: {fileID: 3582881269509838585}
+    itemDissolve: {fileID: 5620441446555812405}
     childrenIDs: 
   - id: 63
-    itemDissolve: {fileID: 3733389422707127163}
+    itemDissolve: {fileID: 3582881269509838585}
     childrenIDs: 
   - id: 64
-    itemDissolve: {fileID: 9222492889932649734}
+    itemDissolve: {fileID: 3733389422707127163}
     childrenIDs: 
   - id: 65
-    itemDissolve: {fileID: 9064301384825353097}
+    itemDissolve: {fileID: 9222492889932649734}
     childrenIDs: 
   - id: 66
-    itemDissolve: {fileID: 6493657712080410229}
+    itemDissolve: {fileID: 9064301384825353097}
     childrenIDs: 
   - id: 67
-    itemDissolve: {fileID: 5107718902651889034}
+    itemDissolve: {fileID: 6493657712080410229}
     childrenIDs: 
   - id: 68
-    itemDissolve: {fileID: 8383776944950830265}
+    itemDissolve: {fileID: 5107718902651889034}
     childrenIDs: 
   - id: 69
-    itemDissolve: {fileID: 7631007321156284607}
+    itemDissolve: {fileID: 8383776944950830265}
     childrenIDs: 
   - id: 70
-    itemDissolve: {fileID: 3580147241877244683}
+    itemDissolve: {fileID: 7631007321156284607}
     childrenIDs: 
   - id: 71
-    itemDissolve: {fileID: 5962827951838536786}
+    itemDissolve: {fileID: 3580147241877244683}
     childrenIDs: 
   - id: 72
-    itemDissolve: {fileID: 5283782625704966881}
+    itemDissolve: {fileID: 5962827951838536786}
     childrenIDs: 
   - id: 73
-    itemDissolve: {fileID: 1021503402294664942}
+    itemDissolve: {fileID: 5283782625704966881}
     childrenIDs: 
   - id: 74
-    itemDissolve: {fileID: 6824315760954277894}
+    itemDissolve: {fileID: 1021503402294664942}
     childrenIDs: 
   - id: 75
-    itemDissolve: {fileID: 403265792905000478}
+    itemDissolve: {fileID: 6824315760954277894}
     childrenIDs: 
   - id: 76
-    itemDissolve: {fileID: 1959460114095037942}
+    itemDissolve: {fileID: 403265792905000478}
     childrenIDs: 
   - id: 77
-    itemDissolve: {fileID: 1975156060445928875}
+    itemDissolve: {fileID: 1959460114095037942}
     childrenIDs: 
   - id: 78
-    itemDissolve: {fileID: 428252549657463880}
+    itemDissolve: {fileID: 1975156060445928875}
     childrenIDs: 
   - id: 79
-    itemDissolve: {fileID: 401935520285661364}
+    itemDissolve: {fileID: 428252549657463880}
     childrenIDs: 
   - id: 80
-    itemDissolve: {fileID: 4708324996133626247}
+    itemDissolve: {fileID: 401935520285661364}
     childrenIDs: 
   - id: 81
-    itemDissolve: {fileID: 4156300518694581706}
+    itemDissolve: {fileID: 4708324996133626247}
     childrenIDs: 
   - id: 82
-    itemDissolve: {fileID: 8982971568719573238}
+    itemDissolve: {fileID: 4156300518694581706}
     childrenIDs: 
   - id: 83
-    itemDissolve: {fileID: 1653411895903779163}
+    itemDissolve: {fileID: 8982971568719573238}
     childrenIDs: 
   - id: 84
-    itemDissolve: {fileID: 6794248738888707683}
+    itemDissolve: {fileID: 1653411895903779163}
     childrenIDs: 
   - id: 85
-    itemDissolve: {fileID: 4573892031244355921}
+    itemDissolve: {fileID: 6794248738888707683}
     childrenIDs: 
   - id: 86
-    itemDissolve: {fileID: 2021987153319072374}
+    itemDissolve: {fileID: 4573892031244355921}
     childrenIDs: 
   - id: 87
-    itemDissolve: {fileID: 1453039157884803941}
+    itemDissolve: {fileID: 2021987153319072374}
     childrenIDs: 
   - id: 88
-    itemDissolve: {fileID: 8618007907125135674}
+    itemDissolve: {fileID: 1453039157884803941}
     childrenIDs: 
   - id: 89
-    itemDissolve: {fileID: 8865301757275580892}
+    itemDissolve: {fileID: 8618007907125135674}
     childrenIDs: 
   - id: 90
-    itemDissolve: {fileID: 7126539130374698837}
+    itemDissolve: {fileID: 8865301757275580892}
     childrenIDs: 
   - id: 91
-    itemDissolve: {fileID: 8854256344699262562}
+    itemDissolve: {fileID: 7126539130374698837}
     childrenIDs: 
   - id: 92
-    itemDissolve: {fileID: 282602606619667088}
+    itemDissolve: {fileID: 8854256344699262562}
     childrenIDs: 
   - id: 93
-    itemDissolve: {fileID: 6764429171268804637}
+    itemDissolve: {fileID: 282602606619667088}
     childrenIDs: 
   - id: 94
-    itemDissolve: {fileID: 364837214081313433}
+    itemDissolve: {fileID: 6764429171268804637}
     childrenIDs: 
   - id: 95
-    itemDissolve: {fileID: 5319949552243691440}
+    itemDissolve: {fileID: 364837214081313433}
     childrenIDs: 
   - id: 96
+    itemDissolve: {fileID: 5319949552243691440}
+    childrenIDs: 
+  - id: 97
     itemDissolve: {fileID: 4596068180030014254}
     childrenIDs: 
+  heightDrop: 1
+  timeDrop: 0.5
+  dropRate: 0.05
 --- !u!1001 &8971963989642829371
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -557,12 +563,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4986924297031983543, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2254496142866011013}
-    - targetCorrespondingSourceObject: {fileID: -6736050013206539184, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4999286886961779137}
-    - targetCorrespondingSourceObject: {fileID: -6736050013206539184, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 413805857313921216}
     - targetCorrespondingSourceObject: {fileID: 3283547232856019394, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5791769850128063476}
@@ -605,6 +605,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5774837317003569180, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2826328150006826723}
+    - targetCorrespondingSourceObject: {fileID: -181378936384443073, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1734566278673591166}
+    - targetCorrespondingSourceObject: {fileID: -181378936384443073, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3008407482686834422}
+    - targetCorrespondingSourceObject: {fileID: -3979462263604272974, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 745409163092408827}
+    - targetCorrespondingSourceObject: {fileID: -3979462263604272974, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8326514475686813581}
     - targetCorrespondingSourceObject: {fileID: 7382939515277133818, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4779673799731571741}
@@ -1008,6 +1020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 9121237916579937859}
   meshFilter: {fileID: 8951977732931695623}
   col: {fileID: 1824440173538908161}
@@ -1044,6 +1057,51 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -204255959506341725, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
   m_PrefabInstance: {fileID: 8971963989642829371}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &142229972098020100 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -181378936384443073, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
+  m_PrefabInstance: {fileID: 8971963989642829371}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1734566278673591166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142229972098020100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45ae8121cd3f45346ad9030e9b3e95ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDynamic: 0
+  <IsShell>k__BackingField: 1
+  meshRen: {fileID: 4980636842127683278}
+  meshFilter: {fileID: 2131296977258144380}
+  col: {fileID: 3008407482686834422}
+  arrTranChildren: []
+--- !u!64 &3008407482686834422
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142229972098020100}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6329158148709259305, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
 --- !u!1 &186325473347706270 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9085774416272343973, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
@@ -1062,6 +1120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 3685806743814616575}
   meshFilter: {fileID: 5391794619274344006}
   col: {fileID: 1324757204536816379}
@@ -1121,6 +1180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 1
   meshRen: {fileID: 3662900985942866677}
   meshFilter: {fileID: 3793678880530938432}
   col: {fileID: 8124967103311956657}
@@ -1170,6 +1230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 7477762518196299326}
   meshFilter: {fileID: 7943518242074380884}
   col: {fileID: 5214498904695127401}
@@ -1229,6 +1290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 6717918486113089580}
   meshFilter: {fileID: 5846681369907785196}
   col: {fileID: 400013229789664023}
@@ -1290,6 +1352,11 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: -1024774461192328864, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
   m_PrefabInstance: {fileID: 8971963989642829371}
   m_PrefabAsset: {fileID: 0}
+--- !u!33 &982825809115380531 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: -1071465924316781304, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
+  m_PrefabInstance: {fileID: 8971963989642829371}
+  m_PrefabAsset: {fileID: 0}
 --- !u!23 &1006757313287406396 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -1046407656538628857, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
@@ -1338,6 +1405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 3022085744264437771}
   meshFilter: {fileID: 8716739329619102783}
   col: {fileID: 1827144794063253476}
@@ -1364,11 +1432,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1798249048452786911, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
---- !u!33 &1253898006368428616 stripped
-MeshFilter:
-  m_CorrespondingSourceObject: {fileID: 7918572935599160435, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
-  m_PrefabInstance: {fileID: 8971963989642829371}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1278779745502112556 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7871714706143048983, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
@@ -1387,6 +1450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 7747876117752589296}
   meshFilter: {fileID: 5103867704375265168}
   col: {fileID: 8439043328288084962}
@@ -1446,6 +1510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 8533660416870865066}
   meshFilter: {fileID: 1870576273875494530}
   col: {fileID: 3947994117503884329}
@@ -1495,6 +1560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 6676355978118682745}
   meshFilter: {fileID: 3142959733262282138}
   col: {fileID: 3673072119718218477}
@@ -1544,6 +1610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 3933162352419534702}
   meshFilter: {fileID: 1099296746123419074}
   col: {fileID: 2439524578185548183}
@@ -1613,6 +1680,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 76421445822007662}
   meshFilter: {fileID: 3984486836746740770}
   col: {fileID: 2948840634940610237}
@@ -1677,6 +1745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 2269733993841838364}
   meshFilter: {fileID: 569206125545223154}
   col: {fileID: 6929676222716605331}
@@ -1721,6 +1790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 5498800521968069768}
   meshFilter: {fileID: 700660894476573267}
   col: {fileID: 3023021384991802610}
@@ -1757,6 +1827,11 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 6943876114589397556, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
   m_PrefabInstance: {fileID: 8971963989642829371}
   m_PrefabAsset: {fileID: 0}
+--- !u!33 &2131296977258144380 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: 6994427743527255111, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
+  m_PrefabInstance: {fileID: 8971963989642829371}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2167156056371092758 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7102626609182802733, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
@@ -1775,6 +1850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 8291033684305077594}
   meshFilter: {fileID: 2734613043791809134}
   col: {fileID: 6856871598181610620}
@@ -1824,6 +1900,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 1895649957669921167}
   meshFilter: {fileID: 7877549301902912069}
   col: {fileID: 113388730608077417}
@@ -1868,6 +1945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 4413730848672268520}
   meshFilter: {fileID: 6125230023355552024}
   col: {fileID: 4779462685102785519}
@@ -1917,6 +1995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 1
   meshRen: {fileID: 9139117296652627897}
   meshFilter: {fileID: 956334014249891675}
   col: {fileID: 486916265897416659}
@@ -1976,6 +2055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 1006757313287406396}
   meshFilter: {fileID: 7137246551138975348}
   col: {fileID: 3074032187507414913}
@@ -2025,6 +2105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 5592445827605016400}
   meshFilter: {fileID: 3232605581513416880}
   col: {fileID: 7026240062207235975}
@@ -2069,6 +2150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 4835654972753145675}
   meshFilter: {fileID: 7744350384437285129}
   col: {fileID: 6510888496875194975}
@@ -2163,6 +2245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 4549033368209561857}
   meshFilter: {fileID: 6135176538797351419}
   col: {fileID: 1084232307725640285}
@@ -2212,6 +2295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 1674307277968110287}
   meshFilter: {fileID: 3497993511294129181}
   col: {fileID: 2076271114277640468}
@@ -2276,6 +2360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 4333277745743997036}
   meshFilter: {fileID: 7980709274261887253}
   col: {fileID: 7747800869304154199}
@@ -2335,6 +2420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 3412249332402665223}
   meshFilter: {fileID: 6865491805866813588}
   col: {fileID: 5032289028088420926}
@@ -2379,6 +2465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 543446747113612737}
   meshFilter: {fileID: 5044848224329831828}
   col: {fileID: 2826328150006826723}
@@ -2428,6 +2515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 7828714381913097409}
   meshFilter: {fileID: 7567350594818716438}
   col: {fileID: 8254413888604908230}
@@ -2477,6 +2565,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 4324913770945197363}
   meshFilter: {fileID: 7305406634006798256}
   col: {fileID: 2797091856906203985}
@@ -2551,6 +2640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 7281753027827243498}
   meshFilter: {fileID: 824386613939273120}
   col: {fileID: 7315506964134750937}
@@ -2610,6 +2700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 1
   meshRen: {fileID: 8185010492571354099}
   meshFilter: {fileID: 6263788869696801259}
   col: {fileID: 3061583650909467931}
@@ -2636,6 +2727,51 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4661059769387140285, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
+--- !u!1 &3766361212259565193 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3979462263604272974, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
+  m_PrefabInstance: {fileID: 8971963989642829371}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &745409163092408827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3766361212259565193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45ae8121cd3f45346ad9030e9b3e95ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDynamic: 0
+  <IsShell>k__BackingField: 1
+  meshRen: {fileID: 6627196608923955967}
+  meshFilter: {fileID: 982825809115380531}
+  col: {fileID: 8326514475686813581}
+  arrTranChildren: []
+--- !u!64 &8326514475686813581
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3766361212259565193}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5546347261141537002, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
 --- !u!33 &3793678880530938432 stripped
 MeshFilter:
   m_CorrespondingSourceObject: {fileID: 5199136806560556155, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
@@ -2689,6 +2825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 1952108129974849850}
   meshFilter: {fileID: 4131079857235830568}
   col: {fileID: 5478286171127910718}
@@ -2758,6 +2895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 7705273905888961386}
   meshFilter: {fileID: 6657603058206310670}
   col: {fileID: 2254496142866011013}
@@ -2802,6 +2940,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 3608995700717684711}
   meshFilter: {fileID: 6738404906261292734}
   col: {fileID: 3013817442504972526}
@@ -2846,6 +2985,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 1
   meshRen: {fileID: 4123302296734892046}
   meshFilter: {fileID: 4337025619176215863}
   col: {fileID: 5180271425090202824}
@@ -2895,6 +3035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 3023761911272750836}
   meshFilter: {fileID: 2019337264271463483}
   col: {fileID: 7066987850403066407}
@@ -2939,6 +3080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 719995364335138093}
   meshFilter: {fileID: 3486311306210307375}
   col: {fileID: 7005727027616855169}
@@ -2983,6 +3125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 5053642833308113322}
   meshFilter: {fileID: 3972797307054086086}
   col: {fileID: 1643907661519211744}
@@ -3027,6 +3170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 5527135334358564519}
   meshFilter: {fileID: 7271404171884173485}
   col: {fileID: 7224775025654704523}
@@ -3096,6 +3240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 1871584068232026029}
   meshFilter: {fileID: 3986056496319723633}
   col: {fileID: 2335253418334053815}
@@ -3155,6 +3300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 4542823725856552397}
   meshFilter: {fileID: 3852516629473881492}
   col: {fileID: 7869734037116028380}
@@ -3214,6 +3360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 4528589251966478329}
   meshFilter: {fileID: 6017865575071802835}
   col: {fileID: 7638378437854013548}
@@ -3258,6 +3405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 7042170086238173233}
   meshFilter: {fileID: 9006430856785534015}
   col: {fileID: 4085097580901311103}
@@ -3337,6 +3485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 4842380051514857564}
   meshFilter: {fileID: 8649743454920973972}
   col: {fileID: 895127476643795778}
@@ -3386,6 +3535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 5802588134248947172}
   meshFilter: {fileID: 514230418586427642}
   col: {fileID: 1825619430746166662}
@@ -3412,6 +3562,11 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8908630088209574739, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
+--- !u!23 &4980636842127683278 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -5072153347859959563, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
+  m_PrefabInstance: {fileID: 8971963989642829371}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4988060697311194733 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4160190742038573142, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
@@ -3430,6 +3585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 1
   meshRen: {fileID: 6419721310998482644}
   meshFilter: {fileID: 9072652772258675215}
   col: {fileID: 249363778328739332}
@@ -3474,6 +3630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 3915914743418318658}
   meshFilter: {fileID: 4071444570957106053}
   col: {fileID: 935527325052539146}
@@ -3518,6 +3675,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 1
   meshRen: {fileID: 671708220361377441}
   meshFilter: {fileID: 6476869844096055697}
   col: {fileID: 3262993603231571734}
@@ -3587,6 +3745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 3090150415983384397}
   meshFilter: {fileID: 6106423452750985361}
   col: {fileID: 6800109922724969345}
@@ -3641,6 +3800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 1
   meshRen: {fileID: 2289748402165818951}
   meshFilter: {fileID: 3434285363610312452}
   col: {fileID: 1602165497163462575}
@@ -3685,6 +3845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 4902204238460896713}
   meshFilter: {fileID: 1575812206955619107}
   col: {fileID: 9219159710197521600}
@@ -3744,6 +3905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 3713526588341963192}
   meshFilter: {fileID: 1282163905122224828}
   col: {fileID: 508722897496394154}
@@ -3813,6 +3975,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 8168373906125690759}
   meshFilter: {fileID: 1296594338161927174}
   col: {fileID: 3152819211307780740}
@@ -3857,6 +4020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 4581543457236155454}
   meshFilter: {fileID: 7693593347310415665}
   col: {fileID: 1591748799195169725}
@@ -3901,6 +4065,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 1
   meshRen: {fileID: 8611656848283719551}
   meshFilter: {fileID: 2288793413297221666}
   col: {fileID: 5148157147943413716}
@@ -3950,6 +4115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 4068896016682079713}
   meshFilter: {fileID: 4591574993798767113}
   col: {fileID: 3706864856097286098}
@@ -3994,6 +4160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 2197738525452143980}
   meshFilter: {fileID: 1184220589535171554}
   col: {fileID: 8376168546083146087}
@@ -4043,6 +4210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 2777787932178801914}
   meshFilter: {fileID: 8703820093347608228}
   col: {fileID: 5969979428676451562}
@@ -4092,6 +4260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 2210195799496869367}
   meshFilter: {fileID: 8746268893883816234}
   col: {fileID: 4746460539108753543}
@@ -4146,6 +4315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 1129389127333317238}
   meshFilter: {fileID: 5256927306877186220}
   col: {fileID: 1247789656525066343}
@@ -4220,6 +4390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 5369781811945976617}
   meshFilter: {fileID: 1692973940609933228}
   col: {fileID: 8640060760294999864}
@@ -4264,6 +4435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 3000647935786718531}
   meshFilter: {fileID: 7094830139488657212}
   col: {fileID: 5279039650076041921}
@@ -4308,6 +4480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 4783141193128259496}
   meshFilter: {fileID: 1320827056615417780}
   col: {fileID: 3173425818014204688}
@@ -4352,6 +4525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 1
   meshRen: {fileID: 5957128780297592279}
   meshFilter: {fileID: 8914093240913780923}
   col: {fileID: 1055706061340949046}
@@ -4401,6 +4575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 1
   meshRen: {fileID: 2461783454845596644}
   meshFilter: {fileID: 6630614322826879257}
   col: {fileID: 5091300301410784964}
@@ -4465,6 +4640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 2080464289946823695}
   meshFilter: {fileID: 5183102571430179963}
   col: {fileID: 1972255666369391394}
@@ -4509,6 +4685,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 1964965355844725851}
   meshFilter: {fileID: 2900030580139035213}
   col: {fileID: 753492594587979398}
@@ -4535,11 +4712,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 554285891079012218, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
---- !u!23 &6574792030395368666 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2863316513715706593, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
-  m_PrefabInstance: {fileID: 8971963989642829371}
-  m_PrefabAsset: {fileID: 0}
 --- !u!33 &6578529832742719327 stripped
 MeshFilter:
   m_CorrespondingSourceObject: {fileID: 2866949845278609764, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
@@ -4563,6 +4735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 6842367213755036183}
   meshFilter: {fileID: 7854860259397140475}
   col: {fileID: 5245602170856174648}
@@ -4589,6 +4762,11 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1358178262833571172, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
+--- !u!23 &6627196608923955967 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6378687504654783292, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
+  m_PrefabInstance: {fileID: 8971963989642829371}
+  m_PrefabAsset: {fileID: 0}
 --- !u!33 &6630614322826879257 stripped
 MeshFilter:
   m_CorrespondingSourceObject: {fileID: 2343698293000208162, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
@@ -4612,6 +4790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 1
   meshRen: {fileID: 4680225658541539254}
   meshFilter: {fileID: 5626773596711975172}
   col: {fileID: 7430277312811059832}
@@ -4661,6 +4840,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 4046648255795986833}
   meshFilter: {fileID: 5246315500596519650}
   col: {fileID: 2596086902958638541}
@@ -4707,50 +4887,6 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 2412379370833646978, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
   m_PrefabInstance: {fileID: 8971963989642829371}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6775225307282459243 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -6736050013206539184, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
-  m_PrefabInstance: {fileID: 8971963989642829371}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4999286886961779137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6775225307282459243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45ae8121cd3f45346ad9030e9b3e95ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDynamic: 0
-  meshRen: {fileID: 6574792030395368666}
-  meshFilter: {fileID: 1253898006368428616}
-  col: {fileID: 413805857313921216}
-  arrTranChildren: []
---- !u!64 &413805857313921216
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6775225307282459243}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -1072760039152613424, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
 --- !u!1 &6824247294830710673 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2465238611139744170, guid: 4f45b5db60575494e96e5e77dedb512f, type: 3}
@@ -4769,6 +4905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 8413640763303920110}
   meshFilter: {fileID: 7060447040893260958}
   col: {fileID: 3398478854485030562}
@@ -4818,6 +4955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 7646485128547767053}
   meshFilter: {fileID: 5076485863816081067}
   col: {fileID: 1599516966228227382}
@@ -4867,6 +5005,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 1
   meshRen: {fileID: 3122851769563881915}
   meshFilter: {fileID: 8852853914398368458}
   col: {fileID: 7077170125439482510}
@@ -4911,6 +5050,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 8728638081145340091}
   meshFilter: {fileID: 5322876780561578267}
   col: {fileID: 4215934632998837348}
@@ -5010,6 +5150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 4672145507273006033}
   meshFilter: {fileID: 8044456326288972544}
   col: {fileID: 4186541494035334138}
@@ -5054,6 +5195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 6376421733932202743}
   meshFilter: {fileID: 2409574617421920884}
   col: {fileID: 5152726701227401607}
@@ -5118,6 +5260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 5521823295029975703}
   meshFilter: {fileID: 603375589407611382}
   col: {fileID: 5936957687918310837}
@@ -5172,6 +5315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 1
   meshRen: {fileID: 6078277470427120370}
   meshFilter: {fileID: 8895350657700391642}
   col: {fileID: 1383580122115116383}
@@ -5231,6 +5375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 378131363074988052}
   meshFilter: {fileID: 7313771615945168271}
   col: {fileID: 7621705365858741901}
@@ -5280,6 +5425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 2007349891343755054}
   meshFilter: {fileID: 3636851067101185989}
   col: {fileID: 1658136621817926287}
@@ -5324,6 +5470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 8170894749398011183}
   meshFilter: {fileID: 2516048446374974101}
   col: {fileID: 4296430184611006732}
@@ -5373,6 +5520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 1
   meshRen: {fileID: 1119571016418528002}
   meshFilter: {fileID: 7232107837047578620}
   col: {fileID: 4752557881520650086}
@@ -5417,6 +5565,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 119494923541016216}
   meshFilter: {fileID: 7443632387182490572}
   col: {fileID: 2654282067004841912}
@@ -5466,6 +5615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 7247636615133233062}
   meshFilter: {fileID: 3012796995642785575}
   col: {fileID: 7144230169802410837}
@@ -5520,6 +5670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 5889372075946808802}
   meshFilter: {fileID: 227769615374769679}
   col: {fileID: 748036128562774097}
@@ -5569,6 +5720,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 1217348972776948613}
   meshFilter: {fileID: 4694175553788334587}
   col: {fileID: 3602988527488316474}
@@ -5638,6 +5790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 5709928624837632709}
   meshFilter: {fileID: 2453636508858901205}
   col: {fileID: 5129960113512728413}
@@ -5687,6 +5840,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 6478091006820926296}
   meshFilter: {fileID: 5890943439110260650}
   col: {fileID: 9131051276474774322}
@@ -5746,6 +5900,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 927712082710804688}
   meshFilter: {fileID: 2936252976118763255}
   col: {fileID: 3108218127260336346}
@@ -5790,6 +5945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 7093308059316805472}
   meshFilter: {fileID: 2758123042872334061}
   col: {fileID: 3208645036278974918}
@@ -5834,6 +5990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 1
   meshRen: {fileID: 408233959376133764}
   meshFilter: {fileID: 1385811146490273743}
   col: {fileID: 5630905936898850739}
@@ -5883,6 +6040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 4867457910123218918}
   meshFilter: {fileID: 8124690143358840304}
   col: {fileID: 7956596919027525311}
@@ -5942,6 +6100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 3736573551366790361}
   meshFilter: {fileID: 883831690393261130}
   col: {fileID: 4688582113697281231}
@@ -5986,6 +6145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 2503323260362618636}
   meshFilter: {fileID: 3053270003876263165}
   col: {fileID: 7507877929585954474}
@@ -6030,6 +6190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 1
   meshRen: {fileID: 7583148174638621534}
   meshFilter: {fileID: 4397300776928582975}
   col: {fileID: 3883624299251809389}
@@ -6084,6 +6245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 1
   meshRen: {fileID: 2486289131364507242}
   meshFilter: {fileID: 4179635567781486385}
   col: {fileID: 7525106257374635658}
@@ -6148,6 +6310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 4583099635581093291}
   meshFilter: {fileID: 2067313756845503792}
   col: {fileID: 6571721187235875788}
@@ -6197,6 +6360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDynamic: 0
+  <IsShell>k__BackingField: 0
   meshRen: {fileID: 6771355515852475321}
   meshFilter: {fileID: 6578529832742719327}
   col: {fileID: 4247662142575425713}

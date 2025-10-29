@@ -7,6 +7,7 @@ using JetBrains.Annotations;
 using TMPro;
 using TrungKien.Core.VFX;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 namespace TrungKien.Core.UI
@@ -32,6 +33,10 @@ namespace TrungKien.Core.UI
             scrollbar.onValueChanged.AddListener(CamZoom);
             butSetting.SetButton(ButtonSetting);
             butResetFPS.SetButton(ResetMaxFPS);
+        }
+        public void Init()
+        {
+            txtTimeLimit.text = "__";
         }
         void ResetMaxFPS()
         {
@@ -83,6 +88,19 @@ namespace TrungKien.Core.UI
                 listUISandBowl.Add(uiBowl);
             }
         }
+        public void UpdateMainSandBowl(int indexBowl)
+        {
+            UISandBowl uiBowl = listUISandBowl.Find(x => x.indexBowl == indexBowl);
+            uiBowl.SetUp(LevelControl.Instance.listBowl[indexBowl].GetColor());
+            uiBowl.SetLock(false);
+        }
+        public void AddCacheSandBowl()
+        {
+            UICacheSandBowl cacheSandBowl = PoolingSystem.Spawn(DataSystem.Instance.prefabSO.dicUIGameplay[EUIGameplayPool.UICacheSandBowl], default, default, rectSandCacheBowlGroup) as UICacheSandBowl;
+            listUICacheSandBowl.Add(cacheSandBowl);
+            cacheSandBowl.Init();
+            cacheSandBowl.indexCacheBowl = listUICacheSandBowl.Count - 1;
+        }
         public void SetUpCacheSandBowl(int amount)
         {
             if (listUICacheSandBowl != null)
@@ -106,7 +124,6 @@ namespace TrungKien.Core.UI
         {
             base.SetUp();
             EventManager.StartListening(Constant.EVENT_GAMEPLAY_UPDATE_SCORE, ScoreVisual);
-            EventManager.StartListening(Constant.TIMER_TICK_EVENT, CounterTime);
             EventManager.StartListening(Constant.EVENT_CHEAT_MODE, ShowCheat);
         }
         public override void Open()
@@ -117,7 +134,6 @@ namespace TrungKien.Core.UI
         {
             base.Close();
             EventManager.StopListening(Constant.EVENT_GAMEPLAY_UPDATE_SCORE, ScoreVisual);
-            EventManager.StopListening(Constant.TIMER_TICK_EVENT, CounterTime);
             EventManager.StopListening(Constant.EVENT_CHEAT_MODE, ShowCheat);
         }
         void ShowCheat()
@@ -129,8 +145,9 @@ namespace TrungKien.Core.UI
         {
             txtScore.text = $"{LevelControl.Instance.currentScore}/{LevelControl.Instance.maxScore}";
         }
-        void CounterTime()
+        public void CounterTime()
         {
+            txtTimeLimit.color = LevelControl.Instance.timeLimitRemain > 10 ? Color.white : Color.red;
             txtTimeLimit.text = $"{(LevelControl.Instance.timeLimitRemain / 60):D2}:{(LevelControl.Instance.timeLimitRemain % 60):D2}";
         }
         List<BowlCacheClass> listCacheBowl => LevelControl.Instance.listCacheBowl;

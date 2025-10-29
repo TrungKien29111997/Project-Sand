@@ -6,8 +6,9 @@ namespace TrungKien.Core.UI
 {
     public class CanvasSetting : UICanvas
     {
-        [SerializeField] Button butClose, butNextLevel;
+        [SerializeField] Button butClose, butNextLevel, but10s, butAgain, butHome, butUnlockMainBowl, butUnlockCacheBowl;
         [SerializeField] UIOnOff uiSetBloom, uiSetShadow, uiCheat, uiSetTimeCounter;
+        [SerializeField] GameObject objCheatBoard;
         void Start()
         {
             uiSetBloom.button.SetButton(SettingBloom);
@@ -16,6 +17,11 @@ namespace TrungKien.Core.UI
             uiSetTimeCounter.button.SetButton(SettingTimeCounter);
             butClose.SetButton(Close);
             butNextLevel.SetButton(ButtonNextLevel);
+            but10s.SetButton(Button10s);
+            butAgain.SetButton(ButtonAgain);
+            butHome.SetButton(ButtonHome);
+            butUnlockMainBowl.SetButton(ButtonUnlockMainBowl);
+            butUnlockCacheBowl.SetButton(ButtonUnlockCacheBowl);
         }
         public override void SetUp()
         {
@@ -25,6 +31,8 @@ namespace TrungKien.Core.UI
         public override void Open()
         {
             base.Open();
+            CheatShow();
+            uiCheat.SetOnOff(GameManager.Instance.IsCheat);
             EventManager.EmitEvent(Constant.EVENT_GAMEPLAY_OPEN_CANVAS_SETTING);
         }
         public override void Close()
@@ -37,6 +45,11 @@ namespace TrungKien.Core.UI
         {
             UIManager.Instance.OpenUI<CanvasLoading>().SetCanvas(LevelControl.Instance.GetNextObejctShadow(), LevelControl.Instance.NextLevel);
             Close();
+        }
+        void Button10s()
+        {
+            Close();
+            LevelControl.Instance.timeLimitRemain = 10;
         }
 
         void SettingBloom()
@@ -59,10 +72,35 @@ namespace TrungKien.Core.UI
             LevelControl.Instance.FreezeTime();
             uiSetTimeCounter.SetOnOff(LevelControl.Instance.isFreezeTime);
         }
+        void ButtonUnlockMainBowl()
+        {
+            LevelControl.Instance.AddMainBowl();
+            Close();
+        }
+        void ButtonUnlockCacheBowl()
+        {
+            LevelControl.Instance.AddCacheBowl();
+            Close();
+        }
         void CheatShow()
         {
             uiSetTimeCounter.gameObject.SetActive(GameManager.Instance.IsCheat);
             butNextLevel.gameObject.SetActive(GameManager.Instance.IsCheat);
+            objCheatBoard.SetActive(GameManager.Instance.IsCheat);
+        }
+        void ButtonAgain()
+        {
+            UIManager.Instance.OpenUI<CanvasLoading>().SetCanvas(LevelControl.Instance.GetCurrentObejctShadow(), Loading);
+            Close();
+        }
+        void ButtonHome()
+        {
+            Close();
+            GameManager.Instance.GoSceneHome();
+        }
+        void Loading()
+        {
+            LevelControl.Instance.ResetLevel();
         }
     }
 }

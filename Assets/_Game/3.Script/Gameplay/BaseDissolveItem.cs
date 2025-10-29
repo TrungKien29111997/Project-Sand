@@ -9,6 +9,8 @@ namespace TrungKien.Core.Gameplay
     public abstract class BaseDissolveItem : PoolingElement
     {
         [SerializeField] bool isDynamic = false;
+        [field: SerializeField] public bool IsShell { get; private set; } = false;
+        [field: SerializeField] public bool IsDoubleFace { get; private set; } = false;
         public MeshRenderer meshRen;
         public MeshFilter meshFilter;
         [SerializeField] protected Collider col;
@@ -16,7 +18,6 @@ namespace TrungKien.Core.Gameplay
         Vector3 partLossyScale;
         public MaterialPropertyBlock currentMpb;
         [SerializeField] Transform[] arrTranChildren;
-        //public bool isShell;
         void Start()
         {
             partLossyScale = TF.lossyScale;
@@ -44,15 +45,15 @@ namespace TrungKien.Core.Gameplay
                 arrTranChildren.ForEach(x =>
                 {
                     Vector3 dropPos = x.position;
-                    dropPos.y = -2f;
-                    dropPos += new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
-                    x.DOJump(dropPos, 1f, 1, 2f).OnComplete(() => Destroy(x.gameObject));
+                    dropPos.y = 0f;
+                    dropPos += new Vector3(Random.Range(-2f, 2f), 0f, Random.Range(-2f, 2f));
+                    x.DOJump(dropPos, 3f, 1, 1.5f).SetEase(Ease.OutQuad).OnComplete(() => Destroy(x.gameObject));
                 });
             }
             if (!isLastLayer)
             {
                 Vector3 cacheScale = TF.localScale;
-                TF.localScale = new Vector3(cacheScale.x * 0.9f, cacheScale.y * 0.9f, cacheScale.z * 0.9f);
+                TF.localScale = new Vector3(cacheScale.x * 0.98f, cacheScale.y * 0.98f, cacheScale.z * 0.98f);
                 BaseDissolveItem effectObj = PoolingSystem.Spawn(this, TF.position, TF.rotation);
                 effectObj.TF.localScale = partLossyScale;
                 CopyInfo(effectObj);

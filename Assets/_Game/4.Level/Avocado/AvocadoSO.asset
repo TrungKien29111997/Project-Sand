@@ -431,6 +431,6 @@ MonoBehaviour:
   layerPerPart: 3
   colorBG: {r: 0.9716981, g: 0.75627446, b: 0.9344853, a: 1}
   colorPlane: {r: 0.8396226, g: 0.61387503, b: 0.79857767, a: 1}
-  model: {fileID: 1084770190369759674, guid: 46838177deda96542aa803e5efb0dd24, type: 3}
-  camStartPos: {x: 0, y: 1.96, z: 0}
-  camStartRot: {x: 13.397589, y: 305.971, z: 0.0000017553172}
+  model: {fileID: 7489307025017081598, guid: 46838177deda96542aa803e5efb0dd24, type: 3}
+  camStartPos: {x: 0, y: 1, z: 0}
+  camStartRot: {x: 1.447403, y: 357.03766, z: 0.00000012343635}

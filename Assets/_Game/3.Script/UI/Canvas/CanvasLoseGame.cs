@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 namespace TrungKien.Core.UI
 {
-    public class CanvasNextGame : UICanvas
+    public class CanvasLoseGame : UICanvas
     {
         [SerializeField] Transform tranBoard;
-        [SerializeField] Button butNext, butHome;
+        [SerializeField] Button butAgain, butHome;
         void Awake()
         {
-            butNext.onClick.AddListener(ButtonNext);
+            butAgain.onClick.AddListener(ButtonAgain);
             butHome.onClick.AddListener(ButtonHome);
         }
         public override void SetUp()
@@ -25,9 +24,9 @@ namespace TrungKien.Core.UI
             base.Open();
             tranBoard.DOScale(1.15f, 0.4f).OnComplete(() => tranBoard.DOScale(1f, 0.2f));
         }
-        void ButtonNext()
+        void ButtonAgain()
         {
-            UIManager.Instance.OpenUI<CanvasLoading>().SetCanvas(LevelControl.Instance.GetNextObejctShadow(), Loading);
+            UIManager.Instance.OpenUI<CanvasLoading>().SetCanvas(LevelControl.Instance.GetCurrentObejctShadow(), Loading);
             Close();
         }
         void ButtonHome()
@@ -37,7 +36,7 @@ namespace TrungKien.Core.UI
         }
         void Loading()
         {
-            LevelControl.Instance.NextLevel();
+            LevelControl.Instance.ResetLevel();
         }
     }
 }
